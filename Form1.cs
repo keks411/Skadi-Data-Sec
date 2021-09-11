@@ -76,13 +76,14 @@ namespace FLOR
         private void BtnDown_Click(object sender, EventArgs e)
         {
             //downloading scanner zip
+            tBoxConsole.Text = "### Downloading scanner..." + Environment.NewLine;
             string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string DownFile = DownPath + "\\ds.zip";
-            MessageBox.Show(DownPath);
             WebClient webClient = new WebClient();
             webClient.DownloadFile("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip", DownFile);
 
             //extract zip
+            tBoxConsole.AppendText("### Extracting scanner..." + Environment.NewLine);
             using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
             {
                 zip.Password = "1234";
@@ -90,6 +91,7 @@ namespace FLOR
             }
 
             //start upgrader
+            tBoxConsole.AppendText("### Start upgrading process..." + Environment.NewLine);
             int lineCount = 0;
             string lupgrader = DownPath + "\\ds\\loki-upgrader.exe";
             System.Diagnostics.Process p = new System.Diagnostics.Process();
@@ -122,10 +124,10 @@ namespace FLOR
 
             p.WaitForExit();
             p.Close();
-            MessageBox.Show("Upgrade finished. Starting scan now!");
-
 
             // starting scan
+            tBoxConsole.AppendText("### Starting scan with default options..." + Environment.NewLine);
+            MessageBox.Show("Click OK to start the scan. The scan itself may take several hours!", "INFO");
             string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
             string loki = lokiPath + "\\loki.exe";
 
@@ -159,7 +161,11 @@ namespace FLOR
 
             p2.WaitForExit();
             p2.Close();
-            MessageBox.Show("Scan finished!");
+            tBoxConsole.Text = "### Scanning complete..." + Environment.NewLine;
+
+            //clean up
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -189,6 +195,28 @@ namespace FLOR
                 toolStripStatusLabel2.ForeColor = Color.Red;
                 return false;
             }
+        }
+
+        private void btnInetCheck_Click(object sender, EventArgs e)
+        {
+            Ping("https://google.com");
+        }
+
+        private void cleanUp()
+        {
+            string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string ds = downf + "\\ds";
+            string dsz = downf + "\\ds.zip";
+            //delte directory ds
+            Directory.Delete(ds, true);
+            //delete ds.zip
+            File.Delete(dsz);
+        }
+
+        private void btnClean_Click(object sender, EventArgs e)
+        {
+            cleanUp();
+            tBoxConsole.Text = "";
         }
     }
 }

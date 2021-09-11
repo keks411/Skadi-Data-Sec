@@ -44,13 +44,15 @@ namespace FLOR
             this.lblUser = new System.Windows.Forms.Label();
             this.lblHost = new System.Windows.Forms.Label();
             this.lblVer = new System.Windows.Forms.Label();
+            this.btnInetCheck = new System.Windows.Forms.Button();
+            this.btnClean = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnDown
             // 
-            this.BtnDown.Location = new System.Drawing.Point(582, 79);
+            this.BtnDown.Location = new System.Drawing.Point(508, 45);
             this.BtnDown.Name = "BtnDown";
             this.BtnDown.Size = new System.Drawing.Size(75, 23);
             this.BtnDown.TabIndex = 0;
@@ -191,11 +193,33 @@ namespace FLOR
             this.lblVer.TabIndex = 0;
             this.lblVer.Text = "label1";
             // 
+            // btnInetCheck
+            // 
+            this.btnInetCheck.Location = new System.Drawing.Point(427, 108);
+            this.btnInetCheck.Name = "btnInetCheck";
+            this.btnInetCheck.Size = new System.Drawing.Size(156, 23);
+            this.btnInetCheck.TabIndex = 5;
+            this.btnInetCheck.Text = "Check Inet connection";
+            this.btnInetCheck.UseVisualStyleBackColor = true;
+            this.btnInetCheck.Click += new System.EventHandler(this.btnInetCheck_Click);
+            // 
+            // btnClean
+            // 
+            this.btnClean.Location = new System.Drawing.Point(622, 55);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(75, 23);
+            this.btnClean.TabIndex = 6;
+            this.btnClean.Text = "Clean Env";
+            this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 364);
+            this.Controls.Add(this.btnClean);
+            this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip1);
@@ -232,6 +256,8 @@ namespace FLOR
         private System.Windows.Forms.Label lblHost;
         private System.Windows.Forms.Label lblVer;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.Button btnInetCheck;
+        private System.Windows.Forms.Button btnClean;
     }
 }
 
