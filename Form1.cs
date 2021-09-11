@@ -207,10 +207,24 @@ namespace FLOR
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string ds = downf + "\\ds";
             string dsz = downf + "\\ds.zip";
-            //delte directory ds
-            Directory.Delete(ds, true);
-            //delete ds.zip
-            File.Delete(dsz);
+
+            try
+            {
+                //delte directory ds
+                Directory.Delete(ds, true);
+            }
+            catch (Exception e)
+            {
+            }
+
+            try
+            {
+                //delete ds.zip
+                File.Delete(dsz);
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         private void btnClean_Click(object sender, EventArgs e)
