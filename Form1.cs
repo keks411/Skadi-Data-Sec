@@ -28,6 +28,19 @@ namespace FLOR
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //basic setup for start
+            lblOS.Text = "OS:";
+            lblHost.Text = "Hostname:";
+            lblUser.Text = "Username:";
+            lblDom.Text = "Domain:";
+
+            //read basic info and store in system info labels
+            string os = Convert.ToString(System.Environment.OSVersion);
+            string hostname = System.Environment.GetEnvironmentVariable("Computername");
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+
+            
+
             //check for admin or not, do not allow non-admin and close
             bool IsAdm = Convert.ToBoolean(IsAdministrator());
             if (IsAdm == false)

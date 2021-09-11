@@ -36,15 +36,15 @@ namespace FLOR
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblOS = new System.Windows.Forms.Label();
-            this.lblHost = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
-            this.lblPriv = new System.Windows.Forms.Label();
             this.lblPriv2 = new System.Windows.Forms.Label();
             this.lblUser2 = new System.Windows.Forms.Label();
             this.lblHost2 = new System.Windows.Forms.Label();
             this.lblOS2 = new System.Windows.Forms.Label();
+            this.lblDom = new System.Windows.Forms.Label();
+            this.lblUser = new System.Windows.Forms.Label();
+            this.lblHost = new System.Windows.Forms.Label();
+            this.lblOS = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -108,7 +108,7 @@ namespace FLOR
             this.groupBox1.Controls.Add(this.lblUser2);
             this.groupBox1.Controls.Add(this.lblHost2);
             this.groupBox1.Controls.Add(this.lblOS2);
-            this.groupBox1.Controls.Add(this.lblPriv);
+            this.groupBox1.Controls.Add(this.lblDom);
             this.groupBox1.Controls.Add(this.lblUser);
             this.groupBox1.Controls.Add(this.lblHost);
             this.groupBox1.Controls.Add(this.lblOS);
@@ -119,52 +119,6 @@ namespace FLOR
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System Info:";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox2.Location = new System.Drawing.Point(225, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(266, 124);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "System Info:";
-            // 
-            // lblOS
-            // 
-            this.lblOS.AutoSize = true;
-            this.lblOS.Location = new System.Drawing.Point(6, 32);
-            this.lblOS.Name = "lblOS";
-            this.lblOS.Size = new System.Drawing.Size(40, 15);
-            this.lblOS.TabIndex = 0;
-            this.lblOS.Text = "label1";
-            // 
-            // lblHost
-            // 
-            this.lblHost.AutoSize = true;
-            this.lblHost.Location = new System.Drawing.Point(6, 51);
-            this.lblHost.Name = "lblHost";
-            this.lblHost.Size = new System.Drawing.Size(40, 15);
-            this.lblHost.TabIndex = 1;
-            this.lblHost.Text = "label2";
-            // 
-            // lblUser
-            // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(6, 70);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(40, 15);
-            this.lblUser.TabIndex = 2;
-            this.lblUser.Text = "label3";
-            // 
-            // lblPriv
-            // 
-            this.lblPriv.AutoSize = true;
-            this.lblPriv.Location = new System.Drawing.Point(6, 89);
-            this.lblPriv.Name = "lblPriv";
-            this.lblPriv.Size = new System.Drawing.Size(40, 15);
-            this.lblPriv.TabIndex = 3;
-            this.lblPriv.Text = "label4";
             // 
             // lblPriv2
             // 
@@ -201,6 +155,52 @@ namespace FLOR
             this.lblOS2.Size = new System.Drawing.Size(40, 15);
             this.lblOS2.TabIndex = 4;
             this.lblOS2.Text = "label8";
+            // 
+            // lblDom
+            // 
+            this.lblDom.AutoSize = true;
+            this.lblDom.Location = new System.Drawing.Point(6, 89);
+            this.lblDom.Name = "lblDom";
+            this.lblDom.Size = new System.Drawing.Size(40, 15);
+            this.lblDom.TabIndex = 3;
+            this.lblDom.Text = "label4";
+            // 
+            // lblUser
+            // 
+            this.lblUser.AutoSize = true;
+            this.lblUser.Location = new System.Drawing.Point(6, 70);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(40, 15);
+            this.lblUser.TabIndex = 2;
+            this.lblUser.Text = "label3";
+            // 
+            // lblHost
+            // 
+            this.lblHost.AutoSize = true;
+            this.lblHost.Location = new System.Drawing.Point(6, 51);
+            this.lblHost.Name = "lblHost";
+            this.lblHost.Size = new System.Drawing.Size(40, 15);
+            this.lblHost.TabIndex = 1;
+            this.lblHost.Text = "label2";
+            // 
+            // lblOS
+            // 
+            this.lblOS.AutoSize = true;
+            this.lblOS.Location = new System.Drawing.Point(6, 32);
+            this.lblOS.Name = "lblOS";
+            this.lblOS.Size = new System.Drawing.Size(40, 15);
+            this.lblOS.TabIndex = 0;
+            this.lblOS.Text = "label1";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox2.Location = new System.Drawing.Point(225, 13);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(266, 124);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "System Info:";
             // 
             // Form1
             // 
@@ -241,7 +241,7 @@ namespace FLOR
         private System.Windows.Forms.Label lblUser2;
         private System.Windows.Forms.Label lblHost2;
         private System.Windows.Forms.Label lblOS2;
-        private System.Windows.Forms.Label lblPriv;
+        private System.Windows.Forms.Label lblDom;
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Label lblHost;
         private System.Windows.Forms.Label lblOS;
