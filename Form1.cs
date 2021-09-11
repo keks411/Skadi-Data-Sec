@@ -107,17 +107,48 @@ namespace FLOR
             p.WaitForExit();
             p.Close();
             MessageBox.Show("Upgrade finished. Starting scan now!");
-        }
 
-        static void runScan()
-        {
+
+            // starting scan
             string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
             string loki = lokiPath + "\\loki.exe";
+
+            int lcount = 0;
+            System.Diagnostics.Process p2 = new System.Diagnostics.Process();
+
+            p2.StartInfo.WorkingDirectory = lokiPath;
+            p2.StartInfo.LoadUserProfile = true;
+            p2.StartInfo.FileName = loki;
+            p2.StartInfo.UseShellExecute = false;
+            p2.StartInfo.CreateNoWindow = true;
+            p2.StartInfo.RedirectStandardOutput = true;
+            p2.StartInfo.RedirectStandardError = true;
+
+            p2.EnableRaisingEvents = true;
+
+            p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+            {
+                // Prepend line numbers to each line of the output.
+                if (!String.IsNullOrEmpty(e.Data))
+                {
+                    lcount++;
+                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                }
+            });
+            p2.Start();
+
+            // Asynchronously read the standard output of the spawned process.
+            // This raises OutputDataReceived events for each line of output.
+            p2.BeginOutputReadLine();
+
+            p2.WaitForExit();
+            p2.Close();
+            MessageBox.Show("Scan finished!");
         }
 
-
-
-
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tBoxConsole.Text = "";
+        }
     }
 }
