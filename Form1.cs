@@ -19,6 +19,7 @@ using System.Threading;
 namespace FLOR
 {
     public partial class Form1 : Form
+
     {
         public Form1()
         {
@@ -26,7 +27,7 @@ namespace FLOR
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        { 
+        {
             //check for admin or not, do not allow non-admin and close
             bool IsAdm = Convert.ToBoolean(IsAdministrator());
             if (IsAdm == false)
@@ -45,8 +46,6 @@ namespace FLOR
             //write basic info into window
             tBoxConsole.Text = "hallo";
             tBoxConsole.Text += System.Environment.NewLine + "aaa";
-            
-            
         }
 
         public static bool IsAdministrator()
@@ -107,8 +106,15 @@ namespace FLOR
 
             p.WaitForExit();
             p.Close();
-
+            MessageBox.Show("Upgrade finished. Starting scan now!");
         }
+
+        static void runScan()
+        {
+            string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
+            string loki = lokiPath + "\\loki.exe";
+        }
+
 
 
 
