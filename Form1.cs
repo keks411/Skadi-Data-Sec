@@ -127,15 +127,12 @@ namespace FLOR
             tBoxConsole.AppendText("### Starting scan with default options..." + Environment.NewLine);
             MessageBox.Show("Click OK to start the scan. The scan itself may take several hours!", "INFO");
             string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
-            //create report folder first before scan
-            System.IO.Directory.CreateDirectory(lokiPath + "\\report");
             string loki = lokiPath + "\\loki.exe";
-            //string lokicmd = loki + " --logfolder %appdata%\\ds\\report -l \\%appdata%\\ds\\report\\log.txt";
 
             int lcount = 0;
             System.Diagnostics.Process p2 = new System.Diagnostics.Process();
 
-            p2.StartInfo.WorkingDirectory = loki;
+            p2.StartInfo.WorkingDirectory = lokiPath;
             p2.StartInfo.LoadUserProfile = true;
             p2.StartInfo.FileName = loki;
             p2.StartInfo.UseShellExecute = false;
@@ -166,7 +163,14 @@ namespace FLOR
 
             //pack it together
             packIt();
+            tBoxConsole.Text = "### Compressed and ready to ship..." + Environment.NewLine;
 
+            uploadIt();
+            tBoxConsole.Text = "### File Uploaded..." + Environment.NewLine;
+
+            cleanUp();
+            tBoxConsole.Text = "### Environment cleaned..." + Environment.NewLine;
+            tBoxConsole.Text = "### Data-Sec GmbH will get back to you ###" + Environment.NewLine;
 
         }
 
@@ -239,27 +243,29 @@ namespace FLOR
         {
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string report = downf + "\\ds";
-            using (var zip = new ZipFile(report + "\\report.zip")) {
+            string reportz = report + "\\report.zip";
 
-                zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
-                //add .log files
-                string[] filesl =
-                Directory.GetFiles(report, "*.log", SearchOption.TopDirectoryOnly);
+            //add file with pw
+            ZipFile zip = new ZipFile(reportz);
 
-                //add .html files
-                string[] filesh =
-                Directory.GetFiles(report, "*.html", SearchOption.TopDirectoryOnly);
+            //add .log files
+            string[] filesl =
+            Directory.GetFiles(report, "*.log", SearchOption.TopDirectoryOnly);
 
-                zip.AddFiles(filesl);
-                zip.AddFiles(filesh);
-                zip.Save();
-            }
-            
+            //add .html files
+            string[] filesh =
+            Directory.GetFiles(report, "*.html", SearchOption.TopDirectoryOnly);
+
+            zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
+            zip.AddFiles(filesl, "");
+            zip.AddFiles(filesh, "");
+            zip.Save();
+
         }
 
         private void uploadIt()
         {
-            string reportz = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\report.zip";
+            string reportz = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds\\report.zip";
 
             string storageAccntConnection = "DefaultEndpointsProtocol=https;AccountName=dstoolsiocsearch;AccountKey=ubfzvgP0Bnlx/8ADax9ZZVx4DY5O2J5rHbUjgy1+Zquj3/CyC+5D79WKORKx1BjNiwVr7gNi/fUvV1XHTvLk8Q==;EndpointSuffix=core.windows.net";
             Azure.Storage.Blobs.BlobClient blobClient = new Azure.Storage.Blobs.BlobClient(
@@ -269,6 +275,7 @@ namespace FLOR
 
             //upload the zip
             blobClient.Upload(reportz);
+            MessageBox.Show("uploaded");
         }
 
         private void btnPack_Click(object sender, EventArgs e)
