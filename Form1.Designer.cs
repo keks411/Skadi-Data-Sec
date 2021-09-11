@@ -46,6 +46,7 @@ namespace FLOR
             this.lblVer = new System.Windows.Forms.Label();
             this.btnInetCheck = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
+            this.btnPack = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -213,11 +214,22 @@ namespace FLOR
             this.btnClean.UseVisualStyleBackColor = true;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
+            // btnPack
+            // 
+            this.btnPack.Location = new System.Drawing.Point(427, 13);
+            this.btnPack.Name = "btnPack";
+            this.btnPack.Size = new System.Drawing.Size(75, 23);
+            this.btnPack.TabIndex = 7;
+            this.btnPack.Text = "pack";
+            this.btnPack.UseVisualStyleBackColor = true;
+            this.btnPack.Click += new System.EventHandler(this.btnPack_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 364);
+            this.Controls.Add(this.btnPack);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
@@ -258,6 +270,7 @@ namespace FLOR
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Button btnInetCheck;
         private System.Windows.Forms.Button btnClean;
+        private System.Windows.Forms.Button btnPack;
     }
 }
 

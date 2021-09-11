@@ -91,7 +91,8 @@ namespace FLOR
             tBoxConsole.AppendText("### Extracting scanner..." + Environment.NewLine);
             using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
             {
-                zip.Password = "kjsvlkankvknl43klsdbshioafwlwgl4kfasklbf";
+                //zip.Password = "kjsvlkankvknl43klsdbshioafwlwgl4kfasklbf";
+                zip.Password = "1234";
                 zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
             }
 
@@ -137,12 +138,12 @@ namespace FLOR
             //create report folder first before scan
             System.IO.Directory.CreateDirectory(lokiPath + "\\report");
             string loki = lokiPath + "\\loki.exe";
-            string lokicmd = loki + " --logfolder report";
+            //string lokicmd = loki + " --logfolder %appdata%\\ds\\report -l \\%appdata%\\ds\\report\\log.txt";
 
             int lcount = 0;
             System.Diagnostics.Process p2 = new System.Diagnostics.Process();
 
-            p2.StartInfo.WorkingDirectory = lokiPath;
+            p2.StartInfo.WorkingDirectory = loki;
             p2.StartInfo.LoadUserProfile = true;
             p2.StartInfo.FileName = loki;
             p2.StartInfo.UseShellExecute = false;
@@ -245,14 +246,21 @@ namespace FLOR
         private void packIt()
         {
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string report = downf + "\\ds\\report";
+            string report = downf + "\\ds";
             using (var zip = new ZipFile(report + "\\report.zip")) {
 
                 zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
-                zip.AddDirectory(report);
+                string[] files =
+                Directory.GetFiles(report, "*.log", SearchOption.TopDirectoryOnly);
+                zip.AddFiles(files);
                 zip.Save();
             }
             
+        }
+
+        private void btnPack_Click(object sender, EventArgs e)
+        {
+            packIt();
         }
     }
 }
