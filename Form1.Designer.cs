@@ -53,16 +53,16 @@ namespace FLOR
             this.tBoxConsole.Name = "tBoxConsole";
             this.tBoxConsole.ReadOnly = true;
             this.tBoxConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxConsole.Size = new System.Drawing.Size(650, 161);
+            this.tBoxConsole.Size = new System.Drawing.Size(672, 161);
             this.tBoxConsole.TabIndex = 1;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 278);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 297);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(674, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(696, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -75,7 +75,7 @@ namespace FLOR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 300);
+            this.ClientSize = new System.Drawing.Size(696, 319);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tBoxConsole);
             this.Controls.Add(this.BtnDown);

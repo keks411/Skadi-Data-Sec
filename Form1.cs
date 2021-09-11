@@ -75,10 +75,39 @@ namespace FLOR
             }
 
             //start upgrader
-            MessageBox.Show("Starting Online-Update");
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.FileName = "loki-upgrader.exe";
-            
+            int lineCount = 0;
+            string lupgrader = DownPath + "\\ds\\loki-upgrader.exe";
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+
+            p.StartInfo.WorkingDirectory = DownPath + "\\ds";
+            p.StartInfo.LoadUserProfile = true;
+            p.StartInfo.FileName = lupgrader;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+
+            p.EnableRaisingEvents = true;
+
+            p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+            {
+                // Prepend line numbers to each line of the output.
+                if (!String.IsNullOrEmpty(e.Data))
+                {
+                    lineCount++;
+                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                }
+            });
+            p.Start();
+
+            // Asynchronously read the standard output of the spawned process.
+            // This raises OutputDataReceived events for each line of output.
+            p.BeginOutputReadLine();
+            p.WaitForExit();
+
+            p.WaitForExit();
+            p.Close();
+
         }
 
 
