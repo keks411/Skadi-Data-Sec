@@ -13,6 +13,7 @@ using System.Security.Principal;
 using Ionic.Zip;
 using System.Diagnostics;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 
 
@@ -29,16 +30,20 @@ namespace FLOR
         private void Form1_Load(object sender, EventArgs e)
         {
             //basic setup for start
-            lblOS.Text = "OS:";
+            lblVer.Text = "Version:";
             lblHost.Text = "Hostname:";
             lblUser.Text = "Username:";
             lblDom.Text = "Domain:";
 
             //read basic info and store in system info labels
-            string os = Convert.ToString(System.Environment.OSVersion);
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            string userName = System.Environment.GetEnvironmentVariable("username");
+            string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
+            lblVer2.Text = "1.0";
+            lblHost2.Text = hostname;
+            lblUser2.Text = userName;
+            lblDom2.Text = domain;
             
 
             //check for admin or not, do not allow non-admin and close
@@ -56,9 +61,7 @@ namespace FLOR
             //clear console window
             tBoxConsole.Text = "";
 
-            //write basic info into window
-            tBoxConsole.Text = "hallo";
-            tBoxConsole.Text += System.Environment.NewLine + "aaa";
+            checkconn();
         }
 
         public static bool IsAdministrator()
@@ -162,6 +165,21 @@ namespace FLOR
         private void button1_Click(object sender, EventArgs e)
         {
             tBoxConsole.Text = "";
+        }
+
+        public void checkconn()
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("your url");
+            request.Method = "HEAD";
+            try
+            {
+                tBoxConsole.Text = Convert.ToString(request.GetResponse());
+                // do something with response.Headers to find out information about the request
+            }
+            catch (WebException)
+            {
+                //set flag if there was a timeout or some other issues
+            }
         }
     }
 }

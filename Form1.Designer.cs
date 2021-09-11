@@ -33,18 +33,16 @@ namespace FLOR
             this.tBoxConsole = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblPriv2 = new System.Windows.Forms.Label();
+            this.lblDom2 = new System.Windows.Forms.Label();
             this.lblUser2 = new System.Windows.Forms.Label();
             this.lblHost2 = new System.Windows.Forms.Label();
-            this.lblOS2 = new System.Windows.Forms.Label();
+            this.lblVer2 = new System.Windows.Forms.Label();
             this.lblDom = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
             this.lblHost = new System.Windows.Forms.Label();
-            this.lblOS = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblVer = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -72,8 +70,7 @@ namespace FLOR
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripProgressBar1});
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 342);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(722, 22);
@@ -84,11 +81,6 @@ namespace FLOR
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
             // button1
             // 
@@ -104,30 +96,30 @@ namespace FLOR
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lblPriv2);
+            this.groupBox1.Controls.Add(this.lblDom2);
             this.groupBox1.Controls.Add(this.lblUser2);
             this.groupBox1.Controls.Add(this.lblHost2);
-            this.groupBox1.Controls.Add(this.lblOS2);
+            this.groupBox1.Controls.Add(this.lblVer2);
             this.groupBox1.Controls.Add(this.lblDom);
             this.groupBox1.Controls.Add(this.lblUser);
             this.groupBox1.Controls.Add(this.lblHost);
-            this.groupBox1.Controls.Add(this.lblOS);
+            this.groupBox1.Controls.Add(this.lblVer);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(207, 124);
+            this.groupBox1.Size = new System.Drawing.Size(395, 124);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System Info:";
             // 
-            // lblPriv2
+            // lblDom2
             // 
-            this.lblPriv2.AutoSize = true;
-            this.lblPriv2.Location = new System.Drawing.Point(89, 89);
-            this.lblPriv2.Name = "lblPriv2";
-            this.lblPriv2.Size = new System.Drawing.Size(40, 15);
-            this.lblPriv2.TabIndex = 7;
-            this.lblPriv2.Text = "label5";
+            this.lblDom2.AutoSize = true;
+            this.lblDom2.Location = new System.Drawing.Point(89, 89);
+            this.lblDom2.Name = "lblDom2";
+            this.lblDom2.Size = new System.Drawing.Size(40, 15);
+            this.lblDom2.TabIndex = 7;
+            this.lblDom2.Text = "label5";
             // 
             // lblUser2
             // 
@@ -147,14 +139,14 @@ namespace FLOR
             this.lblHost2.TabIndex = 5;
             this.lblHost2.Text = "label7";
             // 
-            // lblOS2
+            // lblVer2
             // 
-            this.lblOS2.AutoSize = true;
-            this.lblOS2.Location = new System.Drawing.Point(89, 32);
-            this.lblOS2.Name = "lblOS2";
-            this.lblOS2.Size = new System.Drawing.Size(40, 15);
-            this.lblOS2.TabIndex = 4;
-            this.lblOS2.Text = "label8";
+            this.lblVer2.AutoSize = true;
+            this.lblVer2.Location = new System.Drawing.Point(89, 32);
+            this.lblVer2.Name = "lblVer2";
+            this.lblVer2.Size = new System.Drawing.Size(40, 15);
+            this.lblVer2.TabIndex = 4;
+            this.lblVer2.Text = "label8";
             // 
             // lblDom
             // 
@@ -183,31 +175,20 @@ namespace FLOR
             this.lblHost.TabIndex = 1;
             this.lblHost.Text = "label2";
             // 
-            // lblOS
+            // lblVer
             // 
-            this.lblOS.AutoSize = true;
-            this.lblOS.Location = new System.Drawing.Point(6, 32);
-            this.lblOS.Name = "lblOS";
-            this.lblOS.Size = new System.Drawing.Size(40, 15);
-            this.lblOS.TabIndex = 0;
-            this.lblOS.Text = "label1";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox2.Location = new System.Drawing.Point(225, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(266, 124);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "System Info:";
+            this.lblVer.AutoSize = true;
+            this.lblVer.Location = new System.Drawing.Point(6, 32);
+            this.lblVer.Name = "lblVer";
+            this.lblVer.Size = new System.Drawing.Size(40, 15);
+            this.lblVer.TabIndex = 0;
+            this.lblVer.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 364);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip1);
@@ -235,16 +216,14 @@ namespace FLOR
         private System.Windows.Forms.TextBox tBoxConsole;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lblPriv2;
+        private System.Windows.Forms.Label lblDom2;
         private System.Windows.Forms.Label lblUser2;
         private System.Windows.Forms.Label lblHost2;
-        private System.Windows.Forms.Label lblOS2;
+        private System.Windows.Forms.Label lblVer2;
         private System.Windows.Forms.Label lblDom;
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Label lblHost;
-        private System.Windows.Forms.Label lblOS;
+        private System.Windows.Forms.Label lblVer;
     }
 }
 
