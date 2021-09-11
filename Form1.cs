@@ -61,7 +61,9 @@ namespace FLOR
             //clear console window
             tBoxConsole.Text = "";
 
+            //check inet conn
             Ping("https://google.com");
+
         }
 
         public static bool IsAdministrator()
@@ -75,6 +77,9 @@ namespace FLOR
 
         private void BtnDown_Click(object sender, EventArgs e)
         {
+            //clear files
+            cleanUp();
+
             //downloading scanner zip
             tBoxConsole.Text = "### Downloading scanner..." + Environment.NewLine;
             string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -163,7 +168,7 @@ namespace FLOR
             p2.Close();
             tBoxConsole.Text = "### Scanning complete..." + Environment.NewLine;
 
-            //clean up
+
 
 
         }
@@ -231,6 +236,11 @@ namespace FLOR
         {
             cleanUp();
             tBoxConsole.Text = "";
+        }
+
+        private void packIt()
+        {
+            
         }
     }
 }
