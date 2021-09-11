@@ -250,9 +250,16 @@ namespace FLOR
             using (var zip = new ZipFile(report + "\\report.zip")) {
 
                 zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
-                string[] files =
+                //add .log files
+                string[] filesl =
                 Directory.GetFiles(report, "*.log", SearchOption.TopDirectoryOnly);
-                zip.AddFiles(files);
+
+                //add .html files
+                string[] filesh =
+                Directory.GetFiles(report, "*.html", SearchOption.TopDirectoryOnly);
+
+                zip.AddFiles(filesl);
+                zip.AddFiles(filesh);
                 zip.Save();
             }
             
