@@ -91,7 +91,7 @@ namespace FLOR
             tBoxConsole.AppendText("### Extracting scanner..." + Environment.NewLine);
             using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
             {
-                zip.Password = "1234";
+                zip.Password = "kjsvlkankvknl43klsdbshioafwlwgl4kfasklbf";
                 zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
             }
 
@@ -134,7 +134,10 @@ namespace FLOR
             tBoxConsole.AppendText("### Starting scan with default options..." + Environment.NewLine);
             MessageBox.Show("Click OK to start the scan. The scan itself may take several hours!", "INFO");
             string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
+            //create report folder first before scan
+            System.IO.Directory.CreateDirectory(lokiPath + "\\report");
             string loki = lokiPath + "\\loki.exe";
+            string lokicmd = loki + " --logfolder report";
 
             int lcount = 0;
             System.Diagnostics.Process p2 = new System.Diagnostics.Process();
@@ -168,7 +171,8 @@ namespace FLOR
             p2.Close();
             tBoxConsole.Text = "### Scanning complete..." + Environment.NewLine;
 
-
+            //pack it together
+            packIt();
 
 
         }
@@ -240,6 +244,14 @@ namespace FLOR
 
         private void packIt()
         {
+            string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string report = downf + "\\ds\\report";
+            using (var zip = new ZipFile(report + "\\report.zip")) {
+
+                zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
+                zip.AddDirectory(report);
+                zip.Save();
+            }
             
         }
     }
