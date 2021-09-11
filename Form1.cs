@@ -61,7 +61,7 @@ namespace FLOR
             //clear console window
             tBoxConsole.Text = "";
 
-            checkconn();
+            Ping("https://google.com");
         }
 
         public static bool IsAdministrator()
@@ -167,18 +167,27 @@ namespace FLOR
             tBoxConsole.Text = "";
         }
 
-        public void checkconn()
+        private bool Ping(string url)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("your url");
-            request.Method = "HEAD";
             try
             {
-                tBoxConsole.Text = Convert.ToString(request.GetResponse());
-                // do something with response.Headers to find out information about the request
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+                request.Timeout = 3000;
+                request.AllowAutoRedirect = false; // find out if this site is up and don't follow a redirector
+                request.Method = "HEAD";
+
+                using (var response = request.GetResponse())
+                {
+                    toolStripStatusLabel2.Text = "InetCheck: ONLINE";
+                    toolStripStatusLabel2.ForeColor = Color.Green;
+                    return true;
+                }
             }
-            catch (WebException)
+            catch
             {
-                //set flag if there was a timeout or some other issues
+                toolStripStatusLabel2.Text = "InetCheck: OFFLINE";
+                toolStripStatusLabel2.ForeColor = Color.Red;
+                return false;
             }
         }
     }
