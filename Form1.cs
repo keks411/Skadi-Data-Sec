@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Principal;
 using Ionic.Zip;
 using System.Diagnostics;
-using System.Threading;
-using System.Net.NetworkInformation;
-
+using Azure.Storage;
 
 
 namespace FLOR
@@ -265,9 +257,24 @@ namespace FLOR
             
         }
 
+        private void uploadIt()
+        {
+            string reportz = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\report.zip";
+
+            string storageAccntConnection = "DefaultEndpointsProtocol=https;AccountName=dstoolsiocsearch;AccountKey=ubfzvgP0Bnlx/8ADax9ZZVx4DY5O2J5rHbUjgy1+Zquj3/CyC+5D79WKORKx1BjNiwVr7gNi/fUvV1XHTvLk8Q==;EndpointSuffix=core.windows.net";
+            Azure.Storage.Blobs.BlobClient blobClient = new Azure.Storage.Blobs.BlobClient(
+                connectionString: storageAccntConnection,
+                blobContainerName: "reports",
+                blobName: "tst.zip");
+
+            //upload the zip
+            blobClient.Upload(reportz);
+        }
+
         private void btnPack_Click(object sender, EventArgs e)
         {
             packIt();
+            uploadIt();
         }
     }
 }

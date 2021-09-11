@@ -34,7 +34,7 @@ namespace FLOR
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCleanC = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblDom2 = new System.Windows.Forms.Label();
             this.lblUser2 = new System.Windows.Forms.Label();
@@ -92,17 +92,17 @@ namespace FLOR
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
             // 
-            // button1
+            // btnCleanC
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(632, 143);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(55, 22);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Clear";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnCleanC.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnCleanC.ForeColor = System.Drawing.Color.Red;
+            this.btnCleanC.Location = new System.Drawing.Point(632, 143);
+            this.btnCleanC.Name = "btnCleanC";
+            this.btnCleanC.Size = new System.Drawing.Size(55, 22);
+            this.btnCleanC.TabIndex = 3;
+            this.btnCleanC.Text = "Clear";
+            this.btnCleanC.UseVisualStyleBackColor = true;
+            this.btnCleanC.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
@@ -233,7 +233,7 @@ namespace FLOR
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCleanC);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tBoxConsole);
             this.Controls.Add(this.BtnDown);
@@ -257,7 +257,7 @@ namespace FLOR
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TextBox tBoxConsole;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCleanC;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblDom2;
         private System.Windows.Forms.Label lblUser2;
