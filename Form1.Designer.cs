@@ -53,9 +53,9 @@ namespace FLOR
             // 
             // BtnDown
             // 
-            this.BtnDown.Location = new System.Drawing.Point(508, 45);
+            this.BtnDown.Location = new System.Drawing.Point(413, 23);
             this.BtnDown.Name = "BtnDown";
-            this.BtnDown.Size = new System.Drawing.Size(75, 23);
+            this.BtnDown.Size = new System.Drawing.Size(150, 35);
             this.BtnDown.TabIndex = 0;
             this.BtnDown.Text = "Scan";
             this.BtnDown.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@ namespace FLOR
             this.tBoxConsole.Name = "tBoxConsole";
             this.tBoxConsole.ReadOnly = true;
             this.tBoxConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxConsole.Size = new System.Drawing.Size(698, 196);
+            this.tBoxConsole.Size = new System.Drawing.Size(551, 196);
             this.tBoxConsole.TabIndex = 1;
             // 
             // statusStrip1
@@ -78,7 +78,7 @@ namespace FLOR
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 342);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(722, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(575, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -96,7 +96,7 @@ namespace FLOR
             // 
             this.btnCleanC.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnCleanC.ForeColor = System.Drawing.Color.Red;
-            this.btnCleanC.Location = new System.Drawing.Point(632, 143);
+            this.btnCleanC.Location = new System.Drawing.Point(487, 143);
             this.btnCleanC.Name = "btnCleanC";
             this.btnCleanC.Size = new System.Drawing.Size(55, 22);
             this.btnCleanC.TabIndex = 3;
@@ -196,9 +196,9 @@ namespace FLOR
             // 
             // btnInetCheck
             // 
-            this.btnInetCheck.Location = new System.Drawing.Point(427, 108);
+            this.btnInetCheck.Location = new System.Drawing.Point(413, 93);
             this.btnInetCheck.Name = "btnInetCheck";
-            this.btnInetCheck.Size = new System.Drawing.Size(156, 23);
+            this.btnInetCheck.Size = new System.Drawing.Size(150, 23);
             this.btnInetCheck.TabIndex = 5;
             this.btnInetCheck.Text = "Check Inet connection";
             this.btnInetCheck.UseVisualStyleBackColor = true;
@@ -206,9 +206,9 @@ namespace FLOR
             // 
             // btnClean
             // 
-            this.btnClean.Location = new System.Drawing.Point(622, 55);
+            this.btnClean.Location = new System.Drawing.Point(413, 64);
             this.btnClean.Name = "btnClean";
-            this.btnClean.Size = new System.Drawing.Size(75, 23);
+            this.btnClean.Size = new System.Drawing.Size(150, 23);
             this.btnClean.TabIndex = 6;
             this.btnClean.Text = "Clean Env";
             this.btnClean.UseVisualStyleBackColor = true;
@@ -216,23 +216,24 @@ namespace FLOR
             // 
             // btnPack
             // 
-            this.btnPack.Location = new System.Drawing.Point(427, 13);
+            this.btnPack.Location = new System.Drawing.Point(406, 211);
             this.btnPack.Name = "btnPack";
             this.btnPack.Size = new System.Drawing.Size(75, 23);
             this.btnPack.TabIndex = 7;
             this.btnPack.Text = "pack";
             this.btnPack.UseVisualStyleBackColor = true;
+            this.btnPack.Visible = false;
             this.btnPack.Click += new System.EventHandler(this.btnPack_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 364);
+            this.ClientSize = new System.Drawing.Size(575, 364);
             this.Controls.Add(this.btnPack);
-            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnCleanC);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tBoxConsole);
