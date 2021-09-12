@@ -237,11 +237,15 @@ namespace FLOR
 
         private void packIt()
         {
+            //generate random number for random report
+            Random random = new Random();
+            int num = random.Next(1000, 10000);
+
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string report = downf + "\\loki";
-            string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
+            string reportz = report + "\\" + num + "---" + hostname + "---" + domain + "---" + "REPORT.zip";
 
             //add file with pw
             ZipFile zip = new ZipFile(reportz);
@@ -263,9 +267,6 @@ namespace FLOR
         private void uploadIt()
         {
             //generate random number for random report
-            Random random = new Random();
-            int num = random.Next(1000, 10000);
-
             string apd = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
