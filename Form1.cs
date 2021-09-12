@@ -21,6 +21,9 @@ namespace FLOR
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //clear console window
+            tBoxConsole.Text = "";
+
             //basic setup for start
             lblVer.Text = "Version:";
             lblHost.Text = "Hostname:";
@@ -36,22 +39,21 @@ namespace FLOR
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
-            
 
             //check for admin or not, do not allow non-admin and close
+            tBoxConsole.AppendText("### Checking for permsissions ###" + Environment.NewLine);
             bool IsAdm = Convert.ToBoolean(IsAdministrator());
             if (IsAdm == false)
             {
+                tBoxConsole.AppendText("### ERROR! Wrong Token! ###" + Environment.NewLine);
                 MessageBox.Show("Application must be run as ADMIN!", "Missing Privs");
                 System.Windows.Forms.Application.Exit();
             }
+            tBoxConsole.AppendText("### SUCCESS! Elevated Token! ###" + Environment.NewLine);
 
             //color statusstrip
             toolStripStatusLabel1.Text = "ELEVATED";
             toolStripStatusLabel1.ForeColor = Color.Green;
-
-            //clear console window
-            tBoxConsole.Text = "";
 
             //check inet conn
             Ping("https://google.com");
@@ -79,7 +81,7 @@ namespace FLOR
             toolStripProgressBar1.Value = 0;
 
             //downloading scanner zip
-            tBoxConsole.Text = "### Downloading scanner..." + Environment.NewLine;
+            tBoxConsole.AppendText("### Downloading engine ###" + Environment.NewLine);
             string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string DownFile = DownPath + "\\ds.zip";
             WebClient webClient = new WebClient();
@@ -87,7 +89,7 @@ namespace FLOR
             toolStripProgressBar1.Value = 15;
 
             //extract zip
-            tBoxConsole.AppendText("### Extracting scanner..." + Environment.NewLine);
+            tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
             using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
             {
                 zip.Password = "kjsvlka1";
@@ -96,7 +98,7 @@ namespace FLOR
             toolStripProgressBar1.Value = 30;
 
             //start upgrader
-            tBoxConsole.AppendText("### Start upgrading process..." + Environment.NewLine);
+            tBoxConsole.AppendText("### Start upgrading process ###" + Environment.NewLine);
             int lineCount = 0;
             string lupgrader = DownPath + "\\ds\\loki-upgrader.exe";
             System.Diagnostics.Process p = new System.Diagnostics.Process();
@@ -130,9 +132,10 @@ namespace FLOR
             p.WaitForExit();
             p.Close();
             toolStripProgressBar1.Value = 45;
+            tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
 
             // starting scan
-            tBoxConsole.AppendText("### Starting scan with default options..." + Environment.NewLine);
+            tBoxConsole.AppendText("### Starting scan with default options ###" + Environment.NewLine);
             string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
             string loki = lokiPath + "\\loki.exe";
 
@@ -167,32 +170,33 @@ namespace FLOR
             p2.WaitForExit();
             p2.Close();
             toolStripProgressBar1.Value = 80;
-            tBoxConsole.Text = "### Scanning complete..." + Environment.NewLine;
+            tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
 
             //pack it together
             packIt();
             toolStripProgressBar1.Value = 90;
-            tBoxConsole.Text = "### Compressed and ready to ship..." + Environment.NewLine;
+            tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
 
             uploadIt();
             toolStripProgressBar1.Value = 95;
-            tBoxConsole.Text = "### File Uploaded..." + Environment.NewLine;
+            tBoxConsole.AppendText("### File uploaded ###" + Environment.NewLine);
 
-            
+
             toolStripProgressBar1.Value = 100;
-            tBoxConsole.Text = "### Environment cleaned..." + Environment.NewLine;
-            tBoxConsole.Text = "### Data-Sec GmbH will get back to you ###" + Environment.NewLine;
             cleanUp();
+
+            tBoxConsole.AppendText("### Finished ###" + Environment.NewLine);
+            tBoxConsole.AppendText("### Data-Sec GmbH will get back to you shortly ###" + Environment.NewLine);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             tBoxConsole.Text = "";
-            toolStripProgressBar1.Value = 0;
         }
 
         private bool Ping(string url)
         {
+            tBoxConsole.AppendText("### Checking Internet Connection ###" + Environment.NewLine);
             try
             {
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -209,7 +213,8 @@ namespace FLOR
             }
             catch
             {
-                toolStripStatusLabel2.Text = "InetCheck: OFFLINE";
+                tBoxConsole.AppendText("### Connection not possible 404 ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Falling back to offline package ###" + Environment.NewLine);
                 toolStripStatusLabel2.ForeColor = Color.Red;
                 return false;
             }
@@ -222,6 +227,7 @@ namespace FLOR
 
         private void cleanUp()
         {
+            tBoxConsole.AppendText("### Cleaning Environment ###" + Environment.NewLine);
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string ds = downf + "\\ds";
             string dsz = downf + "\\ds.zip";
@@ -231,7 +237,7 @@ namespace FLOR
                 //delte directory ds
                 Directory.Delete(ds, true);
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
 
@@ -240,15 +246,17 @@ namespace FLOR
                 //delete ds.zip
                 File.Delete(dsz);
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
+            tBoxConsole.AppendText("### Environment cleaned ###" + Environment.NewLine);
         }
 
         private void btnClean_Click(object sender, EventArgs e)
         {
             cleanUp();
             tBoxConsole.Text = "";
+            toolStripProgressBar1.Value = 0;
         }
 
         private void packIt()
@@ -295,11 +303,23 @@ namespace FLOR
 
 
             //upload the zip
-            blobClient.Upload(reportz);
-            MessageBox.Show("uploaded");
+            try
+            {
+                blobClient.Upload(reportz);
+
+            } catch
+            {
+                MessageBox.Show("Something went wrong. Try to contact Data-Sec!");
+            }
 
         }
         private void btnPack_Click(object sender, EventArgs e)
+        {
+            packIt();
+            uploadIt();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
             packIt();
             uploadIt();

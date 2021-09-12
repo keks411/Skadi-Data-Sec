@@ -68,7 +68,7 @@ namespace FLOR
             this.tBoxConsole.Multiline = true;
             this.tBoxConsole.Name = "tBoxConsole";
             this.tBoxConsole.ReadOnly = true;
-            this.tBoxConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tBoxConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tBoxConsole.Size = new System.Drawing.Size(551, 196);
             this.tBoxConsole.TabIndex = 1;
             // 
