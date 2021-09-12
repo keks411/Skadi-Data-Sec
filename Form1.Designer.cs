@@ -228,9 +228,9 @@ namespace FLOR
             this.btnFolder.Name = "btnFolder";
             this.btnFolder.Size = new System.Drawing.Size(107, 23);
             this.btnFolder.TabIndex = 7;
-            this.btnFolder.Text = "Locate Folder";
+            this.btnFolder.Text = "debug";
             this.btnFolder.UseVisualStyleBackColor = true;
-            this.btnFolder.Visible = false;
+            this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
             // 
             // Form1
             // 
