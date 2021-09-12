@@ -82,6 +82,7 @@ namespace FLOR
             toolStripProgressBar1.Value = 0;
 
             // INSERT ONLINE OR OFFLIEN ROUTINE
+            downloadEx();
 
             // starting scan
             tBoxConsole.AppendText("### Starting scan with default options ###" + Environment.NewLine);
@@ -324,9 +325,19 @@ namespace FLOR
                 toolStripProgressBar1.Value = 45;
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
 
-            } else
+            } else //system is offline
             {
-
+                //extract zip
+                string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string DownFile = DownPath + "\\ds.zip";
+                tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
+                File.WriteAllBytes(DownFile, Properties.Resources.ds);
+                using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
+                {
+                    zip.Password = "kjsvlka1";
+                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
+                }
+                toolStripProgressBar1.Value = 30;
             }
 
 
