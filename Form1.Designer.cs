@@ -48,6 +48,7 @@ namespace FLOR
             this.lblVer = new System.Windows.Forms.Label();
             this.btnInetCheck = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
+            this.btnFolder = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -103,9 +104,9 @@ namespace FLOR
             // 
             this.btnCleanC.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnCleanC.ForeColor = System.Drawing.Color.Red;
-            this.btnCleanC.Location = new System.Drawing.Point(487, 143);
+            this.btnCleanC.Location = new System.Drawing.Point(435, 143);
             this.btnCleanC.Name = "btnCleanC";
-            this.btnCleanC.Size = new System.Drawing.Size(55, 22);
+            this.btnCleanC.Size = new System.Drawing.Size(107, 22);
             this.btnCleanC.TabIndex = 3;
             this.btnCleanC.Text = "Clear";
             this.btnCleanC.UseVisualStyleBackColor = true;
@@ -221,11 +222,22 @@ namespace FLOR
             this.btnClean.UseVisualStyleBackColor = true;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
+            // btnFolder
+            // 
+            this.btnFolder.Location = new System.Drawing.Point(435, 171);
+            this.btnFolder.Name = "btnFolder";
+            this.btnFolder.Size = new System.Drawing.Size(107, 23);
+            this.btnFolder.TabIndex = 7;
+            this.btnFolder.Text = "Locate Folder";
+            this.btnFolder.UseVisualStyleBackColor = true;
+            this.btnFolder.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 364);
+            this.Controls.Add(this.btnFolder);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnClean);
@@ -268,6 +280,7 @@ namespace FLOR
         private System.Windows.Forms.Button btnInetCheck;
         private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.Button btnFolder;
     }
 }
 

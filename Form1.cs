@@ -121,15 +121,39 @@ namespace FLOR
             p2.Close();
             toolStripProgressBar1.Value = 80;
             tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
-
-            //pack it together
             packIt();
+            //pack it together
             toolStripProgressBar1.Value = 90;
             tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
 
-            uploadIt();
-            toolStripProgressBar1.Value = 95;
-            tBoxConsole.AppendText("### File uploaded ###" + Environment.NewLine);
+            if (Globals.isOn == true)
+            {
+                uploadIt();
+                toolStripProgressBar1.Value = 95;
+                tBoxConsole.AppendText("### File uploaded ###" + Environment.NewLine);
+            } else
+            {
+                string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\report";
+                string reportO = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\ds\\report.zip";
+                string reportN = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) + "\\report.zip";
+                try
+                {
+                    Directory.CreateDirectory(rFolder);
+                } catch
+                {
+                    try
+                    {
+                        File.Delete(rFolder + "\\report.zip");
+                    } catch
+                    {
+
+                    }
+                }
+                File.Move(reportO, reportN);
+                tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### " + reportN + " ###" + Environment.NewLine);
+            }
+
 
 
             toolStripProgressBar1.Value = 100;
