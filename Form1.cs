@@ -289,15 +289,16 @@ namespace FLOR
 
             string storageAccntConnection = "DefaultEndpointsProtocol=https;AccountName=dstoolsiocsearch;AccountKey=ubfzvgP0Bnlx/8ADax9ZZVx4DY5O2J5rHbUjgy1+Zquj3/CyC+5D79WKORKx1BjNiwVr7gNi/fUvV1XHTvLk8Q==;EndpointSuffix=core.windows.net";
             Azure.Storage.Blobs.BlobClient blobClient = new Azure.Storage.Blobs.BlobClient(
-                connectionString: storageAccntConnection,
-                blobContainerName: "reports",
-                blobName: zname);
+            connectionString: storageAccntConnection,
+            blobContainerName: "reports",
+            blobName: zname);
+
 
             //upload the zip
             blobClient.Upload(reportz);
             MessageBox.Show("uploaded");
-        }
 
+        }
         private void btnPack_Click(object sender, EventArgs e)
         {
             packIt();
