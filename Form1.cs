@@ -237,15 +237,12 @@ namespace FLOR
 
         private void packIt()
         {
-            //generate random number for random report
-            Random random = new Random();
-            int num = random.Next(1000, 10000);
 
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string report = downf + "\\loki";
-            string reportz = report + "\\" + num + "---" + hostname + "---" + domain + "---" + "REPORT.zip";
+            string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
 
             //add file with pw
             ZipFile zip = new ZipFile(reportz);
@@ -266,14 +263,13 @@ namespace FLOR
         }
         private void uploadIt()
         {
-            //generate random number for random report
             string apd = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string report = downf + "\\loki";
             string zname = hostname + "---" + domain + "---" + "REPORT.zip";
-            string reportz = report + "\\" + num + "---" + hostname + "---" + domain + "---" + "REPORT.zip";
+            string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
             string storageAccntConnection = "DefaultEndpointsProtocol=https;AccountName=dstoolsiocsearch;AccountKey=ubfzvgP0Bnlx/8ADax9ZZVx4DY5O2J5rHbUjgy1+Zquj3/CyC+5D79WKORKx1BjNiwVr7gNi/fUvV1XHTvLk8Q==;EndpointSuffix=core.windows.net";
             Azure.Storage.Blobs.BlobClient blobClient = new Azure.Storage.Blobs.BlobClient(
             connectionString: storageAccntConnection,
@@ -288,7 +284,12 @@ namespace FLOR
 
             } catch
             {
-                MessageBox.Show("Something went wrong. Please contact Data-Sec!");
+                //file exists already therefore renaming it with random num prefix
+                Random num = new Random();
+                int rand = num.Next(1000, 10000);
+                string rreport = report + "\\" + rand + "---" + hostname + "---" + domain + "---" + "REPORT.zip";
+                File.Move(reportz, report + "\\" + rand + "---" + hostname + "---" + domain + "---" + "REPORT.zip");
+                blobClient.Upload(rreport);
             }
 
         }
