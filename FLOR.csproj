@@ -2,15 +2,26 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>skadi-icon.ico</ApplicationIcon>
+    <Win32Resource />
+    <AssemblyName>Skadi</AssemblyName>
+    <PackageIcon>skadiicon.jpg</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Core" Version="1.19.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
     <PackageReference Include="DotNetZip" Version="1.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Z:\skadi\skadiicon.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
