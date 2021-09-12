@@ -307,7 +307,7 @@ namespace FLOR
                 tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
                 using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
                 {
-                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
+                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
                 }
                 toolStripProgressBar1.Value = 30;
 
@@ -320,7 +320,7 @@ namespace FLOR
                 p.StartInfo.WorkingDirectory = DownPath + "\\loki";
                 p.StartInfo.LoadUserProfile = true;
                 p.StartInfo.FileName = lupgrader;
-                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.UseShellExecute = true;
                 p.StartInfo.CreateNoWindow = true;
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
@@ -357,7 +357,7 @@ namespace FLOR
                 File.WriteAllBytes(DownFile, Properties.Resources.ds);
                 using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
                 {
-                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
+                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
                 }
                 toolStripProgressBar1.Value = 30;
             }
