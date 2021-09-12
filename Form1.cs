@@ -90,7 +90,7 @@ namespace FLOR
             tBoxConsole.AppendText("### Extracting scanner..." + Environment.NewLine);
             using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
             {
-                zip.Password = "kjsvlkankvknl43klsdbshioafwlwgl4kfasklbf";
+                zip.Password = "kjsvlka1";
                 zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
             }
             toolStripProgressBar1.Value = 30;
