@@ -17,6 +17,7 @@ namespace FLOR
         public Form1()
         {
             InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -80,59 +81,7 @@ namespace FLOR
             toolStripProgressBar1.Visible = true;
             toolStripProgressBar1.Value = 0;
 
-            //downloading scanner zip
-            tBoxConsole.AppendText("### Downloading engine ###" + Environment.NewLine);
-            string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string DownFile = DownPath + "\\ds.zip";
-            WebClient webClient = new WebClient();
-            webClient.DownloadFile("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip", DownFile);
-            toolStripProgressBar1.Value = 15;
-
-            //extract zip
-            tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
-            using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
-            {
-                zip.Password = "kjsvlka1";
-                zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
-            }
-            toolStripProgressBar1.Value = 30;
-
-            //start upgrader
-            tBoxConsole.AppendText("### Start upgrading process ###" + Environment.NewLine);
-            int lineCount = 0;
-            string lupgrader = DownPath + "\\ds\\loki-upgrader.exe";
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-
-            p.StartInfo.WorkingDirectory = DownPath + "\\ds";
-            p.StartInfo.LoadUserProfile = true;
-            p.StartInfo.FileName = lupgrader;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-
-            p.EnableRaisingEvents = true;
-
-            p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-            {
-                // Prepend line numbers to each line of the output.
-                if (!String.IsNullOrEmpty(e.Data))
-                {
-                    lineCount++;
-                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
-                }
-            });
-            p.Start();
-
-            // Asynchronously read the standard output of the spawned process.
-            // This raises OutputDataReceived events for each line of output.
-            p.BeginOutputReadLine();
-            p.WaitForExit();
-
-            p.WaitForExit();
-            p.Close();
-            toolStripProgressBar1.Value = 45;
-            tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
+            // INSERT ONLINE OR OFFLIEN ROUTINE
 
             // starting scan
             tBoxConsole.AppendText("### Starting scan with default options ###" + Environment.NewLine);
@@ -208,6 +157,7 @@ namespace FLOR
                 {
                     toolStripStatusLabel2.Text = "InetCheck: ONLINE";
                     toolStripStatusLabel2.ForeColor = Color.Green;
+                    Globals.isOn = true;
                     return true;
                 }
             }
@@ -216,6 +166,7 @@ namespace FLOR
                 tBoxConsole.AppendText("### Connection not possible 404 ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Falling back to offline package ###" + Environment.NewLine);
                 toolStripStatusLabel2.ForeColor = Color.Red;
+                Globals.isOn = false;
                 return false;
             }
         }
@@ -284,7 +235,6 @@ namespace FLOR
             zip.Save();
 
         }
-
         private void uploadIt()
         {
             string apd = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -313,10 +263,84 @@ namespace FLOR
             }
 
         }
+
+        private void downloadEx()
+        {
+            if (Globals.isOn == true)
+            {
+                //downloading scanner zip
+                tBoxConsole.AppendText("### Seems to be ONLINE ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Starting Online-Routine ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Downloading engine ###" + Environment.NewLine);
+                string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string DownFile = DownPath + "\\ds.zip";
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip", DownFile);
+                toolStripProgressBar1.Value = 15;
+
+                //extract zip
+                tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
+                using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
+                {
+                    zip.Password = "kjsvlka1";
+                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
+                }
+                toolStripProgressBar1.Value = 30;
+
+                //start upgrader
+                tBoxConsole.AppendText("### Start upgrading process ###" + Environment.NewLine);
+                int lineCount = 0;
+                string lupgrader = DownPath + "\\ds\\loki-upgrader.exe";
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+
+                p.StartInfo.WorkingDirectory = DownPath + "\\ds";
+                p.StartInfo.LoadUserProfile = true;
+                p.StartInfo.FileName = lupgrader;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+
+                p.EnableRaisingEvents = true;
+
+                p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                // Prepend line numbers to each line of the output.
+                if (!String.IsNullOrEmpty(e.Data))
+                    {
+                        lineCount++;
+                        tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                    }
+                });
+                p.Start();
+
+                // Asynchronously read the standard output of the spawned process.
+                // This raises OutputDataReceived events for each line of output.
+                p.BeginOutputReadLine();
+                p.WaitForExit();
+
+                p.WaitForExit();
+                p.Close();
+                toolStripProgressBar1.Value = 45;
+                tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
+
+            } else
+            {
+
+            }
+
+
+
+        }
         private void btnPack_Click(object sender, EventArgs e)
         {
             packIt();
             uploadIt();
+        }
+
+        public static class Globals
+        {
+            public static bool isOn = false;
         }
     }
 }
