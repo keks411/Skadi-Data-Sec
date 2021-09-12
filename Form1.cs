@@ -309,17 +309,11 @@ namespace FLOR
 
             } catch
             {
-                MessageBox.Show("Something went wrong. Try to contact Data-Sec!");
+                MessageBox.Show("Something went wrong. Please contact Data-Sec!");
             }
 
         }
         private void btnPack_Click(object sender, EventArgs e)
-        {
-            packIt();
-            uploadIt();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
         {
             packIt();
             uploadIt();
