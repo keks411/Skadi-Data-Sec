@@ -46,7 +46,7 @@ namespace FLOR
             this.lblVer = new System.Windows.Forms.Label();
             this.btnInetCheck = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
-            this.btnPack = new System.Windows.Forms.Button();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -75,7 +75,8 @@ namespace FLOR
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
+            this.toolStripStatusLabel2,
+            this.toolStripProgressBar1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 342);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(575, 22);
@@ -214,23 +215,16 @@ namespace FLOR
             this.btnClean.UseVisualStyleBackColor = true;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
-            // btnPack
+            // toolStripProgressBar1
             // 
-            this.btnPack.Location = new System.Drawing.Point(406, 211);
-            this.btnPack.Name = "btnPack";
-            this.btnPack.Size = new System.Drawing.Size(75, 23);
-            this.btnPack.TabIndex = 7;
-            this.btnPack.Text = "pack";
-            this.btnPack.UseVisualStyleBackColor = true;
-            this.btnPack.Visible = false;
-            this.btnPack.Click += new System.EventHandler(this.btnPack_Click);
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 364);
-            this.Controls.Add(this.btnPack);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnClean);
@@ -241,7 +235,7 @@ namespace FLOR
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "FLOR - Data-Sec GmbH";
+            this.Text = "SKADI - Data-Sec GmbH";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -271,7 +265,7 @@ namespace FLOR
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Button btnInetCheck;
         private System.Windows.Forms.Button btnClean;
-        private System.Windows.Forms.Button btnPack;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }
 

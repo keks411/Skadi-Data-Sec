@@ -69,8 +69,14 @@ namespace FLOR
 
         private void BtnDown_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Click OK to start the scan. The scan itself may take several hours!", "INFO");
+
             //clear files
             cleanUp();
+
+            //enable pbar
+            toolStripProgressBar1.Visible = true;
+            toolStripProgressBar1.Value = 0;
 
             //downloading scanner zip
             tBoxConsole.Text = "### Downloading scanner..." + Environment.NewLine;
@@ -78,15 +84,16 @@ namespace FLOR
             string DownFile = DownPath + "\\ds.zip";
             WebClient webClient = new WebClient();
             webClient.DownloadFile("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip", DownFile);
+            toolStripProgressBar1.Value = 15;
 
             //extract zip
             tBoxConsole.AppendText("### Extracting scanner..." + Environment.NewLine);
             using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
             {
-                //zip.Password = "kjsvlkankvknl43klsdbshioafwlwgl4kfasklbf";
-                zip.Password = "1234";
+                zip.Password = "kjsvlkankvknl43klsdbshioafwlwgl4kfasklbf";
                 zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
             }
+            toolStripProgressBar1.Value = 30;
 
             //start upgrader
             tBoxConsole.AppendText("### Start upgrading process..." + Environment.NewLine);
@@ -122,10 +129,10 @@ namespace FLOR
 
             p.WaitForExit();
             p.Close();
+            toolStripProgressBar1.Value = 45;
 
             // starting scan
             tBoxConsole.AppendText("### Starting scan with default options..." + Environment.NewLine);
-            MessageBox.Show("Click OK to start the scan. The scan itself may take several hours!", "INFO");
             string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
             string loki = lokiPath + "\\loki.exe";
 
@@ -159,24 +166,29 @@ namespace FLOR
 
             p2.WaitForExit();
             p2.Close();
+            toolStripProgressBar1.Value = 80;
             tBoxConsole.Text = "### Scanning complete..." + Environment.NewLine;
 
             //pack it together
             packIt();
+            toolStripProgressBar1.Value = 90;
             tBoxConsole.Text = "### Compressed and ready to ship..." + Environment.NewLine;
 
             uploadIt();
+            toolStripProgressBar1.Value = 95;
             tBoxConsole.Text = "### File Uploaded..." + Environment.NewLine;
 
-            cleanUp();
+            
+            toolStripProgressBar1.Value = 100;
             tBoxConsole.Text = "### Environment cleaned..." + Environment.NewLine;
             tBoxConsole.Text = "### Data-Sec GmbH will get back to you ###" + Environment.NewLine;
-
+            cleanUp();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             tBoxConsole.Text = "";
+            toolStripProgressBar1.Value = 0;
         }
 
         private bool Ping(string url)
@@ -241,6 +253,9 @@ namespace FLOR
 
         private void packIt()
         {
+            string hostname = System.Environment.GetEnvironmentVariable("Computername");
+            string userName = System.Environment.GetEnvironmentVariable("username");
+            string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string report = downf + "\\ds";
             string reportz = report + "\\report.zip";
