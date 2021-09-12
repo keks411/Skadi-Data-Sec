@@ -134,7 +134,7 @@ namespace FLOR
             } else
             {
                 string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\report";
-                string reportO = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\ds\\report.zip";
+                string reportO = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\loki\\report.zip";
                 string reportN = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) + "\\report.zip";
                 try
                 {
@@ -205,7 +205,7 @@ namespace FLOR
         {
             tBoxConsole.AppendText("### Cleaning Environment ###" + Environment.NewLine);
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string ds = downf + "\\ds";
+            string ds = downf + "\\loki";
             string dsz = downf + "\\ds.zip";
 
             try
@@ -240,7 +240,7 @@ namespace FLOR
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string report = downf + "\\ds";
+            string report = downf + "\\loki";
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
 
             //add file with pw
@@ -266,7 +266,7 @@ namespace FLOR
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string report = downf + "\\ds";
+            string report = downf + "\\loki";
             string zname = hostname + "---" + domain + "---" + "REPORT.zip";
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
 
@@ -307,7 +307,6 @@ namespace FLOR
                 tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
                 using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
                 {
-                    zip.Password = "kjsvlka1";
                     zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
                 }
                 toolStripProgressBar1.Value = 30;
@@ -315,10 +314,10 @@ namespace FLOR
                 //start upgrader
                 tBoxConsole.AppendText("### Start upgrading process ###" + Environment.NewLine);
                 int lineCount = 0;
-                string lupgrader = DownPath + "\\ds\\loki-upgrader.exe";
+                string lupgrader = DownPath + "\\loki\\loki-upgrader.exe";
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
 
-                p.StartInfo.WorkingDirectory = DownPath + "\\ds";
+                p.StartInfo.WorkingDirectory = DownPath + "\\loki";
                 p.StartInfo.LoadUserProfile = true;
                 p.StartInfo.FileName = lupgrader;
                 p.StartInfo.UseShellExecute = false;
@@ -358,7 +357,6 @@ namespace FLOR
                 File.WriteAllBytes(DownFile, Properties.Resources.ds);
                 using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
                 {
-                    zip.Password = "kjsvlka1";
                     zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
                 }
                 toolStripProgressBar1.Value = 30;
