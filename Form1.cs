@@ -86,7 +86,7 @@ namespace FLOR
 
             // starting scan
             tBoxConsole.AppendText("### Starting scan with default options ###" + Environment.NewLine);
-            string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\ds");
+            string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
             string loki = lokiPath + "\\loki.exe";
 
             int lcount = 0;
