@@ -94,6 +94,8 @@ namespace FLOR
             //create task
             //this will move everthing into a new task
             //buttons need to be disabled though to not screw up
+            BtnDown.Enabled = false;
+            btnClean.Enabled = false;
             Task.Factory.StartNew(() =>
             {
                 Process p2 = new Process();
@@ -163,6 +165,10 @@ namespace FLOR
 
                 tBoxConsole.AppendText("### Finished ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Data-Sec GmbH will get back to you shortly ###" + Environment.NewLine);
+
+                //task is done so re-enable those buttons
+                BtnDown.Enabled = false;
+                btnClean.Enabled = false;
             });
         }
 
