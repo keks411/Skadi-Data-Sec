@@ -199,6 +199,7 @@ namespace FLOR
             {
                 tBoxConsole.AppendText("### Connection not possible 404 ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Falling back to offline package ###" + Environment.NewLine);
+                toolStripStatusLabel2.Text = "InetCheck: OFFLINE";
                 toolStripStatusLabel2.ForeColor = Color.Red;
                 Globals.isOn = false;
                 return false;
