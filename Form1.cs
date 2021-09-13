@@ -157,6 +157,7 @@ namespace FLOR
                         }
                     }
                     File.Move(reportO, reportN);
+                    Directory.Delete(rFolder);
                     tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
                     tBoxConsole.AppendText("### " + reportN + " ###" + Environment.NewLine);
                 }
