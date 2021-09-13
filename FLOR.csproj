@@ -9,12 +9,14 @@
     <AssemblyName>Skadi</AssemblyName>
     <PackageIcon>skadiicon.jpg</PackageIcon>
     <PackageIconUrl />
+    <UserSecretsId>9165bc77-9059-45c8-88c5-f5f3c91bb93f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Core" Version="1.19.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
     <PackageReference Include="DotNetZip" Version="1.15.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
