@@ -361,12 +361,12 @@ namespace FLOR
                 string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string DownFile = DownPath + "\\ds.zip";
                 tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
+                toolStripProgressBar1.Value = 30;
                 File.WriteAllBytes(DownFile, Properties.Resources.ds);
                 using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
                 {
                     zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
                 }
-                toolStripProgressBar1.Value = 30;
             }
 
 
@@ -393,7 +393,7 @@ namespace FLOR
 
         private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://en.wikipedia.org/wiki/Ska%C3%B0i");
+            Process.Start("explorer", "https://en.wikipedia.org/wiki/Ska%C3%B0i");
         }
     }
 }

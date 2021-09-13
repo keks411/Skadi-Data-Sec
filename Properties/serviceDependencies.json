@@ -1,11 +1,3 @@
 {
-  "dependencies": {
-    "secrets1": {
-      "type": "secrets"
-    },
-    "storage1": {
-      "type": "storage",
-      "connectionId": "AzureData-Sec"
-    }
-  }
+  "dependencies": {}
 }
