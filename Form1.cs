@@ -260,6 +260,10 @@ namespace FLOR
             zip.AddFiles(filesh, "");
             zip.Save();
 
+            if (Globals.isOn == false)
+            {
+                File.Move(reportz, report + "\\report.zip");
+            }
         }
         private void uploadIt()
         {
@@ -385,6 +389,11 @@ namespace FLOR
             MessageBox.Show("debug, packed");
             uploadIt();
             MessageBox.Show("debug, uploaded");
+        }
+
+        private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://en.wikipedia.org/wiki/Ska%C3%B0i");
         }
     }
 }

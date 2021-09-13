@@ -49,6 +49,7 @@ namespace FLOR
             this.btnInetCheck = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
             this.btnFolder = new System.Windows.Forms.Button();
+            this.lblLinkW = new System.Windows.Forms.LinkLabel();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -233,11 +234,24 @@ namespace FLOR
             this.btnFolder.Visible = false;
             this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
             // 
+            // lblLinkW
+            // 
+            this.lblLinkW.AutoSize = true;
+            this.lblLinkW.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblLinkW.Location = new System.Drawing.Point(482, 349);
+            this.lblLinkW.Name = "lblLinkW";
+            this.lblLinkW.Size = new System.Drawing.Size(66, 13);
+            this.lblLinkW.TabIndex = 8;
+            this.lblLinkW.TabStop = true;
+            this.lblLinkW.Text = "Why Skadi?";
+            this.lblLinkW.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblLinkW_LinkClicked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 364);
+            this.Controls.Add(this.lblLinkW);
             this.Controls.Add(this.btnFolder);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
@@ -282,6 +296,7 @@ namespace FLOR
         private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button btnFolder;
+        private System.Windows.Forms.LinkLabel lblLinkW;
     }
 }
 
