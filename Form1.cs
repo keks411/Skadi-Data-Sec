@@ -7,7 +7,7 @@ using System.Security.Principal;
 using Ionic.Zip;
 using System.Diagnostics;
 using Azure.Storage;
-
+using System.Threading.Tasks;
 
 namespace FLOR
 {
@@ -90,77 +90,80 @@ namespace FLOR
             string loki = lokiPath + "\\loki.exe";
 
             int lcount = 0;
-            System.Diagnostics.Process p2 = new System.Diagnostics.Process();
 
-            p2.StartInfo.WorkingDirectory = lokiPath;
-            p2.StartInfo.LoadUserProfile = true;
-            p2.StartInfo.FileName = loki;
-            p2.StartInfo.UseShellExecute = false;
-            p2.StartInfo.CreateNoWindow = true;
-            p2.StartInfo.RedirectStandardOutput = true;
-            p2.StartInfo.RedirectStandardError = true;
-
-            p2.EnableRaisingEvents = true;
-
-            p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+            //create task
+            //this will move everthing into a new task
+            //buttons need to be disabled though to not screw up
+            Task.Factory.StartNew(() =>
             {
-                // Prepend line numbers to each line of the output.
-                if (!String.IsNullOrEmpty(e.Data))
-                {
-                    lcount++;
-                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
-                }
-            });
-            p2.Start();
+                Process p2 = new Process();
 
-            // Asynchronously read the standard output of the spawned process.
-            // This raises OutputDataReceived events for each line of output.
-            p2.BeginOutputReadLine();
-
-            p2.WaitForExit();
-            p2.Close();
-            toolStripProgressBar1.Value = 80;
-            tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
-            packIt();
-            //pack it together
-            toolStripProgressBar1.Value = 90;
-            tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
-
-            if (Globals.isOn == true)
-            {
-                uploadIt();
-                toolStripProgressBar1.Value = 95;
-                tBoxConsole.AppendText("### File uploaded ###" + Environment.NewLine);
-            } else
-            {
-                string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\report";
-                string reportO = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\loki\\report.zip";
-                string reportN = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) + "\\report.zip";
-                try
+                p2.StartInfo.WorkingDirectory = lokiPath;
+                p2.StartInfo.LoadUserProfile = true;
+                p2.StartInfo.FileName = loki;
+                p2.StartInfo.UseShellExecute = false;
+                p2.StartInfo.CreateNoWindow = true;
+                p2.StartInfo.RedirectStandardOutput = true;
+                p2.StartInfo.RedirectStandardError = true;
+                p2.EnableRaisingEvents = true;
+                p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
-                    Directory.CreateDirectory(rFolder);
-                } catch
+                    // Prepend line numbers to each line of the output.
+                    if (!String.IsNullOrEmpty(e.Data))
+                    {
+                        lcount++;
+                        tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                    }
+                });
+                p2.Start();
+
+                // Asynchronously read the standard output of the spawned process.
+                // This raises OutputDataReceived events for each line of output.
+                p2.BeginOutputReadLine();
+
+                p2.WaitForExit();
+                p2.Close();
+
+                toolStripProgressBar1.Value = 80;
+                tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
+                packIt();
+                //pack it together
+                toolStripProgressBar1.Value = 90;
+                tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
+
+                if (Globals.isOn == true)
                 {
+                    uploadIt();
+                    toolStripProgressBar1.Value = 95;
+                    tBoxConsole.AppendText("### File uploaded ###" + Environment.NewLine);
+                } else
+                {
+                    string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\report";
+                    string reportO = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\loki\\report.zip";
+                    string reportN = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) + "\\report.zip";
                     try
                     {
-                        File.Delete(rFolder + "\\report.zip");
+                        Directory.CreateDirectory(rFolder);
                     } catch
                     {
+                        try
+                        {
+                            File.Delete(rFolder + "\\report.zip");
+                        } catch
+                        {
 
+                        }
                     }
+                    File.Move(reportO, reportN);
+                    tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
+                    tBoxConsole.AppendText("### " + reportN + " ###" + Environment.NewLine);
                 }
-                File.Move(reportO, reportN);
-                tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
-                tBoxConsole.AppendText("### " + reportN + " ###" + Environment.NewLine);
-            }
+                toolStripProgressBar1.Value = 100;
+                cleanUp();
 
-
-
-            toolStripProgressBar1.Value = 100;
-            cleanUp();
-
-            tBoxConsole.AppendText("### Finished ###" + Environment.NewLine);
-            tBoxConsole.AppendText("### Data-Sec GmbH will get back to you shortly ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Finished ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Data-Sec GmbH will get back to you shortly ###" + Environment.NewLine);
+            });
         }
 
         private void button1_Click(object sender, EventArgs e)
