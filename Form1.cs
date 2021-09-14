@@ -398,13 +398,8 @@ namespace FLOR
         {
             string autorunsPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
             string autoruns = autorunsPath + "\\autoruns.bat";
-            int lcount = 0;
             Process p3 = new Process();
-
-            //parameters to add to autoruns
-            //p3.StartInfo.Arguments = "/c autorunsc64.exe -a * -v -vt -x > test.xml";
-            
-
+          
             p3.StartInfo.WorkingDirectory = autorunsPath;
             p3.StartInfo.LoadUserProfile = true;
             p3.StartInfo.FileName = autoruns;
