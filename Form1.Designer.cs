@@ -231,6 +231,7 @@ namespace FLOR
             this.btnFolder.TabIndex = 7;
             this.btnFolder.Text = "debug";
             this.btnFolder.UseVisualStyleBackColor = true;
+            this.btnFolder.Visible = false;
             this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
             // 
             // lblLinkW
