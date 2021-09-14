@@ -1,5 +1,9 @@
 # Skadi-Data-Sec
 
+Working:
+- loki
+- autorunsc
+
 Roadmap:
 
 - Implement flare IOC-scanner
