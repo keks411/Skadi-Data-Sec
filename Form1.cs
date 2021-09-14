@@ -126,7 +126,12 @@ namespace FLOR
                 p2.WaitForExit();
                 p2.Close();
 
+                toolStripProgressBar1.Value = 70;
+
+                //running autoruns
+                runAutorunsc();
                 toolStripProgressBar1.Value = 80;
+
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 packIt();
                 //pack it together
@@ -266,9 +271,14 @@ namespace FLOR
             string[] filesh =
             Directory.GetFiles(report, "*.html", SearchOption.TopDirectoryOnly);
 
+            //add .xml files
+            string[] filesx =
+            Directory.GetFiles(report, "*.xml", SearchOption.TopDirectoryOnly);
+
             zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
             zip.AddFiles(filesl, "");
             zip.AddFiles(filesh, "");
+            zip.AddFiles(filesx, "");
             zip.Save();
 
             if (Globals.isOn == false)
@@ -383,6 +393,43 @@ namespace FLOR
 
 
         }
+
+        private void runAutorunsc()
+        {
+            string autorunsPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
+            string autoruns = autorunsPath + "\\autorunsc64.exe";
+            int lcount = 0;
+            Process p3 = new Process();
+
+            //parameters to add to autoruns
+            p3.StartInfo.Arguments = "-a * -v -vt -x > test.xml";
+
+            p3.StartInfo.WorkingDirectory = autorunsPath;
+            p3.StartInfo.LoadUserProfile = true;
+            p3.StartInfo.FileName = "autorunsc64.exe";
+            p3.StartInfo.UseShellExecute = false;
+            p3.StartInfo.CreateNoWindow = true;
+            p3.StartInfo.RedirectStandardOutput = true;
+            p3.StartInfo.RedirectStandardError = true;
+            p3.EnableRaisingEvents = true;
+            p3.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+            {
+                // Prepend line numbers to each line of the output.
+                if (!String.IsNullOrEmpty(e.Data))
+                {
+                    lcount++;
+                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                }
+            });
+            p3.Start();
+
+            // Asynchronously read the standard output of the spawned process.
+            // This raises OutputDataReceived events for each line of output.
+            p3.BeginOutputReadLine();
+
+            p3.WaitForExit();
+            p3.Close();
+        }
         private void btnPack_Click(object sender, EventArgs e)
         {
             packIt();
@@ -396,6 +443,9 @@ namespace FLOR
 
         private void btnFolder_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("start autoruns");
+            runAutorunsc();
+            MessageBox.Show("autoruns should be done");
             packIt();
             MessageBox.Show("debug, packed");
             uploadIt();
