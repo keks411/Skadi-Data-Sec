@@ -22,6 +22,9 @@ namespace FLOR
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //debug
+            btnFolder.Visible = false;
+
             //clear console window
             tBoxConsole.Text = "";
 
