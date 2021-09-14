@@ -129,8 +129,24 @@ namespace FLOR
                 toolStripProgressBar1.Value = 70;
 
                 //running autoruns
-                runAutorunsc();
+                runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning Autorun-Entries ###", 0);
                 toolStripProgressBar1.Value = 80;
+
+                //running handle64
+                runBinary("-accepteula > handle.txt", "handle64.exe", "### Scanning Open Handles ###", 1);
+                toolStripProgressBar1.Value = 85;
+
+                //running pslist
+                runBinary("-accepteula -d -m -x > pslist.txt", "pslist64.exe", "### Scanning running processes ###", 1);
+                toolStripProgressBar1.Value = 85;
+
+                //running tcpvcon
+                runBinary("-accepteula -c > tcp.csv", "tcpvcon64.exe", "### Scanning open connections ###", 1);
+                toolStripProgressBar1.Value = 85;
+
+
+
+
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 packIt();
@@ -275,10 +291,20 @@ namespace FLOR
             string[] filesx =
             Directory.GetFiles(report, "*.xml", SearchOption.TopDirectoryOnly);
 
+            //add .xml files
+            string[] filesc =
+            Directory.GetFiles(report, "*.csv", SearchOption.TopDirectoryOnly);
+
+            //add .txt files
+            string[] filest =
+            Directory.GetFiles(report, "*.txt", SearchOption.TopDirectoryOnly);
+
             zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
             zip.AddFiles(filesl, "");
             zip.AddFiles(filesh, "");
             zip.AddFiles(filesx, "");
+            zip.AddFiles(filesc, "");
+            zip.AddFiles(filest, "");
             zip.Save();
 
             if (Globals.isOn == false)
@@ -286,6 +312,7 @@ namespace FLOR
                 File.Move(reportz, report + "\\report.zip");
             }
         }
+
         private void uploadIt()
         {
             //file exists already therefore renaming it with random num prefix
@@ -394,27 +421,50 @@ namespace FLOR
 
         }
 
-        private void runAutorunsc()
+        private void runBinary(string args, string exe, string text, int rdirect)
         {
-            string autorunsPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
-            string autoruns = autorunsPath + "\\autoruns.bat";
-            Process p3 = new Process();
-          
-            p3.StartInfo.WorkingDirectory = autorunsPath;
-            p3.StartInfo.LoadUserProfile = true;
-            p3.StartInfo.FileName = autoruns;
-            p3.StartInfo.UseShellExecute = true;
-            p3.StartInfo.CreateNoWindow = true;
-            p3.StartInfo.RedirectStandardOutput = false;
-            p3.StartInfo.RedirectStandardError = false;
-            p3.Start();
+                tBoxConsole.AppendText(text + Environment.NewLine);
+                string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
+                string loki = lokiPath + "\\" + exe;
 
-            //add some info to textbox
-            tBoxConsole.AppendText("### Checking for autorun-entries, registry and so on ###");
+                Process p2 = new Process();
+            Globals.lfile = exe;
 
-            p3.WaitForExit();
-            p3.Close();
+            if (rdirect == 1)
+            {
+                p2.StartInfo.RedirectStandardOutput = true;
+                p2.StartInfo.RedirectStandardError = true;
+                p2.StartInfo.WorkingDirectory = lokiPath;
+                p2.StartInfo.Arguments = args;
+                p2.StartInfo.LoadUserProfile = true;
+                p2.StartInfo.FileName = loki;
+                p2.StartInfo.CreateNoWindow = false;
+                p2.OutputDataReceived += OutputDataReceived;
+                p2.Start();
+                p2.WaitForExit();
+                p2.Close();
+            } else
+            {
+                p2.StartInfo.UseShellExecute = true;
+                p2.StartInfo.RedirectStandardOutput = false;
+                p2.StartInfo.RedirectStandardError = false;
+                p2.StartInfo.WorkingDirectory = lokiPath;
+                p2.StartInfo.Arguments = args;
+                p2.StartInfo.LoadUserProfile = true;
+                p2.StartInfo.FileName = loki;
+                p2.StartInfo.CreateNoWindow = true;
+                p2.Start();
+                p2.WaitForExit();
+                p2.Close();
+            }
         }
+
+        private void OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
+            File.WriteAllText(lokiPath + "\\" + Globals.lfile + ".txt", e.Data);
+        }
+
         private void btnPack_Click(object sender, EventArgs e)
         {
             packIt();
@@ -424,12 +474,31 @@ namespace FLOR
         public static class Globals
         {
             public static bool isOn = false;
+            public static string lfile = "none";
         }
 
         private void btnFolder_Click(object sender, EventArgs e)
         {
             MessageBox.Show("start autoruns");
-            runAutorunsc();
+            //running autoruns
+            runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning Autorun-Entries ###", 0);
+            toolStripProgressBar1.Value = 80;
+
+            //running handle64
+            runBinary("-accepteula", "handle64.exe", "### Scanning Open Handles ###", 1);
+            toolStripProgressBar1.Value = 85;
+
+            //running pslist
+            runBinary("-accepteula -d -m -x", "pslist64.exe", "### Scanning running processes ###", 1);
+            toolStripProgressBar1.Value = 85;
+
+            //running tcpvcon
+            runBinary("-accepteula -c", "tcpvcon64.exe", "### Scanning open connections ###", 1);
+            toolStripProgressBar1.Value = 85;
+
+
+
+
             MessageBox.Show("autoruns should be done");
             packIt();
             MessageBox.Show("debug, packed");
