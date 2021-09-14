@@ -397,35 +397,25 @@ namespace FLOR
         private void runAutorunsc()
         {
             string autorunsPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
-            string autoruns = autorunsPath + "\\autorunsc64.exe";
+            string autoruns = autorunsPath + "\\autoruns.bat";
             int lcount = 0;
             Process p3 = new Process();
 
             //parameters to add to autoruns
-            p3.StartInfo.Arguments = "-a * -v -vt -x > test.xml";
+            //p3.StartInfo.Arguments = "/c autorunsc64.exe -a * -v -vt -x > test.xml";
+            
 
             p3.StartInfo.WorkingDirectory = autorunsPath;
             p3.StartInfo.LoadUserProfile = true;
             p3.StartInfo.FileName = autoruns;
-            p3.StartInfo.UseShellExecute = false;
+            p3.StartInfo.UseShellExecute = true;
             p3.StartInfo.CreateNoWindow = true;
-            p3.StartInfo.RedirectStandardOutput = true;
-            p3.StartInfo.RedirectStandardError = true;
-            p3.EnableRaisingEvents = true;
-            p3.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-            {
-                // Prepend line numbers to each line of the output.
-                if (!String.IsNullOrEmpty(e.Data))
-                {
-                    lcount++;
-                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
-                }
-            });
+            p3.StartInfo.RedirectStandardOutput = false;
+            p3.StartInfo.RedirectStandardError = false;
             p3.Start();
 
-            // Asynchronously read the standard output of the spawned process.
-            // This raises OutputDataReceived events for each line of output.
-            p3.BeginOutputReadLine();
+            //add some info to textbox
+            tBoxConsole.AppendText("### Checking for autorun-entries, registry and so on ###");
 
             p3.WaitForExit();
             p3.Close();
