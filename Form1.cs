@@ -406,7 +406,7 @@ namespace FLOR
 
             p3.StartInfo.WorkingDirectory = autorunsPath;
             p3.StartInfo.LoadUserProfile = true;
-            p3.StartInfo.FileName = "autorunsc64.exe";
+            p3.StartInfo.FileName = autoruns;
             p3.StartInfo.UseShellExecute = false;
             p3.StartInfo.CreateNoWindow = true;
             p3.StartInfo.RedirectStandardOutput = true;
