@@ -130,21 +130,22 @@ namespace FLOR
                 p2.Close();
 
                 toolStripProgressBar1.Value = 70;
+                
 
                 //running autoruns
                 runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning Autorun-Entries ###", 0);
                 toolStripProgressBar1.Value = 80;
 
                 //running handle64
-                runBinary("-accepteula > handle.txt", "handle64.exe", "### Scanning Open Handles ###", 1);
+                runBinary("-accepteula", "handle64.exe", "### Scanning Open Handles ###", 1);
                 toolStripProgressBar1.Value = 85;
 
                 //running pslist
-                runBinary("-accepteula -d -m -x > pslist.txt", "pslist64.exe", "### Scanning running processes ###", 1);
+                runBinary("-accepteula -d -m -x", "pslist64.exe", "### Scanning running processes ###", 1);
                 toolStripProgressBar1.Value = 85;
 
                 //running tcpvcon
-                runBinary("-accepteula -c > tcp.csv", "tcpvcon64.exe", "### Scanning open connections ###", 1);
+                runBinary("-accepteula -c", "tcpvcon64.exe", "### Scanning open connections ###", 1);
                 toolStripProgressBar1.Value = 85;
 
 
