@@ -1,6 +1,9 @@
 # Skadi-Data-Sec
 
-
+Test OS:
+- Windows 10 Pro
+- Server 2016
+- Server 2019
 
 Working:
 - loki
