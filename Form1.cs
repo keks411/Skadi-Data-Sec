@@ -439,10 +439,12 @@ namespace FLOR
                 p2.StartInfo.LoadUserProfile = true;
                 p2.StartInfo.FileName = loki;
                 p2.StartInfo.CreateNoWindow = false;
-                p2.OutputDataReceived += OutputDataReceived;
                 p2.Start();
+                //string a = p2.StandardOutput.ReadLine();
+                string a = p2.StandardOutput.ReadToEnd();
                 p2.WaitForExit();
                 p2.Close();
+                File.WriteAllText(lokiPath + "\\" + Globals.lfile + ".txt", a);
             } else
             {
                 p2.StartInfo.UseShellExecute = true;
@@ -457,12 +459,6 @@ namespace FLOR
                 p2.WaitForExit();
                 p2.Close();
             }
-        }
-
-        private void OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
-            File.WriteAllText(lokiPath + "\\" + Globals.lfile + ".txt", e.Data);
         }
 
         private void btnPack_Click(object sender, EventArgs e)
