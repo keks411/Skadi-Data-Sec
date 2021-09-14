@@ -50,6 +50,7 @@ namespace FLOR
             this.btnClean = new System.Windows.Forms.Button();
             this.btnFolder = new System.Windows.Forms.Button();
             this.lblLinkW = new System.Windows.Forms.LinkLabel();
+            this.btnRSA = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -245,11 +246,22 @@ namespace FLOR
             this.lblLinkW.Text = "Why Skadi?";
             this.lblLinkW.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblLinkW_LinkClicked);
             // 
+            // btnRSA
+            // 
+            this.btnRSA.Location = new System.Drawing.Point(435, 201);
+            this.btnRSA.Name = "btnRSA";
+            this.btnRSA.Size = new System.Drawing.Size(107, 23);
+            this.btnRSA.TabIndex = 9;
+            this.btnRSA.Text = "RSA";
+            this.btnRSA.UseVisualStyleBackColor = true;
+            this.btnRSA.Click += new System.EventHandler(this.btnRSA_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 364);
+            this.Controls.Add(this.btnRSA);
             this.Controls.Add(this.lblLinkW);
             this.Controls.Add(this.btnFolder);
             this.Controls.Add(this.btnInetCheck);
@@ -296,6 +308,7 @@ namespace FLOR
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button btnFolder;
         private System.Windows.Forms.LinkLabel lblLinkW;
+        private System.Windows.Forms.Button btnRSA;
     }
 }
 

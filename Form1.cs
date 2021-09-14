@@ -6,8 +6,9 @@ using System.Windows.Forms;
 using System.Security.Principal;
 using Ionic.Zip;
 using System.Diagnostics;
-using Azure.Storage;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace FLOR
 {
@@ -24,6 +25,7 @@ namespace FLOR
         {
             //debug
             btnFolder.Visible = false;
+            btnRSA.Visible = false;
 
             //clear console window
             tBoxConsole.Text = "";
@@ -304,6 +306,7 @@ namespace FLOR
             Directory.GetFiles(report, "*.txt", SearchOption.TopDirectoryOnly);
 
             zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
+
             zip.AddFiles(filesl, "");
             zip.AddFiles(filesh, "");
             zip.AddFiles(filesx, "");
@@ -401,8 +404,6 @@ namespace FLOR
                 // This raises OutputDataReceived events for each line of output.
                 p.BeginOutputReadLine();
                 p.WaitForExit();
-
-                p.WaitForExit();
                 p.Close();
                 toolStripProgressBar1.Value = 45;
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
@@ -444,7 +445,6 @@ namespace FLOR
                 p2.StartInfo.FileName = loki;
                 p2.StartInfo.CreateNoWindow = false;
                 p2.Start();
-                //string a = p2.StandardOutput.ReadLine();
                 string a = p2.StandardOutput.ReadToEnd();
                 p2.WaitForExit();
                 p2.Close();
@@ -510,5 +510,48 @@ namespace FLOR
         {
             Process.Start("explorer", "https://en.wikipedia.org/wiki/Ska%C3%B0i");
         }
+
+        public string Encrypt(string data, RSAParameters key)
+        {
+
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                rsa.ImportParameters(key);
+                var byteData = Encoding.UTF8.GetBytes(data);
+                var encryptData = rsa.Encrypt(byteData, false);
+                return Convert.ToBase64String(encryptData);
+            }
+        }
+
+        public string Decrypt(string cipherText, RSAParameters key)
+        {
+
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                var cipherByteData = Convert.FromBase64String(cipherText);
+                rsa.ImportParameters(key);
+
+                var encryptData = rsa.Decrypt(cipherByteData, false);
+                return Encoding.UTF8.GetString(encryptData);
+            }
+        }
+
+        private void btnRSA_Click(object sender, EventArgs e)
+        {
+            //encrypt
+            using var rsa = RSA.Create();
+            var cipherText = Encrypt("hello world", rsa.ExportParameters(false));
+
+
+            //decrypt
+            var plainText = Decrypt(cipherText, rsa.ExportParameters(true));
+            tBoxConsole.Text = "";
+            tBoxConsole.Text = plainText;
+        }
+
+
+
+
+
     }
 }
