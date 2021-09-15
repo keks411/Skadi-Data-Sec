@@ -24,7 +24,7 @@ namespace FLOR
         private void Form1_Load(object sender, EventArgs e)
         {
             //debug
-            btnFolder.Visible = false;
+            //btnFolder.Visible = false;
             btnRSA.Visible = false;
 
             //clear console window
@@ -391,11 +391,29 @@ namespace FLOR
 
                 p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
-                // Prepend line numbers to each line of the output.
-                if (!String.IsNullOrEmpty(e.Data))
+                    // Prepend line numbers to each line of the output.
+                    if (!String.IsNullOrEmpty(e.Data))
                     {
                         lineCount++;
-                        tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                        if (e.Data.Contains("Loki"))
+                        {
+                        }
+                        else
+                        {
+                            if (e.Data.Contains("loki"))
+                            {
+                            }
+                            else
+                            {
+                                if (e.Data.Contains("LOKI"))
+                                {
+                                }
+                                else
+                                {
+                                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                                }
+                            }
+                        }
                     }
                 });
                 p.Start();
@@ -407,7 +425,7 @@ namespace FLOR
                 p.Close();
                 toolStripProgressBar1.Value = 45;
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
-
+                MessageBox.Show("debug, upgrading done");
             } else //system is offline
             {
                 //extract zip
@@ -445,7 +463,39 @@ namespace FLOR
                 p2.StartInfo.LoadUserProfile = true;
                 p2.StartInfo.FileName = loki;
                 p2.StartInfo.CreateNoWindow = false;
-                p2.Start();
+
+                // Prepend line numbers to each line of the output.
+                int lineCount = 0;
+                p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                { 
+                if (!String.IsNullOrEmpty(e.Data))
+                {
+                    lineCount++;
+                    if (e.Data.Contains("Loki"))
+                    {
+                        }
+                    else
+                    {
+                        if (e.Data.Contains("loki"))
+                        {
+                            }
+                        else
+                        {
+                            if (e.Data.Contains("LOKI"))
+                            {
+                                }
+                            else
+                            {
+                                tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                            }
+                        }
+                    }
+                
+                }
+            });
+
+
+            p2.Start();
                 string a = p2.StandardOutput.ReadToEnd();
                 p2.WaitForExit();
                 p2.Close();
