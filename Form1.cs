@@ -24,7 +24,7 @@ namespace FLOR
         private void Form1_Load(object sender, EventArgs e)
         {
             //debug
-            //btnFolder.Visible = false;
+            btnFolder.Visible = false;
             btnRSA.Visible = false;
 
             //clear console window
