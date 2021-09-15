@@ -106,6 +106,7 @@ namespace FLOR
                 Process p2 = new Process();
 
                 p2.StartInfo.WorkingDirectory = lokiPath;
+                p2.StartInfo.Arguments = "--noindicator --csv";
                 p2.StartInfo.LoadUserProfile = true;
                 p2.StartInfo.FileName = loki;
                 p2.StartInfo.UseShellExecute = false;
@@ -130,7 +131,6 @@ namespace FLOR
 
                 p2.WaitForExit();
                 p2.Close();
-
                 toolStripProgressBar1.Value = 70;
                 
 
@@ -415,6 +415,7 @@ namespace FLOR
                 string DownFile = DownPath + "\\ds.zip";
                 tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
                 toolStripProgressBar1.Value = 30;
+
                 File.WriteAllBytes(DownFile, Properties.Resources.ds);
                 using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
                 {
