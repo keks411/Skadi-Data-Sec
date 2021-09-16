@@ -106,7 +106,7 @@ namespace FLOR
                 Process p2 = new Process();
 
                 p2.StartInfo.WorkingDirectory = lokiPath;
-                p2.StartInfo.Arguments = "--noindicator --csv";
+                p2.StartInfo.Arguments = "--noindicator --csv -l iocscan.csv";
                 p2.StartInfo.LoadUserProfile = true;
                 p2.StartInfo.FileName = loki;
                 p2.StartInfo.UseShellExecute = false;
