@@ -69,5 +69,14 @@ namespace FLOR.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIIBCgKCAQEAtEsT9iJj2596Jdloi50DAMz3h2NGp2gtHdrhVVHi1/+StG/tX4IeAtiitDn4w3WxEbOGCwP6iKVmE1mR9/wbXRLGEXoZPZDYGmYvTcR9YlNL+wkdsLuwL5XZVEoqg8SqGwFrrNF1sANo40IX8w7NQX6bXAaO8snP6r+2vEDkvCRg75NfirFFXBe3mpjZKgKLa/LoFctj3vufxaF/KLgNZp9chPrk/k32RWNqzQXPwirlNGmT6bz/oybsnA2iKkrSYSwG7xMc+N/Sut/35IeUbv0dP9OP1omHlumydokvBZdYJAfxM3sqt1xBpCPC3Q473aeWGZP4o4jHH0cHeP2xmQIDAQAB.
+        /// </summary>
+        internal static string publicK {
+            get {
+                return ResourceManager.GetString("publicK", resourceCulture);
+            }
+        }
     }
 }

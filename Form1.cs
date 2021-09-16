@@ -41,7 +41,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.0";
+            lblVer2.Text = "1.0.1";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -590,14 +590,23 @@ namespace FLOR
         private void btnRSA_Click(object sender, EventArgs e)
         {
             //encrypt
-            using var rsa = RSA.Create();
-            var cipherText = Encrypt("hello world", rsa.ExportParameters(false));
-
-
-            //decrypt
-            var plainText = Decrypt(cipherText, rsa.ExportParameters(true));
-            tBoxConsole.Text = "";
-            tBoxConsole.Text = plainText;
+            //using var rsa = RSA.Create();
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+            {
+                //export key
+                //string privateK = Convert.ToBase64String(rsa.ExportRSAPrivateKey());
+                //string publicK = Convert.ToBase64String(rsa.ExportRSAPublicKey());
+                //File.WriteAllText("C:\\temp\\private.key", privateK);
+                //File.WriteAllText("C:\\temp\\public.key", publicK);
+                var publicK = Convert.FromBase64String(Properties.Resources.publicK);
+                rsa.ImportRSAPublicKey(publicK, out _);
+                var cipherText = Encrypt("hello world", rsa.ExportParameters(false));
+                MessageBox.Show(Convert.ToBase64String(rsa.ExportRSAPublicKey()));
+                //decrypt
+                //var plainText = Decrypt(cipherText, rsa.ExportParameters(true));
+                //tBoxConsole.Text = "";
+                //tBoxConsole.Text = plainText;
+            }
         }
 
 
