@@ -11,7 +11,9 @@ Working:
 
 Roadmap:
 
-- Implement flare IOC-scanner
+- Collect WEL
+- Collect Registry-Snapshot
+- Hide "Directory Walk Error"
 - Create html-report
 
 Requirements:
