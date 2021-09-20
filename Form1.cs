@@ -476,19 +476,25 @@ namespace FLOR
                         }
                     else
                     {
-                        if (e.Data.Contains("loki"))
-                        {
-                            }
-                        else
-                        {
-                            if (e.Data.Contains("LOKI"))
+                            if (e.Data.Contains("loki"))
                             {
-                                }
+                            }
                             else
                             {
-                                tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                                if (e.Data.Contains("LOKI"))
+                                {
+                                }
+                                else
+                                {
+                                    if (e.Data.Contains("Directory walk error"))
+                                    {
+                                    }
+                                    else
+                                    {
+                                        tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                                    }
+                                }
                             }
-                        }
                     }
                 
                 }
