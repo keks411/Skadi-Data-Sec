@@ -48,9 +48,8 @@ namespace FLOR
             this.lblVer = new System.Windows.Forms.Label();
             this.btnInetCheck = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
-            this.btnFolder = new System.Windows.Forms.Button();
             this.lblLinkW = new System.Windows.Forms.LinkLabel();
-            this.btnRSA = new System.Windows.Forms.Button();
+            this.btnDebug = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -224,16 +223,6 @@ namespace FLOR
             this.btnClean.UseVisualStyleBackColor = true;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
-            // btnFolder
-            // 
-            this.btnFolder.Location = new System.Drawing.Point(435, 171);
-            this.btnFolder.Name = "btnFolder";
-            this.btnFolder.Size = new System.Drawing.Size(107, 23);
-            this.btnFolder.TabIndex = 7;
-            this.btnFolder.Text = "debug";
-            this.btnFolder.UseVisualStyleBackColor = true;
-            this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
-            // 
             // lblLinkW
             // 
             this.lblLinkW.AutoSize = true;
@@ -246,24 +235,24 @@ namespace FLOR
             this.lblLinkW.Text = "Why Skadi?";
             this.lblLinkW.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblLinkW_LinkClicked);
             // 
-            // btnRSA
+            // btnDebug
             // 
-            this.btnRSA.Location = new System.Drawing.Point(435, 201);
-            this.btnRSA.Name = "btnRSA";
-            this.btnRSA.Size = new System.Drawing.Size(107, 23);
-            this.btnRSA.TabIndex = 9;
-            this.btnRSA.Text = "RSA";
-            this.btnRSA.UseVisualStyleBackColor = true;
-            this.btnRSA.Click += new System.EventHandler(this.btnRSA_Click);
+            this.btnDebug.Location = new System.Drawing.Point(435, 194);
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(75, 23);
+            this.btnDebug.TabIndex = 9;
+            this.btnDebug.Text = "Debug";
+            this.btnDebug.UseVisualStyleBackColor = true;
+            this.btnDebug.Visible = false;
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 364);
-            this.Controls.Add(this.btnRSA);
+            this.Controls.Add(this.btnDebug);
             this.Controls.Add(this.lblLinkW);
-            this.Controls.Add(this.btnFolder);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnClean);
@@ -306,9 +295,8 @@ namespace FLOR
         private System.Windows.Forms.Button btnInetCheck;
         private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.Button btnFolder;
         private System.Windows.Forms.LinkLabel lblLinkW;
-        private System.Windows.Forms.Button btnRSA;
+        private System.Windows.Forms.Button btnDebug;
     }
 }
 

@@ -24,8 +24,7 @@ namespace FLOR
         private void Form1_Load(object sender, EventArgs e)
         {
             //debug
-            btnFolder.Visible = false;
-            btnRSA.Visible = false;
+            btnDebug.Visible = false;
 
             //clear console window
             tBoxConsole.Text = "";
@@ -41,7 +40,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.0.1";
+            lblVer2.Text = "1.1.0";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -114,7 +113,8 @@ namespace FLOR
                 p2.StartInfo.RedirectStandardOutput = true;
                 p2.StartInfo.RedirectStandardError = true;
                 p2.EnableRaisingEvents = true;
-                p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                tBoxConsole.AppendText("### Scanning for IOCs ###" + Environment.NewLine);
+                /*p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
                     // Prepend line numbers to each line of the output.
                     if (!String.IsNullOrEmpty(e.Data))
@@ -122,12 +122,12 @@ namespace FLOR
                         lcount++;
                         tBoxConsole.AppendText(e.Data + Environment.NewLine);
                     }
-                });
+                }); */
                 p2.Start();
 
                 // Asynchronously read the standard output of the spawned process.
                 // This raises OutputDataReceived events for each line of output.
-                p2.BeginOutputReadLine();
+                //p2.BeginOutputReadLine();
 
                 p2.WaitForExit();
                 p2.Close();
@@ -150,11 +150,13 @@ namespace FLOR
                 runBinary("-accepteula -c", "tcpvcon64.exe", "### Scanning open connections ###", 1);
                 toolStripProgressBar1.Value = 85;
 
-
-
-
+                //extract eventlogs
+                runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
+                runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
+                toolStripProgressBar1.Value = 87;
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Encrypting files  ###" + Environment.NewLine);
                 packIt();
                 //pack it together
                 toolStripProgressBar1.Value = 90;
@@ -275,12 +277,19 @@ namespace FLOR
 
         private void packIt()
         {
-
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string report = downf + "\\loki";
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
+
+            //create key AES
+            Random num = new Random();
+            int akey = num.Next(10000000, 1000000000);
+            string sakey = Convert.ToString(akey);
+
+            //flush out clear key
+            akey = 1337;
 
             //add file with pw
             ZipFile zip = new ZipFile(reportz);
@@ -305,13 +314,33 @@ namespace FLOR
             string[] filest =
             Directory.GetFiles(report, "*.txt", SearchOption.TopDirectoryOnly);
 
-            zip.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
+            //add .txt files
+            string[] filese =
+            Directory.GetFiles(report, "*.evtx", SearchOption.TopDirectoryOnly);
 
             zip.AddFiles(filesl, "");
             zip.AddFiles(filesh, "");
             zip.AddFiles(filesx, "");
             zip.AddFiles(filesc, "");
             zip.AddFiles(filest, "");
+            zip.AddFiles(filese, "");
+            zip.Save();
+
+            //encrypt aes key with rsa
+            sakey = EncryptStringRSA(sakey);
+
+            //Write encrypted AES key to file
+            File.WriteAllText(report + "\\AESKey.txt", sakey);
+
+            //encrypt the file with aes and save as aes
+            FileEncrypt(reportz, sakey);
+
+            //create new zip with pw and aes key, delete old zip first
+            File.Delete(reportz);
+            ZipFile zipE = new ZipFile(reportz);
+            zipE.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
+            zipE.AddFile(reportz + ".aes");
+            zipE.AddFile(report + "\\AESKey.txt");
             zip.Save();
 
             if (Globals.isOn == false)
@@ -380,6 +409,7 @@ namespace FLOR
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
 
                 p.StartInfo.WorkingDirectory = DownPath + "\\loki";
+                p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                 p.StartInfo.LoadUserProfile = true;
                 p.StartInfo.FileName = lupgrader;
                 p.StartInfo.UseShellExecute = false;
@@ -457,6 +487,7 @@ namespace FLOR
             if (rdirect == 1)
             {
                 p2.StartInfo.RedirectStandardOutput = true;
+                p2.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                 p2.StartInfo.RedirectStandardError = true;
                 p2.StartInfo.WorkingDirectory = lokiPath;
                 p2.StartInfo.Arguments = args;
@@ -522,10 +553,16 @@ namespace FLOR
             }
         }
 
-        private void btnPack_Click(object sender, EventArgs e)
+        private void runCmd(string args, string text)
         {
-            packIt();
-            uploadIt();
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = args;
+            tBoxConsole.AppendText(text + Environment.NewLine);
+            process.StartInfo = startInfo;
+            process.Start();
         }
 
         public static class Globals
@@ -534,90 +571,108 @@ namespace FLOR
             public static string lfile = "none";
         }
 
-        private void btnFolder_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("start autoruns");
-            //running autoruns
-            runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning Autorun-Entries ###", 0);
-            toolStripProgressBar1.Value = 80;
-
-            //running handle64
-            runBinary("-accepteula", "handle64.exe", "### Scanning Open Handles ###", 1);
-            toolStripProgressBar1.Value = 85;
-
-            //running pslist
-            runBinary("-accepteula -d -m -x", "pslist64.exe", "### Scanning running processes ###", 1);
-            toolStripProgressBar1.Value = 85;
-
-            //running tcpvcon
-            runBinary("-accepteula -c", "tcpvcon64.exe", "### Scanning open connections ###", 1);
-            toolStripProgressBar1.Value = 85;
-
-
-
-
-            MessageBox.Show("autoruns should be done");
-            packIt();
-            MessageBox.Show("debug, packed");
-            uploadIt();
-            MessageBox.Show("debug, uploaded");
-        }
-
         private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("explorer", "https://en.wikipedia.org/wiki/Ska%C3%B0i");
         }
 
-        public string Encrypt(string data, RSAParameters key)
+        public string EncryptStringRSA(string data)
         {
-
-            using (var rsa = new RSACryptoServiceProvider())
+            using (var rsa = new RSACryptoServiceProvider(4096))
             {
-                rsa.ImportParameters(key);
-                var byteData = Encoding.UTF8.GetBytes(data);
-                var encryptData = rsa.Encrypt(byteData, false);
-                return Convert.ToBase64String(encryptData);
+                try
+                {
+                    rsa.ImportRSAPublicKey(Convert.FromBase64String(Properties.Resources.publicK), out _);
+                    var byteData = Encoding.UTF8.GetBytes(data);
+                    var encryptData = rsa.Encrypt(byteData, true);
+                    return Convert.ToBase64String(encryptData);
+                }
+                finally
+                {
+                    rsa.PersistKeyInCsp = false;
+                }
             }
         }
 
-        public string Decrypt(string cipherText, RSAParameters key)
+        private void FileEncrypt(string inputFile, string password)
         {
+            //generate random salt
+            byte[] salt = GenerateRandomSalt();
 
-            using (var rsa = new RSACryptoServiceProvider())
+            //create output file name
+            FileStream fsCrypt = new FileStream(inputFile + ".aes", FileMode.Create);
+
+            //convert password string to byte arrray
+            byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+
+            //Set Rijndael symmetric encryption algorithm
+            RijndaelManaged AES = new RijndaelManaged();
+            AES.KeySize = 256;
+            AES.BlockSize = 128;
+            AES.Padding = PaddingMode.PKCS7;
+
+            //"What it does is repeatedly hash the user password along with the salt." High iteration counts.
+            var key = new Rfc2898DeriveBytes(passwordBytes, salt, 50000);
+            AES.Key = key.GetBytes(AES.KeySize / 8);
+            AES.IV = key.GetBytes(AES.BlockSize / 8);
+            AES.Mode = CipherMode.CFB;
+
+            // write salt to the begining of the output file, so in this case can be random every time
+            fsCrypt.Write(salt, 0, salt.Length);
+
+            CryptoStream cs = new CryptoStream(fsCrypt, AES.CreateEncryptor(), CryptoStreamMode.Write);
+
+            FileStream fsIn = new FileStream(inputFile, FileMode.Open);
+
+            //create a buffer (1mb) so only this amount will allocate in the memory and not the whole file
+            byte[] buffer = new byte[1048576];
+            int read;
+
+            try
             {
-                var cipherByteData = Convert.FromBase64String(cipherText);
-                rsa.ImportParameters(key);
+                while ((read = fsIn.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    Application.DoEvents(); // -> for responsive GUI, using Task will be better!
+                    cs.Write(buffer, 0, read);
+                }
 
-                var encryptData = rsa.Decrypt(cipherByteData, false);
-                return Encoding.UTF8.GetString(encryptData);
+                // Close up
+                fsIn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                cs.Close();
+                fsCrypt.Close();
             }
         }
 
-        private void btnRSA_Click(object sender, EventArgs e)
+        public static byte[] GenerateRandomSalt()
         {
-            //encrypt
-            //using var rsa = RSA.Create();
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+            byte[] data = new byte[32];
+
+            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
             {
-                //export key
-                //string privateK = Convert.ToBase64String(rsa.ExportRSAPrivateKey());
-                //string publicK = Convert.ToBase64String(rsa.ExportRSAPublicKey());
-                //File.WriteAllText("C:\\temp\\private.key", privateK);
-                //File.WriteAllText("C:\\temp\\public.key", publicK);
-                var publicK = Convert.FromBase64String(Properties.Resources.publicK);
-                rsa.ImportRSAPublicKey(publicK, out _);
-                var cipherText = Encrypt("hello world", rsa.ExportParameters(false));
-                MessageBox.Show(Convert.ToBase64String(rsa.ExportRSAPublicKey()));
-                //decrypt
-                //var plainText = Decrypt(cipherText, rsa.ExportParameters(true));
-                //tBoxConsole.Text = "";
-                //tBoxConsole.Text = plainText;
+                for (int i = 0; i < 10; i++)
+                {
+                    // Fille the buffer with the generated data
+                    rng.GetBytes(data);
+                }
             }
+
+            return data;
         }
 
-
-
-
-
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            //extract eventlogs
+            string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+            runCmd("/c wevtutil epl System " + rFolder + "\\loki\\System.evtx", "### Extracting Event Logs 1/2 ###");
+            runCmd("/c wevtutil epl Security " + rFolder + "\\loki\\Security.evtx", "### Extracting Event Logs 2/2 ###");
+            toolStripProgressBar1.Value = 87;
+        }
     }
 }
