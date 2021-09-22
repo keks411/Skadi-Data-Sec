@@ -100,6 +100,7 @@ namespace FLOR
             //buttons need to be disabled though to not screw up
             BtnDown.Enabled = false;
             btnClean.Enabled = false;
+            btnInetCheck.Enabled = false;
             Task.Factory.StartNew(() =>
             {
                 Process p2 = new Process();
@@ -114,20 +115,20 @@ namespace FLOR
                 p2.StartInfo.RedirectStandardError = true;
                 p2.EnableRaisingEvents = true;
                 tBoxConsole.AppendText("### Scanning for IOCs ###" + Environment.NewLine);
-                /*p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
                     // Prepend line numbers to each line of the output.
                     if (!String.IsNullOrEmpty(e.Data))
                     {
                         lcount++;
-                        tBoxConsole.AppendText(e.Data + Environment.NewLine);
+                        //tBoxConsole.AppendText(e.Data + Environment.NewLine);
                     }
-                }); */
+                });
                 p2.Start();
 
                 // Asynchronously read the standard output of the spawned process.
                 // This raises OutputDataReceived events for each line of output.
-                //p2.BeginOutputReadLine();
+                p2.BeginOutputReadLine();
 
                 p2.WaitForExit();
                 p2.Close();
@@ -157,10 +158,12 @@ namespace FLOR
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Encrypting files  ###" + Environment.NewLine);
+
                 packIt();
                 //pack it together
                 toolStripProgressBar1.Value = 90;
                 tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
+
 
                 if (Globals.isOn == true)
                 {
@@ -199,6 +202,7 @@ namespace FLOR
                 //task is done so re-enable those buttons
                 BtnDown.Enabled = false;
                 btnClean.Enabled = false;
+                btnInetCheck.Enabled = true;
             });
         }
 
@@ -283,14 +287,6 @@ namespace FLOR
             string report = downf + "\\loki";
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
 
-            //create key AES
-            Random num = new Random();
-            int akey = num.Next(10000000, 1000000000);
-            string sakey = Convert.ToString(akey);
-
-            //flush out clear key
-            akey = 1337;
-
             //add file with pw
             ZipFile zip = new ZipFile(reportz);
 
@@ -326,6 +322,11 @@ namespace FLOR
             zip.AddFiles(filese, "");
             zip.Save();
 
+            //create key AES
+            Random num = new Random();
+            int akey = num.Next(10000000, 1000000000);
+            string sakey = Convert.ToString(akey);
+
             //encrypt aes key with rsa
             sakey = EncryptStringRSA(sakey);
 
@@ -333,7 +334,10 @@ namespace FLOR
             File.WriteAllText(report + "\\AESKey.txt", sakey);
 
             //encrypt the file with aes and save as aes
-            FileEncrypt(reportz, sakey);
+            FileEncrypt(reportz, akey);
+
+            //flush out clear key
+            akey = 1337;
 
             //create new zip with pw and aes key, delete old zip first
             File.Delete(reportz);
@@ -341,7 +345,7 @@ namespace FLOR
             zipE.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
             zipE.AddFile(reportz + ".aes");
             zipE.AddFile(report + "\\AESKey.txt");
-            zip.Save();
+            zipE.Save();
 
             if (Globals.isOn == false)
             {
@@ -455,7 +459,6 @@ namespace FLOR
                 p.Close();
                 toolStripProgressBar1.Value = 45;
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
-                MessageBox.Show("debug, upgrading done");
             } else //system is offline
             {
                 //extract zip

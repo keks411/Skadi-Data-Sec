@@ -66,12 +66,12 @@ namespace FLOR
             // 
             // tBoxConsole
             // 
-            this.tBoxConsole.Location = new System.Drawing.Point(12, 143);
+            this.tBoxConsole.Location = new System.Drawing.Point(12, 151);
             this.tBoxConsole.Multiline = true;
             this.tBoxConsole.Name = "tBoxConsole";
             this.tBoxConsole.ReadOnly = true;
             this.tBoxConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tBoxConsole.Size = new System.Drawing.Size(551, 196);
+            this.tBoxConsole.Size = new System.Drawing.Size(551, 70);
             this.tBoxConsole.TabIndex = 1;
             // 
             // statusStrip1
@@ -80,7 +80,7 @@ namespace FLOR
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 342);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 228);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(575, 22);
             this.statusStrip1.TabIndex = 2;
@@ -105,9 +105,9 @@ namespace FLOR
             // 
             this.btnCleanC.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnCleanC.ForeColor = System.Drawing.Color.Red;
-            this.btnCleanC.Location = new System.Drawing.Point(435, 143);
+            this.btnCleanC.Location = new System.Drawing.Point(413, 122);
             this.btnCleanC.Name = "btnCleanC";
-            this.btnCleanC.Size = new System.Drawing.Size(107, 22);
+            this.btnCleanC.Size = new System.Drawing.Size(150, 23);
             this.btnCleanC.TabIndex = 3;
             this.btnCleanC.Text = "Clear";
             this.btnCleanC.UseVisualStyleBackColor = true;
@@ -115,6 +115,7 @@ namespace FLOR
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnDebug);
             this.groupBox1.Controls.Add(this.lblDom2);
             this.groupBox1.Controls.Add(this.lblUser2);
             this.groupBox1.Controls.Add(this.lblHost2);
@@ -126,7 +127,7 @@ namespace FLOR
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(395, 124);
+            this.groupBox1.Size = new System.Drawing.Size(395, 132);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System Info:";
@@ -227,7 +228,7 @@ namespace FLOR
             // 
             this.lblLinkW.AutoSize = true;
             this.lblLinkW.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblLinkW.Location = new System.Drawing.Point(482, 349);
+            this.lblLinkW.Location = new System.Drawing.Point(485, 237);
             this.lblLinkW.Name = "lblLinkW";
             this.lblLinkW.Size = new System.Drawing.Size(66, 13);
             this.lblLinkW.TabIndex = 8;
@@ -237,7 +238,7 @@ namespace FLOR
             // 
             // btnDebug
             // 
-            this.btnDebug.Location = new System.Drawing.Point(435, 194);
+            this.btnDebug.Location = new System.Drawing.Point(285, 81);
             this.btnDebug.Name = "btnDebug";
             this.btnDebug.Size = new System.Drawing.Size(75, 23);
             this.btnDebug.TabIndex = 9;
@@ -250,8 +251,7 @@ namespace FLOR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 364);
-            this.Controls.Add(this.btnDebug);
+            this.ClientSize = new System.Drawing.Size(575, 250);
             this.Controls.Add(this.lblLinkW);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
