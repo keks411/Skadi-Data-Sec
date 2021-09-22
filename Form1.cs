@@ -334,7 +334,7 @@ namespace FLOR
             File.WriteAllText(report + "\\AESKey.txt", sakey);
 
             //encrypt the file with aes and save as aes
-            FileEncrypt(reportz, akey);
+            FileEncrypt(reportz, Convert.ToString(akey));
 
             //flush out clear key
             akey = 1337;
