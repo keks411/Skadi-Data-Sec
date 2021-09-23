@@ -8,12 +8,13 @@ Test OS:
 Working:
 - loki
 - autorunsc
+- tcpvcon
+- pslist
+- handle64
 
 Roadmap:
 
-- Collect WEL
 - Collect Registry-Snapshot
-- Hide "Directory Walk Error"
 - Create html-report
 
 Requirements:
