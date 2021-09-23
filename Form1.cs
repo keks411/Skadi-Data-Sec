@@ -24,7 +24,7 @@ namespace FLOR
         private void Form1_Load(object sender, EventArgs e)
         {
             //debug
-            btnDebug.Visible = false;
+            btnDebug.Visible = true;
 
             //clear console window
             tBoxConsole.Text = "";
@@ -152,8 +152,8 @@ namespace FLOR
                 toolStripProgressBar1.Value = 85;
 
                 //extract eventlogs
-                runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
-                runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
+                runCmd("/c wevtutil epl System " + lokiPath + "\\System.evt", "### Extracting Event Logs 1/2 ###");
+                runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evt", "### Extracting Event Logs 2/2 ###");
                 toolStripProgressBar1.Value = 87;
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
@@ -172,26 +172,6 @@ namespace FLOR
                     tBoxConsole.AppendText("### File uploaded ###" + Environment.NewLine);
                 } else
                 {
-                    string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\report";
-                    string reportO = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\loki\\report.zip";
-                    string reportN = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) + "\\report.zip";
-                    try
-                    {
-                        Directory.CreateDirectory(rFolder);
-                    } catch
-                    {
-                        try
-                        {
-                            File.Delete(rFolder + "\\report.zip");
-                        } catch
-                        {
-
-                        }
-                    }
-                    File.Move(reportO, reportN);
-                    Directory.Delete(rFolder);
-                    tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
-                    tBoxConsole.AppendText("### " + reportN + " ###" + Environment.NewLine);
                 }
                 toolStripProgressBar1.Value = 100;
                 cleanUp();
@@ -249,6 +229,8 @@ namespace FLOR
         {
             tBoxConsole.AppendText("### Cleaning Environment ###" + Environment.NewLine);
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string reportDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\report";
             string ds = downf + "\\loki";
             string dsz = downf + "\\ds.zip";
 
@@ -269,6 +251,16 @@ namespace FLOR
             catch (Exception)
             {
             }
+
+            //also delete offline folder report
+            try
+            {
+                Directory.Delete(rFolder, true);
+            }
+            catch
+            {
+
+            }
             tBoxConsole.AppendText("### Environment cleaned ###" + Environment.NewLine);
         }
 
@@ -284,19 +276,17 @@ namespace FLOR
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
             string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string report = downf + "\\loki";
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
-
-            //add file with pw
-            ZipFile zip = new ZipFile(reportz);
 
             //add .log files
             string[] filesl =
             Directory.GetFiles(report, "*.log", SearchOption.TopDirectoryOnly);
 
             //add .html files
-            string[] filesh =
-            Directory.GetFiles(report, "*.html", SearchOption.TopDirectoryOnly);
+            //string[] filesh =
+            //Directory.GetFiles(report, "*.html", SearchOption.TopDirectoryOnly);
 
             //add .xml files
             string[] filesx =
@@ -310,18 +300,19 @@ namespace FLOR
             string[] filest =
             Directory.GetFiles(report, "*.txt", SearchOption.TopDirectoryOnly);
 
-            //add .txt files
-            string[] filese =
-            Directory.GetFiles(report, "*.evtx", SearchOption.TopDirectoryOnly);
+            //add file with pw
+            using (ZipFile zip = new ZipFile(reportz))
+            {
+                zip.AddFiles(filesl, "");
+                zip.AddFiles(filesx, "");
+                zip.AddFiles(filesc, "");
+                zip.AddFiles(filest, "");
+                //zip.AddFile(report + "\\System.evt", "");
+                //zip.AddFile(report + "\\Security.evt", "");
+                zip.Save();
+            }
 
-            zip.AddFiles(filesl, "");
-            zip.AddFiles(filesh, "");
-            zip.AddFiles(filesx, "");
-            zip.AddFiles(filesc, "");
-            zip.AddFiles(filest, "");
-            zip.AddFiles(filese, "");
-            zip.Save();
-
+            MessageBox.Show("investigate");
             //create key AES
             Random num = new Random();
             int akey = num.Next(10000000, 1000000000);
@@ -343,13 +334,22 @@ namespace FLOR
             File.Delete(reportz);
             ZipFile zipE = new ZipFile(reportz);
             zipE.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
-            zipE.AddFile(reportz + ".aes");
-            zipE.AddFile(report + "\\AESKey.txt");
+            zipE.AddFile(reportz + ".aes", "");
+            zipE.AddFile(report + "\\AESKey.txt", "");
             zipE.Save();
 
             if (Globals.isOn == false)
             {
-                File.Move(reportz, report + "\\report.zip");
+                try
+                {
+                    File.Delete(desktop + "\\report.zip");
+                } catch
+                {
+
+                }
+                File.Move(reportz, desktop + "\\report.zip");
+                tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### " + desktop + "\\report.zip" + " ###" + Environment.NewLine);
             }
         }
 
@@ -672,9 +672,10 @@ namespace FLOR
         private void btnDebug_Click(object sender, EventArgs e)
         {
             //extract eventlogs
-            string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            runCmd("/c wevtutil epl System " + rFolder + "\\loki\\System.evtx", "### Extracting Event Logs 1/2 ###");
-            runCmd("/c wevtutil epl Security " + rFolder + "\\loki\\Security.evtx", "### Extracting Event Logs 2/2 ###");
+            string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
+            //string loki = lokiPath + "\\" + exe;
+            runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
+            runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
             toolStripProgressBar1.Value = 87;
         }
     }
