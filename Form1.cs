@@ -556,6 +556,9 @@ namespace FLOR
                 }
                 toolStripProgressBar1.Value = 30;
 
+                //in case of updated rules its better to delete the whole signature folder
+                Directory.Delete(DownPath + "\\loki\\signature-base", true);
+
                 //start upgrader
                 tBoxConsole.AppendText("### Start upgrading process ###" + Environment.NewLine);
                 int lineCount = 0;
