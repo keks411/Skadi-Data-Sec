@@ -4,11 +4,13 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using System.Security.Principal;
-using Ionic.Zip;
+//using Ionic.Zip;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
+using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.GZip;
 
 namespace FLOR
 {
@@ -24,7 +26,7 @@ namespace FLOR
         private void Form1_Load(object sender, EventArgs e)
         {
             //debug
-            btnDebug.Visible = true;
+            btnDebug.Visible = false;
 
             //clear console window
             tBoxConsole.Text = "";
@@ -152,8 +154,8 @@ namespace FLOR
                 toolStripProgressBar1.Value = 85;
 
                 //extract eventlogs
-                runCmd("/c wevtutil epl System " + lokiPath + "\\System.evt", "### Extracting Event Logs 1/2 ###");
-                runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evt", "### Extracting Event Logs 2/2 ###");
+                runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
+                runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
                 toolStripProgressBar1.Value = 87;
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
@@ -220,6 +222,148 @@ namespace FLOR
             }
         }
 
+        private void compressDirectory(string DirectoryPath, string OutputFilePath, int CompressionLevel = 9)
+        {
+            try
+            {
+                // Depending on the directory this could be very large and would require more attention
+                // in a commercial package.
+                string[] filenames = Directory.GetFiles(DirectoryPath);
+
+                // 'using' statements guarantee the stream is closed properly which is a big source
+                // of problems otherwise.  Its exception safe as well which is great.
+                using (ZipOutputStream OutputStream = new ZipOutputStream(File.Create(OutputFilePath)))
+                {
+
+                    // Define the compression level
+                    // 0 - store only to 9 - means best compression
+                    OutputStream.SetLevel(CompressionLevel);
+
+                    byte[] buffer = new byte[4096];
+
+                    foreach (string file in filenames)
+                    {
+
+                        // Using GetFileName makes the result compatible with XP
+                        // as the resulting path is not absolute.
+                        ZipEntry entry = new ZipEntry(Path.GetFileName(file));
+
+                        // Setup the entry data as required.
+
+                        // Crc and size are handled by the library for seakable streams
+                        // so no need to do them here.
+
+                        // Could also use the last write time or similar for the file.
+                        entry.DateTime = DateTime.Now;
+                        OutputStream.PutNextEntry(entry);
+
+                        using (FileStream fs = File.OpenRead(file))
+                        {
+
+                            // Using a fixed size buffer here makes no noticeable difference for output
+                            // but keeps a lid on memory usage.
+                            int sourceBytes;
+
+                            do
+                            {
+                                sourceBytes = fs.Read(buffer, 0, buffer.Length);
+                                OutputStream.Write(buffer, 0, sourceBytes);
+                            } while (sourceBytes > 0);
+                        }
+                    }
+
+                    // Finish/Close arent needed strictly as the using statement does this automatically
+
+                    // Finish is important to ensure trailing information for a Zip file is appended.  Without this
+                    // the created file would be invalid.
+                    OutputStream.Finish();
+
+                    // Close is important to wrap things up and unlock the file.
+                    OutputStream.Close();
+
+                    Console.WriteLine("Files successfully compressed");
+                }
+            }
+            catch (Exception ex)
+            {
+                // No need to rethrow the exception as for our purposes its handled.
+                Console.WriteLine("Exception during processing {0}", ex);
+            }
+        }
+
+        private void compressDirectoryWithPassword(string DirectoryPath, string OutputFilePath, string Password = null, int CompressionLevel = 9)
+        {
+            try
+            {
+                // Depending on the directory this could be very large and would require more attention
+                // in a commercial package.
+                string[] filenames = Directory.GetFiles(DirectoryPath);
+
+                // 'using' statements guarantee the stream is closed properly which is a big source
+                // of problems otherwise.  Its exception safe as well which is great.
+                using (ZipOutputStream OutputStream = new ZipOutputStream(File.Create(OutputFilePath)))
+                {
+                    // Define a password for the file (if providen)
+                    // set its value to null or don't declare it to leave the file
+                    // without password protection
+                    OutputStream.Password = Password;
+
+                    // Define the compression level
+                    // 0 - store only to 9 - means best compression
+                    OutputStream.SetLevel(CompressionLevel);
+
+                    byte[] buffer = new byte[4096];
+
+                    foreach (string file in filenames)
+                    {
+
+                        // Using GetFileName makes the result compatible with XP
+                        // as the resulting path is not absolute.
+                        ZipEntry entry = new ZipEntry(Path.GetFileName(file));
+
+                        // Setup the entry data as required.
+
+                        // Crc and size are handled by the library for seakable streams
+                        // so no need to do them here.
+
+                        // Could also use the last write time or similar for the file.
+                        entry.DateTime = DateTime.Now;
+                        OutputStream.PutNextEntry(entry);
+
+                        using (FileStream fs = File.OpenRead(file))
+                        {
+
+                            // Using a fixed size buffer here makes no noticeable difference for output
+                            // but keeps a lid on memory usage.
+                            int sourceBytes;
+
+                            do
+                            {
+                                sourceBytes = fs.Read(buffer, 0, buffer.Length);
+                                OutputStream.Write(buffer, 0, sourceBytes);
+                            } while (sourceBytes > 0);
+                        }
+                    }
+
+                    // Finish/Close arent needed strictly as the using statement does this automatically
+
+                    // Finish is important to ensure trailing information for a Zip file is appended.  Without this
+                    // the created file would be invalid.
+                    OutputStream.Finish();
+
+                    // Close is important to wrap things up and unlock the file.
+                    OutputStream.Close();
+
+                    Console.WriteLine("Files successfully compressed");
+                }
+            }
+            catch (Exception ex)
+            {
+                // No need to rethrow the exception as for our purposes its handled.
+                Console.WriteLine("Exception during processing {0}", ex);
+            }
+        }
+
         private void btnInetCheck_Click(object sender, EventArgs e)
         {
             Ping("https://google.com");
@@ -280,39 +424,34 @@ namespace FLOR
             string report = downf + "\\loki";
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
 
-            //add .log files
-            string[] filesl =
-            Directory.GetFiles(report, "*.log", SearchOption.TopDirectoryOnly);
+            //create loot folder
+            Directory.CreateDirectory(report + "\\loot");
 
-            //add .html files
-            //string[] filesh =
-            //Directory.GetFiles(report, "*.html", SearchOption.TopDirectoryOnly);
-
-            //add .xml files
-            string[] filesx =
-            Directory.GetFiles(report, "*.xml", SearchOption.TopDirectoryOnly);
-
-            //add .xml files
-            string[] filesc =
-            Directory.GetFiles(report, "*.csv", SearchOption.TopDirectoryOnly);
-
-            //add .txt files
-            string[] filest =
-            Directory.GetFiles(report, "*.txt", SearchOption.TopDirectoryOnly);
-
-            //add file with pw
-            using (ZipFile zip = new ZipFile(reportz))
+            //move all loot files into loot
+            try
             {
-                zip.AddFiles(filesl, "");
-                zip.AddFiles(filesx, "");
-                zip.AddFiles(filesc, "");
-                zip.AddFiles(filest, "");
-                //zip.AddFile(report + "\\System.evt", "");
-                //zip.AddFile(report + "\\Security.evt", "");
-                zip.Save();
+                File.Move(report + "\\autoruns.csv", report + "\\loot\\autoruns.csv");
+                File.Move(report + "\\handle64.exe.txt", report + "\\loot\\handle64.exe.txt");
+                File.Move(report + "\\iocscan.csv", report + "\\loot\\iocscan.csv");
+                File.Move(report + "\\pslist64.exe.txt", report + "\\loot\\pslist64.exe.txt");
+                File.Move(report + "\\tcpvcon64.exe.txt", report + "\\loot\\tcpvcon64.exe.txt");
+
+                //it takes time to extract the files. I could program something complicated or just wait until the file is
+                //there and then copy it once its done
+                while (File.Exists(report + "\\Security.evtx") != true)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                }
+                File.Move(report + "\\Security.evtx", report + "\\loot\\Security.evtx");
+                File.Move(report + "\\System.evtx", report + "\\loot\\System.evtx");
+            } catch
+            {
+
             }
 
-            MessageBox.Show("investigate");
+            //create cleartext zip
+            compressDirectory(@report + "\\loot", reportz, 9);
+
             //create key AES
             Random num = new Random();
             int akey = num.Next(10000000, 1000000000);
@@ -330,13 +469,24 @@ namespace FLOR
             //flush out clear key
             akey = 1337;
 
-            //create new zip with pw and aes key, delete old zip first
+            //delete old zip first
+            //also create AES folder
+            Directory.CreateDirectory(report + "\\AES");
             File.Delete(reportz);
-            ZipFile zipE = new ZipFile(reportz);
-            zipE.Password = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
-            zipE.AddFile(reportz + ".aes", "");
-            zipE.AddFile(report + "\\AESKey.txt", "");
-            zipE.Save();
+
+            //move key and aes into AES folder
+            try
+            {
+                File.Move(report + "\\AESKey.txt", report + "\\AES\\AESKey.txt");
+                File.Move(reportz + ".aes", report + "\\AES\\" + hostname + "---" + domain + "---" + "REPORT.zip.aes");
+            } catch
+            {
+
+            }
+
+            //create encrypted zip
+            string zPassword = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
+            compressDirectoryWithPassword(report + "\\AES", reportz, zPassword, 9);
 
             if (Globals.isOn == false)
             {
