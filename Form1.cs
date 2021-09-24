@@ -607,7 +607,6 @@ namespace FLOR
                 Directory.Delete(DownPath + "\\loki\\plugins", true);
                 Directory.Delete(DownPath + "\\loki\\tools", true);
                 Directory.Delete(DownPath + "\\loki\\config", true);
-                MessageBox.Show("debug");
 
                 //start upgrader
                 //put it all into a new process
@@ -627,7 +626,6 @@ namespace FLOR
                 p.Start();
                 p.WaitForExit();
                 p.Close();
-                MessageBox.Show("debug");
                 toolStripProgressBar1.Value = 45;
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
             } else //system is offline
