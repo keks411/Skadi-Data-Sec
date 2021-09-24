@@ -106,6 +106,12 @@ namespace FLOR
             if (cBoxOfflineScan.Checked == true)
             {
                 Globals.isOn = false;
+
+                //check if radiobutton set
+                if (cBoxOfflineScan.Checked == true)
+                {
+                    tBoxConsole.AppendText("### Forcing offline scan ###" + Environment.NewLine);
+                }
             }
 
             //enable pbar
