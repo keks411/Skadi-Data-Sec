@@ -83,6 +83,12 @@ namespace FLOR
             //clear files
             cleanUp();
 
+            //check options radiobuttons
+            if (rBtnOnline.Checked != true)
+            {
+                Globals.isOn = false;
+            }
+
             //enable pbar
             toolStripProgressBar1.Visible = true;
             toolStripProgressBar1.Value = 0;
@@ -100,6 +106,8 @@ namespace FLOR
             //create task
             //this will move everthing into a new task
             //buttons need to be disabled though to not screw up
+            rBtnOffline.Enabled = false;
+            rBtnOnline.Enabled = false;
             BtnDown.Enabled = false;
             btnClean.Enabled = false;
             btnInetCheck.Enabled = false;
@@ -135,7 +143,24 @@ namespace FLOR
                 p2.WaitForExit();
                 p2.Close();
                 toolStripProgressBar1.Value = 70;
-                
+                });
+
+
+                //try to run each scanner in a process
+                Task.Factory.StartNew(() =>
+                {
+                Process p2 = new Process();
+
+                p2.StartInfo.WorkingDirectory = lokiPath;
+                p2.StartInfo.Arguments = "--noindicator --csv -l iocscan.csv";
+                p2.StartInfo.LoadUserProfile = true;
+                p2.StartInfo.FileName = loki;
+                p2.StartInfo.UseShellExecute = false;
+                p2.StartInfo.CreateNoWindow = true;
+                p2.StartInfo.RedirectStandardOutput = true;
+                p2.StartInfo.RedirectStandardError = true;
+                p2.EnableRaisingEvents = true;
+
 
                 //running autoruns
                 runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning Autorun-Entries ###", 0);
@@ -160,11 +185,13 @@ namespace FLOR
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Encrypting files  ###" + Environment.NewLine);
+                });
 
-                packIt();
+            packIt();
                 //pack it together
                 toolStripProgressBar1.Value = 90;
                 tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
+                
 
 
                 if (Globals.isOn == true)
@@ -181,11 +208,8 @@ namespace FLOR
                 tBoxConsole.AppendText("### Finished ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Data-Sec GmbH will get back to you shortly ###" + Environment.NewLine);
 
-                //task is done so re-enable those buttons
-                BtnDown.Enabled = false;
-                btnClean.Enabled = false;
-                btnInetCheck.Enabled = true;
-            });
+                //task is done
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
