@@ -42,28 +42,47 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.1.0";
+            lblVer2.Text = "1.1.1";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
 
             //check for admin or not, do not allow non-admin and close
-            tBoxConsole.AppendText("### Checking for permsissions ###" + Environment.NewLine);
+            tBoxConsole.AppendText("### Checking for permissions ###" + Environment.NewLine);
             bool IsAdm = Convert.ToBoolean(IsAdministrator());
             if (IsAdm == false)
             {
-                tBoxConsole.AppendText("### ERROR! Wrong Token! ###" + Environment.NewLine);
-                MessageBox.Show("Application must be run as ADMIN!", "Missing Privs");
+                tBoxConsole.AppendText("### ERROR! Missing permissions! ###" + Environment.NewLine);
+                MessageBox.Show("Application must be run as ADMIN!", "INFO");
                 System.Windows.Forms.Application.Exit();
             }
-            tBoxConsole.AppendText("### SUCCESS! Elevated Token! ###" + Environment.NewLine);
+            tBoxConsole.AppendText("### SUCCESS! Elevated User! ###" + Environment.NewLine);
 
             //color statusstrip
             toolStripStatusLabel1.Text = "ELEVATED";
             toolStripStatusLabel1.ForeColor = Color.Green;
 
             //check inet conn
-            Ping("https://google.com");
+            tBoxConsole.AppendText("### Checking Internet Connection ###" + Environment.NewLine);
+            Globals.iNetCheck = 0;
+
+            Ping("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip");
+            Ping("https://github.com/Neo23x0/Loki/releases/download/v0.44.1/loki_0.44.1.zip");
+
+            if (Globals.iNetCheck == 1)
+            {
+                Globals.isOn = false;
+                tBoxConsole.AppendText("### Connection not possible 404 ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Falling back to offline package ###" + Environment.NewLine);
+                toolStripStatusLabel2.Text = "InetCheck: OFFLINE";
+                toolStripStatusLabel2.ForeColor = Color.Red;
+            } else
+            {
+                toolStripStatusLabel2.Text = "InetCheck: ONLINE";
+                toolStripStatusLabel2.ForeColor = Color.Green;
+                tBoxConsole.AppendText("### SUCCESS! Connection possible ###" + Environment.NewLine);
+            }
+
 
         }
 
@@ -84,7 +103,7 @@ namespace FLOR
             cleanUp();
 
             //check options radiobuttons
-            if (rBtnOnline.Checked != true)
+            if (cBoxOfflineScan.Checked == true)
             {
                 Globals.isOn = false;
             }
@@ -106,10 +125,8 @@ namespace FLOR
             //create task
             //this will move everthing into a new task
             //buttons need to be disabled though to not screw up
-            rBtnOffline.Enabled = false;
-            rBtnOnline.Enabled = false;
+            cBoxOfflineScan.Enabled = false;
             BtnDown.Enabled = false;
-            btnClean.Enabled = false;
             btnInetCheck.Enabled = false;
             Task.Factory.StartNew(() =>
             {
@@ -143,13 +160,6 @@ namespace FLOR
                 p2.WaitForExit();
                 p2.Close();
                 toolStripProgressBar1.Value = 70;
-                });
-
-
-                //try to run each scanner in a process
-                Task.Factory.StartNew(() =>
-                {
-                Process p2 = new Process();
 
                 p2.StartInfo.WorkingDirectory = lokiPath;
                 p2.StartInfo.Arguments = "--noindicator --csv -l iocscan.csv";
@@ -185,7 +195,6 @@ namespace FLOR
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Encrypting files  ###" + Environment.NewLine);
-                });
 
             packIt();
                 //pack it together
@@ -209,7 +218,7 @@ namespace FLOR
                 tBoxConsole.AppendText("### Data-Sec GmbH will get back to you shortly ###" + Environment.NewLine);
 
                 //task is done
-            
+                            });
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -219,7 +228,6 @@ namespace FLOR
 
         private bool Ping(string url)
         {
-            tBoxConsole.AppendText("### Checking Internet Connection ###" + Environment.NewLine);
             try
             {
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -229,19 +237,14 @@ namespace FLOR
 
                 using (var response = request.GetResponse())
                 {
-                    toolStripStatusLabel2.Text = "InetCheck: ONLINE";
-                    toolStripStatusLabel2.ForeColor = Color.Green;
                     Globals.isOn = true;
                     return true;
                 }
             }
             catch
             {
-                tBoxConsole.AppendText("### Connection not possible 404 ###" + Environment.NewLine);
-                tBoxConsole.AppendText("### Falling back to offline package ###" + Environment.NewLine);
-                toolStripStatusLabel2.Text = "InetCheck: OFFLINE";
-                toolStripStatusLabel2.ForeColor = Color.Red;
                 Globals.isOn = false;
+                Globals.iNetCheck = 1;
                 return false;
             }
         }
@@ -390,7 +393,26 @@ namespace FLOR
 
         private void btnInetCheck_Click(object sender, EventArgs e)
         {
-            Ping("https://google.com");
+            tBoxConsole.AppendText("### Checking Internet Connection ###" + Environment.NewLine);
+            MessageBox.Show("Skadi will check the connection to the following sites:\n\n windows.net\n github.com", "INFO");
+
+            Globals.iNetCheck = 0;
+
+            Ping("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip");
+            Ping("https://github.com/Neo23x0/Loki/releases/download/v0.44.1/loki_0.44.1.zip");
+
+            if (Globals.iNetCheck == 1)
+            {
+                Globals.isOn = false;
+                tBoxConsole.AppendText("### ERROR! Connection not possible ###" + Environment.NewLine);
+                toolStripStatusLabel2.Text = "InetCheck: OFFLINE";
+                toolStripStatusLabel2.ForeColor = Color.Red;
+            } else
+            {
+                tBoxConsole.AppendText("### SUCCESS! Connection possible ###" + Environment.NewLine);
+                toolStripStatusLabel2.Text = "InetCheck: ONLINE";
+                toolStripStatusLabel2.ForeColor = Color.Green;
+            }
         }
 
         private void cleanUp()
@@ -430,13 +452,6 @@ namespace FLOR
 
             }
             tBoxConsole.AppendText("### Environment cleaned ###" + Environment.NewLine);
-        }
-
-        private void btnClean_Click(object sender, EventArgs e)
-        {
-            cleanUp();
-            tBoxConsole.Text = "";
-            toolStripProgressBar1.Value = 0;
         }
 
         private void packIt()
@@ -582,58 +597,31 @@ namespace FLOR
 
                 //in case of updated rules its better to delete the whole signature folder
                 Directory.Delete(DownPath + "\\loki\\signature-base", true);
+                Directory.Delete(DownPath + "\\loki\\docs", true);
+                Directory.Delete(DownPath + "\\loki\\plugins", true);
+                Directory.Delete(DownPath + "\\loki\\tools", true);
+                Directory.Delete(DownPath + "\\loki\\config", true);
+                MessageBox.Show("debug");
 
                 //start upgrader
+                //put it all into a new process
+                Process p = new Process();
                 tBoxConsole.AppendText("### Start upgrading process ###" + Environment.NewLine);
-                int lineCount = 0;
                 string lupgrader = DownPath + "\\loki\\loki-upgrader.exe";
-                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                
 
                 p.StartInfo.WorkingDirectory = DownPath + "\\loki";
                 p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                p.StartInfo.LoadUserProfile = true;
+                p.StartInfo.LoadUserProfile = false;
                 p.StartInfo.FileName = lupgrader;
-                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.UseShellExecute = true;
                 p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;
-
-                p.EnableRaisingEvents = true;
-
-                p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-                {
-                    // Prepend line numbers to each line of the output.
-                    if (!String.IsNullOrEmpty(e.Data))
-                    {
-                        lineCount++;
-                        if (e.Data.Contains("Loki"))
-                        {
-                        }
-                        else
-                        {
-                            if (e.Data.Contains("loki"))
-                            {
-                            }
-                            else
-                            {
-                                if (e.Data.Contains("LOKI"))
-                                {
-                                }
-                                else
-                                {
-                                    tBoxConsole.AppendText(e.Data + Environment.NewLine);
-                                }
-                            }
-                        }
-                    }
-                });
+                p.StartInfo.RedirectStandardOutput = false;
+                p.StartInfo.RedirectStandardError = false;
                 p.Start();
-
-                // Asynchronously read the standard output of the spawned process.
-                // This raises OutputDataReceived events for each line of output.
-                p.BeginOutputReadLine();
                 p.WaitForExit();
                 p.Close();
+                MessageBox.Show("debug");
                 toolStripProgressBar1.Value = 45;
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
             } else //system is offline
@@ -749,6 +737,7 @@ namespace FLOR
         {
             public static bool isOn = false;
             public static string lfile = "none";
+            public static int iNetCheck = 0;
         }
 
         private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
