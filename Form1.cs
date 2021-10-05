@@ -202,7 +202,7 @@ namespace FLOR
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Encrypting files  ###" + Environment.NewLine);
 
-            packIt();
+                packIt();
                 //pack it together
                 toolStripProgressBar1.Value = 90;
                 tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
@@ -486,6 +486,11 @@ namespace FLOR
                 while (File.Exists(report + "\\Security.evtx") != true)
                 {
                     System.Threading.Thread.Sleep(1000);
+                    // For some reason the evtx does not get created every time
+                    // Not sure why but workaround is trying to craeate it again
+                    //extract eventlogs
+                    runCmd("/c wevtutil epl System " + report + "\\System.evtx", "hidden");
+                    runCmd("/c wevtutil epl Security " + report + "\\Security.evtx", "hidden");
                 }
                 File.Move(report + "\\Security.evtx", report + "\\loot\\Security.evtx");
                 File.Move(report + "\\System.evtx", report + "\\loot\\System.evtx");
@@ -665,7 +670,7 @@ namespace FLOR
                 p2.StartInfo.Arguments = args;
                 p2.StartInfo.LoadUserProfile = true;
                 p2.StartInfo.FileName = loki;
-                p2.StartInfo.CreateNoWindow = false;
+                p2.StartInfo.CreateNoWindow = true;
 
                 // Prepend line numbers to each line of the output.
                 int lineCount = 0;
@@ -732,7 +737,17 @@ namespace FLOR
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
             startInfo.Arguments = args;
-            tBoxConsole.AppendText(text + Environment.NewLine);
+            startInfo.CreateNoWindow = true;
+
+            //do not add additional text in case text eq hidden
+            //needed for eventlog workaround
+            if (text == "hidden") {
+
+            } else
+            {
+                tBoxConsole.AppendText(text + Environment.NewLine);
+            }
+
             process.StartInfo = startInfo;
             process.Start();
         }
