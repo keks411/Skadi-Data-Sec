@@ -179,11 +179,11 @@ namespace FLOR
 
 
                 //running autoruns
-                runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning Autorun-Entries ###", 0);
+                runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning autostart ###", 0);
                 toolStripProgressBar1.Value = 80;
 
                 //running handle64
-                runBinary("-accepteula", "handle64.exe", "### Scanning Open Handles ###", 1);
+                runBinary("-accepteula", "handle64.exe", "### Scanning open Handles ###", 1);
                 toolStripProgressBar1.Value = 85;
 
                 //running pslist
@@ -668,7 +668,7 @@ namespace FLOR
                 p2.StartInfo.RedirectStandardError = true;
                 p2.StartInfo.WorkingDirectory = lokiPath;
                 p2.StartInfo.Arguments = args;
-                p2.StartInfo.LoadUserProfile = true;
+                //p2.StartInfo.LoadUserProfile = true;
                 p2.StartInfo.FileName = loki;
                 p2.StartInfo.CreateNoWindow = true;
 
@@ -716,9 +716,9 @@ namespace FLOR
                 File.WriteAllText(lokiPath + "\\" + Globals.lfile + ".txt", a);
             } else
             {
-                p2.StartInfo.UseShellExecute = true;
-                p2.StartInfo.RedirectStandardOutput = false;
-                p2.StartInfo.RedirectStandardError = false;
+                //p2.StartInfo.UseShellExecute = true;
+                //p2.StartInfo.RedirectStandardOutput = false;
+                //p2.StartInfo.RedirectStandardError = false;
                 p2.StartInfo.WorkingDirectory = lokiPath;
                 p2.StartInfo.Arguments = args;
                 p2.StartInfo.LoadUserProfile = true;
