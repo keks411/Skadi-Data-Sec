@@ -38,7 +38,6 @@ namespace FLOR
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.btnCleanC = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnDebug = new System.Windows.Forms.Button();
             this.lblDom2 = new System.Windows.Forms.Label();
             this.lblUser2 = new System.Windows.Forms.Label();
             this.lblHost2 = new System.Windows.Forms.Label();
@@ -47,11 +46,15 @@ namespace FLOR
             this.lblUser = new System.Windows.Forms.Label();
             this.lblHost = new System.Windows.Forms.Label();
             this.lblVer = new System.Windows.Forms.Label();
+            this.btnDebug = new System.Windows.Forms.Button();
             this.btnInetCheck = new System.Windows.Forms.Button();
             this.lblLinkW = new System.Windows.Forms.LinkLabel();
             this.cBoxOfflineScan = new System.Windows.Forms.CheckBox();
+            this.gBoxOptional = new System.Windows.Forms.GroupBox();
+            this.cBoxDark = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.gBoxOptional.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnDown
@@ -66,12 +69,13 @@ namespace FLOR
             // 
             // tBoxConsole
             // 
+            this.tBoxConsole.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tBoxConsole.Location = new System.Drawing.Point(12, 151);
             this.tBoxConsole.Multiline = true;
             this.tBoxConsole.Name = "tBoxConsole";
             this.tBoxConsole.ReadOnly = true;
             this.tBoxConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tBoxConsole.Size = new System.Drawing.Size(551, 80);
+            this.tBoxConsole.Size = new System.Drawing.Size(551, 136);
             this.tBoxConsole.TabIndex = 1;
             // 
             // statusStrip1
@@ -80,7 +84,7 @@ namespace FLOR
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 234);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 296);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(575, 22);
             this.statusStrip1.TabIndex = 2;
@@ -115,7 +119,6 @@ namespace FLOR
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnDebug);
             this.groupBox1.Controls.Add(this.lblDom2);
             this.groupBox1.Controls.Add(this.lblUser2);
             this.groupBox1.Controls.Add(this.lblHost2);
@@ -127,21 +130,10 @@ namespace FLOR
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(395, 132);
+            this.groupBox1.Size = new System.Drawing.Size(281, 132);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System Info:";
-            // 
-            // btnDebug
-            // 
-            this.btnDebug.Location = new System.Drawing.Point(314, 85);
-            this.btnDebug.Name = "btnDebug";
-            this.btnDebug.Size = new System.Drawing.Size(75, 23);
-            this.btnDebug.TabIndex = 9;
-            this.btnDebug.Text = "Debug";
-            this.btnDebug.UseVisualStyleBackColor = true;
-            this.btnDebug.Visible = false;
-            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // lblDom2
             // 
@@ -215,6 +207,17 @@ namespace FLOR
             this.lblVer.TabIndex = 0;
             this.lblVer.Text = "label1";
             // 
+            // btnDebug
+            // 
+            this.btnDebug.Location = new System.Drawing.Point(412, 122);
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(75, 23);
+            this.btnDebug.TabIndex = 9;
+            this.btnDebug.Text = "Debug";
+            this.btnDebug.UseVisualStyleBackColor = true;
+            this.btnDebug.Visible = false;
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
+            // 
             // btnInetCheck
             // 
             this.btnInetCheck.Location = new System.Drawing.Point(413, 64);
@@ -229,7 +232,7 @@ namespace FLOR
             // 
             this.lblLinkW.AutoSize = true;
             this.lblLinkW.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblLinkW.Location = new System.Drawing.Point(486, 243);
+            this.lblLinkW.Location = new System.Drawing.Point(483, 305);
             this.lblLinkW.Name = "lblLinkW";
             this.lblLinkW.Size = new System.Drawing.Size(66, 13);
             this.lblLinkW.TabIndex = 8;
@@ -240,19 +243,43 @@ namespace FLOR
             // cBoxOfflineScan
             // 
             this.cBoxOfflineScan.AutoSize = true;
-            this.cBoxOfflineScan.Location = new System.Drawing.Point(414, 123);
+            this.cBoxOfflineScan.Location = new System.Drawing.Point(6, 31);
             this.cBoxOfflineScan.Name = "cBoxOfflineScan";
-            this.cBoxOfflineScan.Size = new System.Drawing.Size(122, 19);
+            this.cBoxOfflineScan.Size = new System.Drawing.Size(99, 19);
             this.cBoxOfflineScan.TabIndex = 10;
-            this.cBoxOfflineScan.Text = "Force Offline Scan";
+            this.cBoxOfflineScan.Text = "Force Offline";
             this.cBoxOfflineScan.UseVisualStyleBackColor = true;
+            // 
+            // gBoxOptional
+            // 
+            this.gBoxOptional.Controls.Add(this.cBoxDark);
+            this.gBoxOptional.Controls.Add(this.cBoxOfflineScan);
+            this.gBoxOptional.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.gBoxOptional.Location = new System.Drawing.Point(299, 13);
+            this.gBoxOptional.Name = "gBoxOptional";
+            this.gBoxOptional.Size = new System.Drawing.Size(107, 132);
+            this.gBoxOptional.TabIndex = 11;
+            this.gBoxOptional.TabStop = false;
+            this.gBoxOptional.Text = "Optional";
+            // 
+            // cBoxDark
+            // 
+            this.cBoxDark.AutoSize = true;
+            this.cBoxDark.Location = new System.Drawing.Point(6, 54);
+            this.cBoxDark.Name = "cBoxDark";
+            this.cBoxDark.Size = new System.Drawing.Size(88, 19);
+            this.cBoxDark.TabIndex = 11;
+            this.cBoxDark.Text = "Dark Mode";
+            this.cBoxDark.UseVisualStyleBackColor = true;
+            this.cBoxDark.CheckedChanged += new System.EventHandler(this.cBoxDark_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 256);
-            this.Controls.Add(this.cBoxOfflineScan);
+            this.ClientSize = new System.Drawing.Size(575, 318);
+            this.Controls.Add(this.gBoxOptional);
+            this.Controls.Add(this.btnDebug);
             this.Controls.Add(this.lblLinkW);
             this.Controls.Add(this.btnInetCheck);
             this.Controls.Add(this.groupBox1);
@@ -260,7 +287,7 @@ namespace FLOR
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tBoxConsole);
             this.Controls.Add(this.BtnDown);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -270,6 +297,8 @@ namespace FLOR
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.gBoxOptional.ResumeLayout(false);
+            this.gBoxOptional.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,6 +326,8 @@ namespace FLOR
         private System.Windows.Forms.LinkLabel lblLinkW;
         private System.Windows.Forms.Button btnDebug;
         private System.Windows.Forms.CheckBox cBoxOfflineScan;
+        private System.Windows.Forms.GroupBox gBoxOptional;
+        private System.Windows.Forms.CheckBox cBoxDark;
     }
 }
 

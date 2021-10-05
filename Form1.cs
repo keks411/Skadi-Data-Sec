@@ -25,6 +25,33 @@ namespace FLOR
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //set dark mode
+            cBoxDark.Checked = true;
+            Globals.darkMode = 1;
+            this.BackColor = Color.FromArgb(38, 38, 38);
+            tBoxConsole.BackColor = Color.FromArgb(38, 38, 38);
+            tBoxConsole.ForeColor = Color.White;
+            toolStripProgressBar1.BackColor = Color.FromArgb(38, 38, 38);
+            statusStrip1.BackColor = Color.FromArgb(38, 38, 38);
+            this.ForeColor = Color.White;
+            lblLinkW.BackColor = Color.FromArgb(38, 38, 38);
+            gBoxOptional.ForeColor = Color.White;
+            groupBox1.ForeColor = Color.White;
+            lblDom.ForeColor = Color.White;
+            lblDom2.ForeColor = Color.White;
+            lblHost.ForeColor = Color.White;
+            lblHost2.ForeColor = Color.White;
+            lblLinkW.LinkColor = Color.Red;
+            lblUser.ForeColor = Color.White;
+            lblUser2.ForeColor = Color.White;
+            lblVer.ForeColor = Color.White;
+            lblVer2.ForeColor = Color.White;
+            btnDebug.ForeColor = Color.Black;
+            btnInetCheck.ForeColor = Color.Black;
+            BtnDown.ForeColor = Color.Black;
+            cBoxDark.ForeColor = Color.White;
+            cBoxOfflineScan.ForeColor = Color.White;
+
             //debug
             btnDebug.Visible = false;
 
@@ -42,7 +69,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.1.1";
+            lblVer2.Text = "1.1.3";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -757,6 +784,7 @@ namespace FLOR
             public static bool isOn = false;
             public static string lfile = "none";
             public static int iNetCheck = 0;
+            public static int darkMode = 0;
         }
 
         private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -862,6 +890,69 @@ namespace FLOR
             runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
             runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
             toolStripProgressBar1.Value = 87;
+        }
+
+        private void cBoxDark_CheckedChanged(object sender, EventArgs e)
+        //dark mode
+        //if global.dark == 1 set to dark
+        //full dark is shit so take grey
+        // rgb(38,38,38)
+        {
+            Globals.darkMode += 1;
+            
+
+            if (Globals.darkMode == 1)
+            {
+                //dark is checked
+                this.BackColor = Color.FromArgb(38,38,38);
+                tBoxConsole.BackColor = Color.FromArgb(38, 38, 38);
+                tBoxConsole.ForeColor = Color.White;
+                toolStripProgressBar1.BackColor = Color.FromArgb(38, 38, 38);
+                statusStrip1.BackColor = Color.FromArgb(38, 38, 38);
+                this.ForeColor = Color.White;
+                lblLinkW.BackColor = Color.FromArgb(38, 38, 38);
+                gBoxOptional.ForeColor = Color.White;
+                groupBox1.ForeColor = Color.White;
+                lblDom.ForeColor = Color.White;
+                lblDom2.ForeColor = Color.White;
+                lblHost.ForeColor = Color.White;
+                lblHost2.ForeColor = Color.White;
+                lblLinkW.LinkColor = Color.Red;
+                lblUser.ForeColor = Color.White;
+                lblUser2.ForeColor = Color.White;
+                lblVer.ForeColor = Color.White;
+                lblVer2.ForeColor = Color.White;
+                btnDebug.ForeColor = Color.Black;
+                btnInetCheck.ForeColor = Color.Black;
+                BtnDown.ForeColor = Color.Black;
+                cBoxDark.ForeColor = Color.White;
+                cBoxOfflineScan.ForeColor = Color.White;
+
+            } else
+            {
+                this.BackColor = SystemColors.Control;
+                lblLinkW.BackColor = SystemColors.Control;
+                tBoxConsole.BackColor = SystemColors.Control;
+                tBoxConsole.ForeColor = Color.Black;
+                toolStripProgressBar1.BackColor = SystemColors.Control;
+                statusStrip1.BackColor = SystemColors.Control;
+                this.ForeColor = Color.Black;
+                gBoxOptional.ForeColor = Color.Black;
+                groupBox1.ForeColor = Color.Black;
+                lblDom.ForeColor = Color.Black;
+                lblDom2.ForeColor = Color.Black;
+                lblHost.ForeColor = Color.Black;
+                lblHost2.ForeColor = Color.Black;
+                lblLinkW.LinkColor = Color.Blue;
+                lblUser.ForeColor = Color.Black;
+                lblUser2.ForeColor = Color.Black;
+                lblVer.ForeColor = Color.Black;
+                lblVer2.ForeColor = Color.Black;
+                cBoxDark.ForeColor = Color.Black;
+                cBoxOfflineScan.ForeColor = Color.Black;
+
+                Globals.darkMode = 0;
+            }
         }
     }
 }
