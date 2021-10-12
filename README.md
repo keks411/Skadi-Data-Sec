@@ -13,11 +13,12 @@ Working:
 - tcpvcon
 - pslist
 - handle64
+- evtx dump
 
 Roadmap:
 
-- Collect Registry-Snapshot
 - Create html-report
+- Self-log
 
 Optional (for DP-Framework:
 
