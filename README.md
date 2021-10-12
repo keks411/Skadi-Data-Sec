@@ -1,6 +1,6 @@
 # Skadi-Data-Sec
 
-IOC-Scanner based on Loki-Scanner from Florian Roth (Neo23x0), Sysinternal tools and Windows-Tools
+IOC-Scanner based on Loki-Scanner from Florian Roth (Neo23x0), Sysinternal, Windows-Tools and scripts
 
 Test OS:
 - Windows 10 Pro
@@ -19,7 +19,7 @@ Roadmap:
 - Collect Registry-Snapshot
 - Create html-report
 
-Requirements:
+Optional (for DP-Framework:
 
 x64: https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.400-windows-x64-installer
 
