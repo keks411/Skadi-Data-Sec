@@ -1,5 +1,7 @@
 # Skadi-Data-Sec
 
+IOC-Scanner based on Loki-Scanner from Florian Roth (Neo23x0), Sysinternal tools and Windows-Tools
+
 Test OS:
 - Windows 10 Pro
 - Server 2016
