@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Net;
 using System.Windows.Forms;
 using System.Security.Principal;
-//using Ionic.Zip;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
-using ICSharpCode.SharpZipLib.GZip;
+using System.Globalization;
 
 namespace FLOR
 {
@@ -47,6 +47,7 @@ namespace FLOR
             lblVer.ForeColor = Color.White;
             lblVer2.ForeColor = Color.White;
             btnDebug.ForeColor = Color.Black;
+            btnLoadKey.ForeColor = Color.Black;
             btnInetCheck.ForeColor = Color.Black;
             BtnDown.ForeColor = Color.Black;
             cBoxDark.ForeColor = Color.White;
@@ -69,7 +70,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.1.3";
+            lblVer2.Text = "1.1.4";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -81,7 +82,7 @@ namespace FLOR
             {
                 tBoxConsole.AppendText("### ERROR! Missing permissions! ###" + Environment.NewLine);
                 MessageBox.Show("Application must be run as ADMIN!", "INFO");
-                System.Windows.Forms.Application.Exit();
+                //System.Windows.Forms.Application.Exit();
             }
             tBoxConsole.AppendText("### SUCCESS! Elevated User! ###" + Environment.NewLine);
 
@@ -139,6 +140,13 @@ namespace FLOR
                 {
                     tBoxConsole.AppendText("### Forcing offline scan ###" + Environment.NewLine);
                 }
+            }
+
+            //check if key is set or not
+            if (Globals.ClearAzureSAS == "")
+            {
+                Globals.isOn = false;
+                tBoxConsole.AppendText("### Key not found, fallback to offline scan ###" + Environment.NewLine);
             }
 
             //enable pbar
@@ -304,16 +312,7 @@ namespace FLOR
                     foreach (string file in filenames)
                     {
 
-                        // Using GetFileName makes the result compatible with XP
-                        // as the resulting path is not absolute.
                         ZipEntry entry = new ZipEntry(Path.GetFileName(file));
-
-                        // Setup the entry data as required.
-
-                        // Crc and size are handled by the library for seakable streams
-                        // so no need to do them here.
-
-                        // Could also use the last write time or similar for the file.
                         entry.DateTime = DateTime.Now;
                         OutputStream.PutNextEntry(entry);
 
@@ -331,14 +330,7 @@ namespace FLOR
                             } while (sourceBytes > 0);
                         }
                     }
-
-                    // Finish/Close arent needed strictly as the using statement does this automatically
-
-                    // Finish is important to ensure trailing information for a Zip file is appended.  Without this
-                    // the created file would be invalid.
                     OutputStream.Finish();
-
-                    // Close is important to wrap things up and unlock the file.
                     OutputStream.Close();
 
                     Console.WriteLine("Files successfully compressed");
@@ -355,46 +347,22 @@ namespace FLOR
         {
             try
             {
-                // Depending on the directory this could be very large and would require more attention
-                // in a commercial package.
                 string[] filenames = Directory.GetFiles(DirectoryPath);
-
-                // 'using' statements guarantee the stream is closed properly which is a big source
-                // of problems otherwise.  Its exception safe as well which is great.
                 using (ZipOutputStream OutputStream = new ZipOutputStream(File.Create(OutputFilePath)))
                 {
-                    // Define a password for the file (if providen)
-                    // set its value to null or don't declare it to leave the file
-                    // without password protection
                     OutputStream.Password = Password;
-
-                    // Define the compression level
-                    // 0 - store only to 9 - means best compression
                     OutputStream.SetLevel(CompressionLevel);
 
                     byte[] buffer = new byte[4096];
 
                     foreach (string file in filenames)
                     {
-
-                        // Using GetFileName makes the result compatible with XP
-                        // as the resulting path is not absolute.
                         ZipEntry entry = new ZipEntry(Path.GetFileName(file));
-
-                        // Setup the entry data as required.
-
-                        // Crc and size are handled by the library for seakable streams
-                        // so no need to do them here.
-
-                        // Could also use the last write time or similar for the file.
                         entry.DateTime = DateTime.Now;
                         OutputStream.PutNextEntry(entry);
 
                         using (FileStream fs = File.OpenRead(file))
                         {
-
-                            // Using a fixed size buffer here makes no noticeable difference for output
-                            // but keeps a lid on memory usage.
                             int sourceBytes;
 
                             do
@@ -404,14 +372,7 @@ namespace FLOR
                             } while (sourceBytes > 0);
                         }
                     }
-
-                    // Finish/Close arent needed strictly as the using statement does this automatically
-
-                    // Finish is important to ensure trailing information for a Zip file is appended.  Without this
-                    // the created file would be invalid.
                     OutputStream.Finish();
-
-                    // Close is important to wrap things up and unlock the file.
                     OutputStream.Close();
 
                     Console.WriteLine("Files successfully compressed");
@@ -419,7 +380,6 @@ namespace FLOR
             }
             catch (Exception ex)
             {
-                // No need to rethrow the exception as for our purposes its handled.
                 Console.WriteLine("Exception during processing {0}", ex);
             }
         }
@@ -580,6 +540,59 @@ namespace FLOR
             }
         }
 
+        private void readUploadKey()
+        {
+
+            //to upload you will need a key which will come from thiazi
+            //the key itself is basically just a encrypted sas-url
+            MessageBox.Show("Select the key.txt you got from Data-Sec. This is needed for uploading files\n", "INFO");
+
+            //ask for file
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.DefaultExt = "txt";
+            openFileDialog1.Filter = "txt Files (*.txt)|*.txt";
+            openFileDialog1.ShowDialog();
+            Globals.keyPath = openFileDialog1.FileName;
+            Globals.keyFile = openFileDialog1.SafeFileName;
+
+            if (Globals.keyPath == "")
+            {
+                //keypath is empty
+            } else
+            {
+                if (Globals.keyFile != "key.txt")
+                {
+                    //not key.txt
+                    MessageBox.Show("ERROR! Unable to read " + Globals.keyFile);
+                } else
+                {
+                    //path is not null and is key.txt
+                    try
+                    {
+                        //try to read azure url in
+                        Globals.EncAzureSAS = File.ReadAllText(Globals.keyPath);
+
+                        //decrypt the key and save it
+                        Globals.ClearAzureSAS = EncryptOrDecrypt(Globals.EncAzureSAS, "2ftXwh");
+                        MessageBox.Show(Globals.ClearAzureSAS);
+                    } catch
+                    {
+                        MessageBox.Show("ERROR! Unable to read key");
+                    }
+                }
+            }
+        }
+
+        public string EncryptOrDecrypt(string text, string key)
+        {
+            var result = new StringBuilder();
+
+            for (int c = 0; c < text.Length; c++)
+                result.Append((char)((uint)text[c] ^ (uint)key[c % key.Length]));
+
+            return result.ToString();
+        }
+
         private void uploadIt()
         {
             //file exists already therefore renaming it with random num prefix
@@ -594,21 +607,42 @@ namespace FLOR
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
             string rreport = report + "\\" + rand + "---" + hostname + "---" + domain + "---" + "REPORT.zip";
             string zname = rand + " --- " + hostname + "---" + domain + "---" + "REPORT.zip";
-            string storageAccntConnection = "DefaultEndpointsProtocol=https;AccountName=dstoolsiocsearch;AccountKey=ubfzvgP0Bnlx/8ADax9ZZVx4DY5O2J5rHbUjgy1+Zquj3/CyC+5D79WKORKx1BjNiwVr7gNi/fUvV1XHTvLk8Q==;EndpointSuffix=core.windows.net";
-            Azure.Storage.Blobs.BlobClient blobClient = new Azure.Storage.Blobs.BlobClient(
-            connectionString: storageAccntConnection,
-            blobContainerName: "reports",
-            blobName: zname);
+            //string storageAccntConnection = "herewastheazurekeybefore";
+            //Azure.Storage.Blobs.BlobClient blobClient = new Azure.Storage.Blobs.BlobClient(
+            //connectionString: storageAccntConnection,
+            //blobContainerName: "reports",
+            //blobName: zname);
 
             //upload the zip
             try { 
                 File.Move(reportz, rreport);
-                blobClient.Upload(rreport);
+                //blobClient.Upload(rreport);
+                UploadBlobWithRestAPISasPermissionOnBlobContainer(zname, zname, Globals.ClearAzureSAS);
             } catch
             {
 
             }
 
+        }
+
+        public void UploadBlobWithRestAPISasPermissionOnBlobContainer(string blobName, string blobContent, string blobContainerSasUri)
+        {
+            int contentLength = Encoding.UTF8.GetByteCount(blobContent);
+            string queryString = (new Uri(blobContainerSasUri)).Query;
+            string blobContainerUri = blobContainerSasUri.Split('?')[0];
+            string requestUri = string.Format(CultureInfo.InvariantCulture, "{0}/{1}{2}", blobContainerUri, blobName, queryString);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUri);
+            request.Method = "PUT";
+            request.Headers.Add("x-ms-blob-type", "BlockBlob");
+            request.ContentLength = contentLength;
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(Encoding.UTF8.GetBytes(blobContent), 0, contentLength);
+            }
+            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
+            {
+
+            }
         }
 
         private void downloadEx()
@@ -622,7 +656,7 @@ namespace FLOR
                 string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string DownFile = DownPath + "\\ds.zip";
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip", DownFile);
+                webClient.DownloadFile("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip", DownFile);
                 toolStripProgressBar1.Value = 15;
 
                 //extract zip
@@ -785,6 +819,11 @@ namespace FLOR
             public static string lfile = "none";
             public static int iNetCheck = 0;
             public static int darkMode = 0;
+            public static string azureURL = "";
+            public static string EncAzureSAS = "";
+            public static string keyPath = "";
+            public static string keyFile = "";
+            public static string ClearAzureSAS = "";
         }
 
         private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -884,22 +923,29 @@ namespace FLOR
 
         private void btnDebug_Click(object sender, EventArgs e)
         {
-            //extract eventlogs
-            string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
-            //string loki = lokiPath + "\\" + exe;
-            runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
-            runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
-            toolStripProgressBar1.Value = 87;
+            //test encryption
+            //string inputStr = "1234 --- USER-PC---USERDOMAIN---REPORT.zip";
+            //MessageBox.Show(EncryptStringRSA(inputStr));
+
+            //readUploadKey();
+            string enc = EncryptOrDecrypt("https://dstoolsiocsearch.blob.core.windows.net/reports?sp=ac&st=2021-10-13T17:15:35Z&se=2021-10-14T01:15:35Z&spr=https&sv=2020-08-04&sr=c&sig=O%2BHdHC4jqNu%2FSo0bUJCAKhSbTlBmGvjrWXAx%2B0twM6k%3D", "2ftXwh");
+            string dec = EncryptOrDecrypt(enc, "2ftXwh");
+            File.WriteAllText("C:\\TEMP\\key.txt", enc);
+            MessageBox.Show(enc);
+            MessageBox.Show(dec);
+
+            //sp=ac&st
+            
         }
 
         private void cBoxDark_CheckedChanged(object sender, EventArgs e)
-        //dark mode
-        //if global.dark == 1 set to dark
-        //full dark is shit so take grey
-        // rgb(38,38,38)
         {
             Globals.darkMode += 1;
-            
+            //dark mode
+            //if global.dark == 1 set to dark
+            //full dark is shit so take grey
+            // rgb(38,38,38)
+
 
             if (Globals.darkMode == 1)
             {
@@ -923,6 +969,7 @@ namespace FLOR
                 lblVer.ForeColor = Color.White;
                 lblVer2.ForeColor = Color.White;
                 btnDebug.ForeColor = Color.Black;
+                btnLoadKey.ForeColor = Color.Black;
                 btnInetCheck.ForeColor = Color.Black;
                 BtnDown.ForeColor = Color.Black;
                 cBoxDark.ForeColor = Color.White;
@@ -953,6 +1000,11 @@ namespace FLOR
 
                 Globals.darkMode = 0;
             }
+        }
+
+        private void btnLoadKey_Click(object sender, EventArgs e)
+        {
+            readUploadKey();
         }
     }
 }
