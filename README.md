@@ -1,5 +1,7 @@
 # Skadi-Data-Sec
 
+IOC-Scanner based on Loki-Scanner from Florian Roth (Neo23x0), Sysinternal, Windows-Tools and scripts
+
 Test OS:
 - Windows 10 Pro
 - Server 2016
@@ -11,13 +13,14 @@ Working:
 - tcpvcon
 - pslist
 - handle64
+- evtx dump
 
 Roadmap:
 
-- Collect Registry-Snapshot
 - Create html-report
+- Self-log
 
-Requirements:
+Optional (for DP-Framework:
 
 x64: https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.400-windows-x64-installer
 
