@@ -10,7 +10,7 @@
     <PackageIcon>skadiicon.jpg</PackageIcon>
     <PackageIconUrl />
     <UserSecretsId>9165bc77-9059-45c8-88c5-f5f3c91bb93f</UserSecretsId>
-    <Version>1.1.4</Version>
+    <Version>1.2</Version>
     <Copyright>Data-Sec GmbH</Copyright>
   </PropertyGroup>
 

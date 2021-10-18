@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Net.Http.Headers;
 using System.Net;
 using System.Windows.Forms;
 using System.Security.Principal;
@@ -10,12 +9,6 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
-using System.Globalization;
-using System.Linq;
-using Azure.Storage.Blobs;
-using Azure.Storage.Sas;
-using Azure.Storage;
-using Azure.Storage.Blobs.Specialized;
 
 namespace FLOR
 {
@@ -75,7 +68,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.1.4";
+            lblVer2.Text = "1.2";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -86,8 +79,8 @@ namespace FLOR
             if (IsAdm == false)
             {
                 tBoxConsole.AppendText("### ERROR! Missing permissions! ###" + Environment.NewLine);
-                //MessageBox.Show("Application must be run as ADMIN!", "INFO");
-                //System.Windows.Forms.Application.Exit();
+                MessageBox.Show("Application must be run as ADMIN!", "INFO");
+                Application.Exit();
             }
             tBoxConsole.AppendText("### SUCCESS! Elevated User! ###" + Environment.NewLine);
 
