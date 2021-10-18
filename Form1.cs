@@ -11,6 +11,11 @@ using System.Security.Cryptography;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Globalization;
+using System.Linq;
+using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
+using Azure.Storage;
+using Azure.Storage.Blobs.Specialized;
 
 namespace FLOR
 {
@@ -54,7 +59,7 @@ namespace FLOR
             cBoxOfflineScan.ForeColor = Color.White;
 
             //debug
-            btnDebug.Visible = false;
+            //btnDebug.Visible = true;
 
             //clear console window
             tBoxConsole.Text = "";
@@ -81,7 +86,7 @@ namespace FLOR
             if (IsAdm == false)
             {
                 tBoxConsole.AppendText("### ERROR! Missing permissions! ###" + Environment.NewLine);
-                MessageBox.Show("Application must be run as ADMIN!", "INFO");
+                //MessageBox.Show("Application must be run as ADMIN!", "INFO");
                 //System.Windows.Forms.Application.Exit();
             }
             tBoxConsole.AppendText("### SUCCESS! Elevated User! ###" + Environment.NewLine);
@@ -94,7 +99,7 @@ namespace FLOR
             tBoxConsole.AppendText("### Checking Internet Connection ###" + Environment.NewLine);
             Globals.iNetCheck = 0;
 
-            Ping("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip");
+            Ping("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip");
             Ping("https://github.com/Neo23x0/Loki/releases/download/v0.44.1/loki_0.44.1.zip");
 
             if (Globals.iNetCheck == 1)
@@ -391,7 +396,7 @@ namespace FLOR
 
             Globals.iNetCheck = 0;
 
-            Ping("https://dstoolsiocsearch.blob.core.windows.net/ioc1tools/ds.zip");
+            Ping("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip");
             Ping("https://github.com/Neo23x0/Loki/releases/download/v0.44.1/loki_0.44.1.zip");
 
             if (Globals.iNetCheck == 1)
@@ -540,8 +545,53 @@ namespace FLOR
             }
         }
 
+        private void expirationCheck(string azureUrl)
+        {
+            string dateCheck = azureUrl.Substring(45);
+            dateCheck = dateCheck.Substring(0, 10);
+            string DateYear = dateCheck.Substring(0, 4);
+            string DateMonth = dateCheck.Substring(5, 2);
+            string DateDay = dateCheck.Substring(8, 2);
+
+            string currentYear = Convert.ToString(DateTime.UtcNow).Substring(6, 4);
+            string currentMonth = Convert.ToString(DateTime.UtcNow).Substring(3, 2);
+            string currentDay = Convert.ToString(DateTime.UtcNow).Substring(0, 2);
+
+            Globals.isExpired = true;
+            //check year first
+            if (Convert.ToInt32(currentYear) < Convert.ToInt32(DateYear))
+            {
+                //year current is smaller
+                Globals.isExpired = false;
+            }
+
+            if (Convert.ToInt32(currentYear) == Convert.ToInt32(DateYear))
+            {
+                //same yer should be the norm
+                //check for month and date
+                Globals.isExpired = true;
+                if (Convert.ToInt32(currentMonth) > Convert.ToInt32(DateMonth))
+                {
+                    //current month more
+                    Globals.isExpired = true;
+                }
+                else if (Convert.ToInt32(currentDay) < Convert.ToInt32(DateDay))
+                {
+                    //day is less so not expired
+                    //this should be normal
+                    Globals.isExpired = false;
+                }
+                else
+                {
+                    Globals.isExpired = true;
+                }
+            }
+        }
+
         private void readUploadKey()
         {
+            //first set offline scan to true
+            Globals.isOn = false;
 
             //to upload you will need a key which will come from thiazi
             //the key itself is basically just a encrypted sas-url
@@ -572,12 +622,41 @@ namespace FLOR
                         //try to read azure url in
                         Globals.EncAzureSAS = File.ReadAllText(Globals.keyPath);
 
-                        //decrypt the key and save it
-                        Globals.ClearAzureSAS = EncryptOrDecrypt(Globals.EncAzureSAS, "2ftXwh");
-                        MessageBox.Show(Globals.ClearAzureSAS);
+                        //read in the key from the key file
+                        string xKey = "5gX7h9S";
+
+                        try
+                        {
+                            //try decrypting
+                            //decrypt the key and save it
+                            Globals.ClearAzureSAS = EncryptOrDecrypt(Globals.EncAzureSAS, xKey);
+
+                            //check for expiration
+                            expirationCheck(Globals.ClearAzureSAS);
+
+                            //if expired then offline and do nothing otherwise online
+                            if (Globals.isExpired == true)
+                            {
+                                //is expired
+                                MessageBox.Show("ERROR! Key is expired");
+                                Globals.isOn = false;
+                            } else
+                            {
+                                //is valid
+                                MessageBox.Show("SUCCESS! Key is valid. Upload enabled");
+                                Globals.isOn = true;
+                            }
+                        } catch
+                        {
+                            MessageBox.Show("ERROR! Key missmatch");
+                            Globals.isOn = false;
+                        }
+
+
                     } catch
                     {
                         MessageBox.Show("ERROR! Unable to read key");
+                        Globals.isOn = false;
                     }
                 }
             }
@@ -607,42 +686,41 @@ namespace FLOR
             string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
             string rreport = report + "\\" + rand + "---" + hostname + "---" + domain + "---" + "REPORT.zip";
             string zname = rand + " --- " + hostname + "---" + domain + "---" + "REPORT.zip";
-            //string storageAccntConnection = "herewastheazurekeybefore";
-            //Azure.Storage.Blobs.BlobClient blobClient = new Azure.Storage.Blobs.BlobClient(
-            //connectionString: storageAccntConnection,
-            //blobContainerName: "reports",
-            //blobName: zname);
 
             //upload the zip
             try { 
                 File.Move(reportz, rreport);
-                //blobClient.Upload(rreport);
-                UploadBlobWithRestAPISasPermissionOnBlobContainer(zname, zname, Globals.ClearAzureSAS);
+                //INSERT UPLOAD HERE
+                string sasToken = Globals.ClearAzureSAS;
+                string storageAccount = "dstoolsiocsearch";
+                string containerName = "reports";
+                string blobName = zname;
+
+                string method = "PUT";
+                string requestUri = $"https://{storageAccount}.blob.core.windows.net/{containerName}/{blobName}?{sasToken}";
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUri);
+                request.Method = method;
+                request.ContentType = "application/zip; charset=UTF-8";
+                request.Headers.Add("x-ms-blob-type", "BlockBlob");
+
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(File.ReadAllBytes(rreport));
+                }
+
+                using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
+                {
+                    if (resp.StatusCode == HttpStatusCode.OK)
+                    { }
+                }
+
+
             } catch
             {
-
+                MessageBox.Show("ERROR! Upload failed");
             }
 
-        }
-
-        public void UploadBlobWithRestAPISasPermissionOnBlobContainer(string blobName, string blobContent, string blobContainerSasUri)
-        {
-            int contentLength = Encoding.UTF8.GetByteCount(blobContent);
-            string queryString = (new Uri(blobContainerSasUri)).Query;
-            string blobContainerUri = blobContainerSasUri.Split('?')[0];
-            string requestUri = string.Format(CultureInfo.InvariantCulture, "{0}/{1}{2}", blobContainerUri, blobName, queryString);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUri);
-            request.Method = "PUT";
-            request.Headers.Add("x-ms-blob-type", "BlockBlob");
-            request.ContentLength = contentLength;
-            using (Stream requestStream = request.GetRequestStream())
-            {
-                requestStream.Write(Encoding.UTF8.GetBytes(blobContent), 0, contentLength);
-            }
-            using (HttpWebResponse resp = (HttpWebResponse)request.GetResponse())
-            {
-
-            }
         }
 
         private void downloadEx()
@@ -816,6 +894,7 @@ namespace FLOR
         public static class Globals
         {
             public static bool isOn = false;
+            public static bool isExpired = true;
             public static string lfile = "none";
             public static int iNetCheck = 0;
             public static int darkMode = 0;
@@ -923,19 +1002,9 @@ namespace FLOR
 
         private void btnDebug_Click(object sender, EventArgs e)
         {
-            //test encryption
-            //string inputStr = "1234 --- USER-PC---USERDOMAIN---REPORT.zip";
-            //MessageBox.Show(EncryptStringRSA(inputStr));
-
-            //readUploadKey();
-            string enc = EncryptOrDecrypt("https://dstoolsiocsearch.blob.core.windows.net/reports?sp=ac&st=2021-10-13T17:15:35Z&se=2021-10-14T01:15:35Z&spr=https&sv=2020-08-04&sr=c&sig=O%2BHdHC4jqNu%2FSo0bUJCAKhSbTlBmGvjrWXAx%2B0twM6k%3D", "2ftXwh");
-            string dec = EncryptOrDecrypt(enc, "2ftXwh");
-            File.WriteAllText("C:\\TEMP\\key.txt", enc);
-            MessageBox.Show(enc);
-            MessageBox.Show(dec);
-
-            //sp=ac&st
             
+
+
         }
 
         private void cBoxDark_CheckedChanged(object sender, EventArgs e)
