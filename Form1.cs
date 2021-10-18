@@ -616,6 +616,10 @@ namespace FLOR
                         Globals.EncAzureSAS = File.ReadAllText(Globals.keyPath);
 
                         //read in the key from the key file
+                        //to any white-hat, this key is just meant for obfuscation
+                        //any tech could just use wireshark to capture the whole url
+                        //the url itself is temporary and restricted and it is ok
+                        //for the client to see the url itself
                         string xKey = "5gX7h9S";
 
                         try
