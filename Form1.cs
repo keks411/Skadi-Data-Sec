@@ -1203,6 +1203,8 @@ namespace FLOR
         private void Form1_Shown(object sender, EventArgs e)
         {
             prepXorKey();
+
+            BtnDown.Enabled = true;
         }
     }
 }
