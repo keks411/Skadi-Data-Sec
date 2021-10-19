@@ -45,7 +45,6 @@ namespace FLOR
             lblVer.ForeColor = Color.White;
             lblVer2.ForeColor = Color.White;
             btnDebug.ForeColor = Color.Black;
-            btnLoadKey.ForeColor = Color.Black;
             btnInetCheck.ForeColor = Color.Black;
             BtnDown.ForeColor = Color.Black;
             cBoxDark.ForeColor = Color.White;
@@ -108,8 +107,6 @@ namespace FLOR
                 toolStripStatusLabel2.ForeColor = Color.Green;
                 tBoxConsole.AppendText("### SUCCESS! Connection possible ###" + Environment.NewLine);
             }
-
-
         }
 
         public static bool IsAdministrator()
@@ -164,7 +161,6 @@ namespace FLOR
             //create task
             //this will move everthing into a new task
             //buttons need to be disabled though to not screw up
-            cBoxOfflineScan.Enabled = false;
             BtnDown.Enabled = false;
             btnInetCheck.Enabled = false;
             Task.Factory.StartNew(() =>
@@ -404,6 +400,15 @@ namespace FLOR
                 toolStripStatusLabel2.Text = "InetCheck: ONLINE";
                 toolStripStatusLabel2.ForeColor = Color.Green;
             }
+
+            //force offline in case expired is true
+            if (Globals.isExpired == true)
+            {
+                Globals.isOn = false;
+                tBoxConsole.AppendText("### ERROR! Key not valid, forcing offline scan ###" + Environment.NewLine);
+                toolStripStatusLabel2.Text = "InetCheck: OFFLINE";
+                toolStripStatusLabel2.ForeColor = Color.Red;
+            }
         }
 
         private void cleanUp()
@@ -581,7 +586,7 @@ namespace FLOR
             }
         }
 
-        private void readUploadKey()
+        /*private void readUploadKey()
         {
             //first set offline scan to true
             Globals.isOn = false;
@@ -656,6 +661,54 @@ namespace FLOR
                         Globals.isOn = false;
                     }
                 }
+            }
+        }*/
+
+        private void readUploadKey(string XorkeyPath)
+        {
+            //first set offline scan to true
+            Globals.isOn = false;
+            Globals.keyPath = XorkeyPath;
+
+            //try to read azure url in
+            Globals.EncAzureSAS = File.ReadAllText(Globals.keyPath);
+
+            //read in the key from the key file
+            //to any white-hat, this key is just meant for obfuscation
+            //any tech could just use wireshark to capture the whole url
+            //the url itself is temporary and restricted and it is ok
+            //for the client to see the url itself
+            string xKey = "5gX7h9S";
+
+            try
+            {
+                //try decrypting
+                //decrypt the key and save it
+                Globals.ClearAzureSAS = EncryptOrDecrypt(Globals.EncAzureSAS, xKey);
+
+                //check for expiration
+                expirationCheck(Globals.ClearAzureSAS);
+
+                //if expired then offline and do nothing otherwise online
+                if (Globals.isExpired == true)
+                {
+                    //is expired
+                    Globals.isOn = false;
+                }
+                else
+                {
+                    //is valid
+                    //enabled btn and btn for offline scan
+                    Globals.isOn = true;
+                    BtnDown.Enabled = true;
+                    cBoxOfflineScan.Enabled = true;
+                    cBoxOfflineScan.Checked = false;
+                    tBoxConsole.AppendText("### SUCCESS! Key loaded, upload enabled ###" + Environment.NewLine);
+                }
+            }
+            catch
+            {
+                tBoxConsole.AppendText("### Key invalid! Forcing offline scan ###" + Environment.NewLine);
             }
         }
 
@@ -999,7 +1052,7 @@ namespace FLOR
 
         private void btnDebug_Click(object sender, EventArgs e)
         {
-            
+            prepXorKey();
 
 
         }
@@ -1035,7 +1088,6 @@ namespace FLOR
                 lblVer.ForeColor = Color.White;
                 lblVer2.ForeColor = Color.White;
                 btnDebug.ForeColor = Color.Black;
-                btnLoadKey.ForeColor = Color.Black;
                 btnInetCheck.ForeColor = Color.Black;
                 BtnDown.ForeColor = Color.Black;
                 cBoxDark.ForeColor = Color.White;
@@ -1068,9 +1120,81 @@ namespace FLOR
             }
         }
 
-        private void btnLoadKey_Click(object sender, EventArgs e)
+        private void prepXorKey()
         {
-            readUploadKey();
+            //basics first
+            //pretend scanner is offline and key invalid
+            //cBoxOfflineScan.Enabled = false;
+            cBoxOfflineScan.Checked = true;
+            cBoxOfflineScan.Enabled = false;
+
+            //check for key but only if online
+            if (Globals.isOn == true)
+            {
+                //read uploadkey first of all
+                //get current path to exe
+                var process = Process.GetCurrentProcess();
+                string fullPath = process.MainModule.FileName;
+                string skadiPath = "";
+                
+                skadiPath = fullPath.Substring(0, Convert.ToInt32(fullPath.Length - 10));
+                skadiPath = skadiPath + "\\key.txt";
+
+                //read in uploadkey
+                try
+                {
+                    readUploadKey(skadiPath);
+                }
+                catch
+                {
+                    //key missmatch
+                    //ask for key
+                    Globals.isOn = false;
+                    tBoxConsole.AppendText("### ERROR! No valid Key found ###" + Environment.NewLine);
+                    tBoxConsole.AppendText("### Prompting for upload key ###" + Environment.NewLine);
+                    MessageBox.Show("ERROR! Upload Key not valid. Select manually!");
+
+                    //ask for file
+                    OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                    openFileDialog1.DefaultExt = "txt";
+                    openFileDialog1.Filter = "txt Files (*.txt)|*.txt";
+                    openFileDialog1.ShowDialog();
+                    Globals.keyPath = openFileDialog1.FileName;
+                    Globals.keyFile = openFileDialog1.SafeFileName;
+
+                    if (Globals.keyFile != "key.txt")
+                    {
+                        //not key.txt
+                        //do nothing again
+                        tBoxConsole.AppendText("### Key invalid! Forcing offline scan ###" + Environment.NewLine);
+                    }
+                    else
+                    {
+                        //path is not null and is key.txt
+                        //should be valid
+                        try
+                        {
+                            readUploadKey(Globals.keyPath);
+                        }
+                        catch
+                        {
+                            //key itself is not valid
+                            tBoxConsole.AppendText("### Key invalid! Forcing offline scan ###" + Environment.NewLine);
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                //key not valid or not selected so enable scan but offline
+                BtnDown.Enabled = true;
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            prepXorKey();
         }
     }
 }
