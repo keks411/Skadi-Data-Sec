@@ -694,6 +694,7 @@ namespace FLOR
                 {
                     //is expired
                     Globals.isOn = false;
+                    tBoxConsole.AppendText("### ERROR! Key expired, forcing offline scan ###" + Environment.NewLine);
                 }
                 else
                 {
@@ -1144,6 +1145,13 @@ namespace FLOR
                 try
                 {
                     readUploadKey(skadiPath);
+
+                    //if expired then alos force offline
+                    if (Globals.isExpired == true)
+                    {
+                        Globals.isOn = false;
+                        BtnDown.Enabled = true;
+                    }
                 }
                 catch
                 {
