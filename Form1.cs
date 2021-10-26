@@ -567,102 +567,29 @@ namespace FLOR
             {
                 //same yer should be the norm
                 //check for month and date
-                Globals.isExpired = true;
                 if (Convert.ToInt32(currentMonth) > Convert.ToInt32(DateMonth))
                 {
                     //current month more
-                    Globals.isExpired = true;
-                }
-                else if (Convert.ToInt32(currentDay) < Convert.ToInt32(DateDay))
-                {
-                    //day is less so not expired
-                    //this should be normal
-                    Globals.isExpired = false;
                 }
                 else
                 {
-                    Globals.isExpired = true;
-                }
-            }
-        }
-
-        /*private void readUploadKey()
-        {
-            //first set offline scan to true
-            Globals.isOn = false;
-
-            //to upload you will need a key which will come from thiazi
-            //the key itself is basically just a encrypted sas-url
-            MessageBox.Show("Select the key.txt you got from Data-Sec. This is needed for uploading files\n", "INFO");
-
-            //ask for file
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.DefaultExt = "txt";
-            openFileDialog1.Filter = "txt Files (*.txt)|*.txt";
-            openFileDialog1.ShowDialog();
-            Globals.keyPath = openFileDialog1.FileName;
-            Globals.keyFile = openFileDialog1.SafeFileName;
-
-            if (Globals.keyPath == "")
-            {
-                //keypath is empty
-            } else
-            {
-                if (Globals.keyFile != "key.txt")
-                {
-                    //not key.txt
-                    MessageBox.Show("ERROR! Unable to read " + Globals.keyFile);
-                } else
-                {
-                    //path is not null and is key.txt
-                    try
+                    //current month is same or less
+                    if (Convert.ToInt32(currentMonth) == Convert.ToInt32(DateMonth))
                     {
-                        //try to read azure url in
-                        Globals.EncAzureSAS = File.ReadAllText(Globals.keyPath);
-
-                        //read in the key from the key file
-                        //to any white-hat, this key is just meant for obfuscation
-                        //any tech could just use wireshark to capture the whole url
-                        //the url itself is temporary and restricted and it is ok
-                        //for the client to see the url itself
-                        string xKey = "5gX7h9S";
-
-                        try
+                        //current month is same
+                        if (Convert.ToInt32(currentDay) < Convert.ToInt32(DateDay))
                         {
-                            //try decrypting
-                            //decrypt the key and save it
-                            Globals.ClearAzureSAS = EncryptOrDecrypt(Globals.EncAzureSAS, xKey);
-
-                            //check for expiration
-                            expirationCheck(Globals.ClearAzureSAS);
-
-                            //if expired then offline and do nothing otherwise online
-                            if (Globals.isExpired == true)
-                            {
-                                //is expired
-                                MessageBox.Show("ERROR! Key is expired");
-                                Globals.isOn = false;
-                            } else
-                            {
-                                //is valid
-                                MessageBox.Show("SUCCESS! Key is valid. Upload enabled");
-                                Globals.isOn = true;
-                            }
-                        } catch
-                        {
-                            MessageBox.Show("ERROR! Key missmatch");
-                            Globals.isOn = false;
+                            //currentDay is less and month same therefore valid
+                            Globals.isExpired = false;
                         }
-
-
-                    } catch
+                    } else
                     {
-                        MessageBox.Show("ERROR! Unable to read key");
-                        Globals.isOn = false;
+                        //current month is less therefore valid
+                        Globals.isExpired = false;
                     }
                 }
-            }
-        }*/
+            } 
+        }
 
         private void readUploadKey(string XorkeyPath)
         {
