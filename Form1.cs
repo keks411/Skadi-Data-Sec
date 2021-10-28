@@ -67,7 +67,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.2";
+            lblVer2.Text = "1.2.2";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
