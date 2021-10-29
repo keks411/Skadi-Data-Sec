@@ -67,7 +67,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.2.2";
+            lblVer2.Text = "1.3";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -210,6 +210,10 @@ namespace FLOR
                 //running autoruns
                 runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning autostart ###", 0);
                 toolStripProgressBar1.Value = 80;
+
+                //read usn journal
+                runCmd("/c fsutil usn readjournal C: csv " + lokiPath + "\\usn.csv", "### Reading USN Journal ###");
+                toolStripProgressBar1.Value = 83;
 
                 //running handle64
                 runBinary("-accepteula", "handle64.exe", "### Scanning open Handles ###", 1);
