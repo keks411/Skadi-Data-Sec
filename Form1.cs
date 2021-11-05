@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Text.Json;
 using System.Windows.Forms;
 using System.Security.Principal;
 using System.Diagnostics;
@@ -9,6 +10,9 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
+using System.ComponentModel;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace FLOR
 {
@@ -51,7 +55,7 @@ namespace FLOR
             cBoxOfflineScan.ForeColor = Color.White;
 
             //debug
-            //btnDebug.Visible = true;
+            btnDebug.Visible = true;
 
             //clear console window
             tBoxConsole.Text = "";
@@ -79,7 +83,7 @@ namespace FLOR
             {
                 tBoxConsole.AppendText("### ERROR! Missing permissions! ###" + Environment.NewLine);
                 MessageBox.Show("Application must be run as ADMIN!", "INFO");
-                Application.Exit();
+                //Application.Exit();
             }
             tBoxConsole.AppendText("### SUCCESS! Elevated User! ###" + Environment.NewLine);
 
@@ -194,7 +198,6 @@ namespace FLOR
 
                 p2.WaitForExit();
                 p2.Close();
-                toolStripProgressBar1.Value = 70;
 
                 p2.StartInfo.WorkingDirectory = lokiPath;
                 p2.StartInfo.Arguments = "--noindicator --csv -l iocscan.csv";
@@ -206,38 +209,52 @@ namespace FLOR
                 p2.StartInfo.RedirectStandardError = true;
                 p2.EnableRaisingEvents = true;
 
-
-                //running autoruns
-                runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning autostart ###", 0);
-                toolStripProgressBar1.Value = 80;
-
-                //read usn journal
-                runCmd("/c fsutil usn readjournal C: csv " + lokiPath + "\\usn.csv", "### Reading USN Journal ###");
-                toolStripProgressBar1.Value = 83;
+                //loki went through so set the progressbar
+                toolStripProgressBar1.Maximum = 150;
+                toolStripProgressBar1.Value = 50;
 
                 //running handle64
-                runBinary("-accepteula", "handle64.exe", "### Scanning open Handles ###", 1);
-                toolStripProgressBar1.Value = 85;
+                //runBinary("-accepteula", "handle64.exe", "### Scanning open Handles ###", 1);
+                //toolStripProgressBar1.Value = 5;
 
                 //running pslist
-                runBinary("-accepteula -d -m -x", "pslist64.exe", "### Scanning running processes ###", 1);
-                toolStripProgressBar1.Value = 85;
-
-                //running tcpvcon
-                runBinary("-accepteula -c", "tcpvcon64.exe", "### Scanning open connections ###", 1);
-                toolStripProgressBar1.Value = 85;
+                //runBinary("-accepteula -d -m -x", "pslist64.exe", "### Scanning running processes ###", 1);
+                //toolStripProgressBar1.Value = 10;
 
                 //extract eventlogs
                 runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
                 runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
-                toolStripProgressBar1.Value = 87;
+                toolStripProgressBar1.Value++;
+
+                //running tcpvcon
+                runBinary("-accepteula -a -c tcpvcon.csv", "tcpvcon64.exe", "### Scanning open connections ###", 0);
+                toolStripProgressBar1.Value++;
+
+                //velociraptor
+                //extend the list by adding stuff to globals
+                //first create the json folder
+                Directory.CreateDirectory(lokiPath + "\\json");
+                int index = 0;
+                foreach (string artifact in Globals.vc_artifacts)
+                {
+                    runBinary("artifacts collect " + Globals.vc_artifacts[index] + " --nobanner --output=json\\" + Globals.vc_artifacts[index] + ".zip", "vc.exe", "### Collecting Artifact: " + Globals.vc_artifacts[index].Replace(".", " "), 0);
+                    toolStripProgressBar1.Value++;
+                    index++;
+
+                    //there are more than 100 items so stop counting at 140
+                    //cheap workaround I know...
+                    if (toolStripProgressBar1.Value >= 140)
+                    {
+                        toolStripProgressBar1.Value = 140;
+                    }
+                }
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Encrypting files  ###" + Environment.NewLine);
 
                 packIt();
                 //pack it together
-                toolStripProgressBar1.Value = 90;
+                toolStripProgressBar1.Value = 145;
                 tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
                 
 
@@ -245,12 +262,11 @@ namespace FLOR
                 if (Globals.isOn == true)
                 {
                     uploadIt();
-                    toolStripProgressBar1.Value = 95;
                     tBoxConsole.AppendText("### File uploaded ###" + Environment.NewLine);
                 } else
                 {
                 }
-                toolStripProgressBar1.Value = 100;
+                toolStripProgressBar1.Value = 150;
                 cleanUp();
 
                 tBoxConsole.AppendText("### Finished ###" + Environment.NewLine);
@@ -717,7 +733,6 @@ namespace FLOR
                 string DownFile = DownPath + "\\ds.zip";
                 WebClient webClient = new WebClient();
                 webClient.DownloadFile("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip", DownFile);
-                toolStripProgressBar1.Value = 15;
 
                 //extract zip
                 tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
@@ -725,7 +740,6 @@ namespace FLOR
                 {
                     zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
                 }
-                toolStripProgressBar1.Value = 30;
 
                 //in case of updated rules its better to delete the whole signature folder
                 Directory.Delete(DownPath + "\\loki\\signature-base", true);
@@ -752,7 +766,6 @@ namespace FLOR
                 p.Start();
                 p.WaitForExit();
                 p.Close();
-                toolStripProgressBar1.Value = 45;
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
             } else //system is offline
             {
@@ -760,7 +773,6 @@ namespace FLOR
                 string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string DownFile = DownPath + "\\ds.zip";
                 tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
-                toolStripProgressBar1.Value = 30;
 
                 File.WriteAllBytes(DownFile, Properties.Resources.ds);
                 using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
@@ -885,6 +897,118 @@ namespace FLOR
             public static string keyPath = "";
             public static string keyFile = "";
             public static string ClearAzureSAS = "";
+
+            //velociraptor artifacts to be scanned
+            //may change this to be a simple txt later on
+            public static string[] vc_artifacts = new string[107] {
+                "Generic.Client.VQL",
+                "Generic.Forensic.Carving.URLs",
+                "Generic.System.Pstree",
+                "Network.ExternalIpAddress",
+                "Windows.Analysis.EvidenceOfDownload",
+                "Windows.Application.Firefox.History",
+                "Windows.Application.IISLogs",
+                "Windows.Application.MegaSync",
+                "Windows.Applications.ChocolateyPackages",
+                "Windows.Applications.Chrome.Cookies",
+                "Windows.Applications.Chrome.Extensions",
+                "Windows.Applications.Chrome.History",
+                "Windows.Applications.Edge.History",
+                "Windows.Applications.NirsoftBrowserViewer",
+                "Windows.Applications.OfficeMacros",
+                "Windows.Applications.SBECmd",
+                "Windows.Attack.ParentProcess",
+                "Windows.Attack.Prefetch",
+                "Windows.Carving.CobaltStrike",
+                "Windows.Collectors.VSS",
+                "Windows.Detection.CryptnetUrlCache",
+                "Windows.Detection.EnvironmentVariables",
+                "Windows.Detection.ForwardedImports",
+                "Windows.Detection.Impersonation",
+                "Windows.Detection.Mutants",
+                "Windows.Detection.TemplateInjection",
+                "Windows.Detection.Yara.NTFS",
+                "Windows.Detection.Yara.Process",
+                "Windows.EventLogs.AlternateLogon",
+                "Windows.EventLogs.Cleared",
+                "Windows.EventLogs.DHCP",
+                "Windows.EventLogs.EvtxHunter",
+                "Windows.EventLogs.ExplicitLogon",
+                "Windows.EventLogs.Kerbroasting",
+                "Windows.EventLogs.Modifications",
+                "Windows.EventLogs.PowershellModule",
+                "Windows.EventLogs.PowershellScriptblock",
+                "Windows.EventLogs.RDPAuth",
+                "Windows.EventLogs.ScheduledTasks",
+                "Windows.EventLogs.ServiceCreationComspec",
+                "Windows.EventLogs.Symantec",
+                "Windows.EventLogs.Telerik",
+                "Windows.Forensics.Bam",
+                "Windows.Forensics.CertUtil",
+                "Windows.Forensics.Lnk",
+                "Windows.Forensics.Prefetch",
+                "Windows.Forensics.ProcessInfo",
+                "Windows.Forensics.RecentApps",
+                "Windows.Forensics.RecycleBin",
+                "Windows.Forensics.SRUM",
+                "Windows.Forensics.Shellbags",
+                "Windows.Forensics.SolarwindsSunburst",
+                "Windows.Forensics.Timeline",
+                "Windows.Forensics.Usn",
+                "Windows.NTFS.I30",
+                "Windows.Network.ArpCache",
+                "Windows.Network.InterfaceAddresses",
+                "Windows.Network.ListeningPorts",
+                "Windows.Network.Netstat",
+                "Windows.Network.NetstatEnriched",
+                "Windows.Packs.LateralMovement",
+                "Windows.Packs.Persistence",
+                "Windows.Persistence.Debug",
+                "Windows.Persistence.PermanentWMIEvents",
+                "Windows.Persistence.PowershellRegistry",
+                "Windows.Persistence.Wow64cpu",
+                "Windows.Registry.AppCompatCache",
+                "Windows.Registry.EnableUnsafeClientMailRules",
+                "Windows.Registry.EnabledMacro",
+                "Windows.Registry.MountPoints2",
+                "Windows.Registry.NTUser",
+                "Windows.Registry.PortProxy",
+                "Windows.Registry.Sysinternals.Eulacheck",
+                "Windows.Registry.UserAssist",
+                "Windows.Registry.WDigest",
+                "Windows.Search.VSS",
+                "Windows.Sys.AppcompatShims",
+                "Windows.Sys.CertificateAuthorities",
+                "Windows.Sys.DiskInfo",
+                "Windows.Sys.Drivers",
+                "Windows.Sys.FirewallRules",
+                "Windows.Sys.Interfaces",
+                "Windows.Sys.PhysicalMemoryRanges",
+                "Windows.Sys.Programs",
+                "Windows.Sys.StartupItems",
+                "Windows.Sys.Users",
+                "Windows.System.Amcache",
+                "Windows.System.AuditPolicy",
+                "Windows.System.CatFiles",
+                "Windows.System.CriticalServices",
+                "Windows.System.DLLs",
+                "Windows.System.DNSCache",
+                "Windows.System.Handles",
+                "Windows.System.HostsFile",
+                "Windows.System.LocalAdmins",
+                "Windows.System.PowerShell",
+                "Windows.System.Powershell.ModuleAnalysisCache",
+                "Windows.System.Powershell.PSReadline",
+                "Windows.System.Pslist",
+                "Windows.Sysinternals.Autoruns",
+                "Windows.System.RootCAStore",
+                "Windows.System.SVCHost",
+                "Windows.System.Services",
+                "Windows.System.Signers",
+                "Windows.Timeline.Prefetch",
+                "Windows.Analysis.EvidenceOfExecution",
+                "Windows.Detection.Amcache"
+            };
         }
 
         private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -984,9 +1108,33 @@ namespace FLOR
 
         private void btnDebug_Click(object sender, EventArgs e)
         {
-            prepXorKey();
+            //test vc and json
+            var jsonTest = File.ReadAllText("C:\\neu\\Windows.Attack.Prefetch.txt");
 
+            //https://www.newtonsoft.com/json/help/html/ReadingWritingJSON.htm
+            JsonTextReader reader = new JsonTextReader(new StringReader(jsonTest));
+            List<string> jsonArray = new List<string>();
 
+            while (reader.Read())
+            {
+                if (reader.Value != null)
+                {
+                    MessageBox.Show(Convert.ToString(reader.Value));
+                    //check if c
+                    if (jsonArray.Contains(Convert.ToString(reader.Value)))
+                    {
+                        MessageBox.Show("blubb" + "\n\n\n" + Convert.ToString(reader.Value));
+                    }
+                    jsonArray.Add(Convert.ToString(reader.Value));
+                    MessageBox.Show(Convert.ToString(jsonArray.Count));
+                }
+                else
+                {
+                    MessageBox.Show(Convert.ToString(reader.TokenType));
+                }
+            }
+
+            MessageBox.Show("test");
         }
 
         private void cBoxDark_CheckedChanged(object sender, EventArgs e)
