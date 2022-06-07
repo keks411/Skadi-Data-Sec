@@ -67,7 +67,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.3";
+            lblVer2.Text = "1.3.1 - Basta";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -124,6 +124,9 @@ namespace FLOR
 
             //clear files
             cleanUp();
+
+            //BlackBasta force offline
+            cBoxOfflineScan.Checked = true;
 
             //check options radiobuttons
             if (cBoxOfflineScan.Checked == true)
@@ -205,7 +208,6 @@ namespace FLOR
                 p2.StartInfo.RedirectStandardOutput = true;
                 p2.StartInfo.RedirectStandardError = true;
                 p2.EnableRaisingEvents = true;
-
 
                 //running autoruns
                 runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning autostart ###", 0);
