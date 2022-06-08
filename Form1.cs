@@ -67,7 +67,7 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.GetEnvironmentVariable("Userdomain");
 
-            lblVer2.Text = "1.3.1 - Basta";
+            lblVer2.Text = "1.3.2 - Basta";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -92,7 +92,6 @@ namespace FLOR
             Globals.iNetCheck = 0;
 
             Ping("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip");
-            Ping("https://github.com/Neo23x0/Loki/releases/download/v0.44.1/loki_0.44.1.zip");
 
             if (Globals.iNetCheck == 1)
             {
@@ -124,9 +123,6 @@ namespace FLOR
 
             //clear files
             cleanUp();
-
-            //BlackBasta force offline
-            cBoxOfflineScan.Checked = true;
 
             //check options radiobuttons
             if (cBoxOfflineScan.Checked == true)
@@ -392,7 +388,6 @@ namespace FLOR
             Globals.iNetCheck = 0;
 
             Ping("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip");
-            Ping("https://github.com/Neo23x0/Loki/releases/download/v0.44.1/loki_0.44.1.zip");
 
             if (Globals.iNetCheck == 1)
             {
@@ -534,19 +529,17 @@ namespace FLOR
             string zPassword = "cajcsnj23basc78a2basjhasdhk2jkhasdjhoajhs";
             compressDirectoryWithPassword(report + "\\AES", reportz, zPassword, 9);
 
-            if (Globals.isOn == false)
-            {
-                try
+
+            try
                 {
                     File.Delete(desktop + "\\report.zip");
                 } catch
                 {
 
                 }
-                File.Move(reportz, desktop + "\\report.zip");
-                tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
-                tBoxConsole.AppendText("### " + desktop + "\\report.zip" + " ###" + Environment.NewLine);
-            }
+            File.Move(reportz, desktop + "\\report.zip");
+            tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
+            tBoxConsole.AppendText("### " + desktop + "\\report.zip" + " ###" + Environment.NewLine);
         }
 
         private void expirationCheck(string azureUrl)
@@ -709,6 +702,7 @@ namespace FLOR
 
         private void downloadEx()
         {
+            /*
             if (Globals.isOn == true)
             {
                 //downloading scanner zip
@@ -758,6 +752,7 @@ namespace FLOR
                 tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
             } else //system is offline
             {
+            */
                 //extract zip
                 string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string DownFile = DownPath + "\\ds.zip";
@@ -769,10 +764,6 @@ namespace FLOR
                 {
                     zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
                 }
-            }
-
-
-
         }
 
         private void runBinary(string args, string exe, string text, int rdirect)
