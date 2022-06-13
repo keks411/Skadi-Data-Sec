@@ -798,8 +798,8 @@ namespace FLOR
 
         private void runBinary(string args, string exe, string text, int rdirect)
         {
-			//Check if OS is 64 bit capable and run 32 bit or 64 bit executable.
-			bool is64 = System.Environment.Is64BitOperatingSystem
+            //Check if OS is 64 bit capable and run 32 bit or 64 bit executable.
+            bool is64 = System.Environment.Is64BitOperatingSystem;
 			if (is64)
 			{
 				exe = exe + "64.exe";
