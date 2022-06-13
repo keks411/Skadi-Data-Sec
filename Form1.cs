@@ -953,6 +953,8 @@ namespace FLOR
             //create output file name
             FileStream fsCrypt = new FileStream(inputFile + ".aes", FileMode.Create);
 
+			// Bug: The encryption hangs on e.g. Win 7 32 bit. It appears somewhere here ...
+
             //convert password string to byte arrray
             byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
 
@@ -967,6 +969,8 @@ namespace FLOR
             AES.Key = key.GetBytes(AES.KeySize / 8);
             AES.IV = key.GetBytes(AES.BlockSize / 8);
             AES.Mode = CipherMode.CFB;
+			
+			// Bug: ... to supposedly here (unless the salt isn't flushed before it hangs).
 
             // write salt to the begining of the output file, so in this case can be random every time
             fsCrypt.Write(salt, 0, salt.Length);
