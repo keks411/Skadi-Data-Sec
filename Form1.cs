@@ -206,7 +206,7 @@ namespace FLOR
                 p2.EnableRaisingEvents = true;
 
                 //running autoruns
-                runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc64.exe", "### Scanning autostart ###", 0);
+                runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc", "### Scanning autostart ###", 0);
                 toolStripProgressBar1.Value = 80;
 
                 //read usn journal
@@ -214,15 +214,15 @@ namespace FLOR
                 toolStripProgressBar1.Value = 83;
 
                 //running handle64
-                runBinary("-accepteula", "handle64.exe", "### Scanning open Handles ###", 1);
+                runBinary("-accepteula", "handle", "### Scanning open Handles ###", 1);
                 toolStripProgressBar1.Value = 85;
 
                 //running pslist
-                runBinary("-accepteula -d -m -x", "pslist64.exe", "### Scanning running processes ###", 1);
+                runBinary("-accepteula -d -m -x", "pslist", "### Scanning running processes ###", 1);
                 toolStripProgressBar1.Value = 85;
 
                 //running tcpvcon
-                runBinary("-accepteula -c", "tcpvcon64.exe", "### Scanning open connections ###", 1);
+                runBinary("-accepteula -c", "tcpvcon", "### Scanning open connections ###", 1);
                 toolStripProgressBar1.Value = 85;
 
                 //extract eventlogs
@@ -454,41 +454,68 @@ namespace FLOR
         private void packIt()
         {
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
-            string domain = System.Environment.GetEnvironmentVariable("Userdomain");
-            string downf = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string report = downf + "\\loki";
-            string reportz = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
+            string domain   = System.Environment.GetEnvironmentVariable("Userdomain");
+            string downf    = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string desktop  = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string report   = downf + "\\loki";
+            string reportz  = report + "\\" + hostname + "---" + domain + "---" + "REPORT.zip";
 
             //create loot folder
             Directory.CreateDirectory(report + "\\loot");
-
-            //move all loot files into loot
-            try
-            {
-                File.Move(report + "\\autoruns.csv", report + "\\loot\\autoruns.csv");
-                File.Move(report + "\\handle64.exe.txt", report + "\\loot\\handle64.exe.txt");
-                File.Move(report + "\\iocscan.csv", report + "\\loot\\iocscan.csv");
-                File.Move(report + "\\pslist64.exe.txt", report + "\\loot\\pslist64.exe.txt");
-                File.Move(report + "\\tcpvcon64.exe.txt", report + "\\loot\\tcpvcon64.exe.txt");
-
-                //it takes time to extract the files. I could program something complicated or just wait until the file is
-                //there and then copy it once its done
-                while (File.Exists(report + "\\Security.evtx") != true)
-                {
-                    System.Threading.Thread.Sleep(1000);
-                    // For some reason the evtx does not get created every time
-                    // Not sure why but workaround is trying to craeate it again
-                    //extract eventlogs
-                    runCmd("/c wevtutil epl System " + report + "\\System.evtx", "hidden");
-                    runCmd("/c wevtutil epl Security " + report + "\\Security.evtx", "hidden");
-                }
-                File.Move(report + "\\Security.evtx", report + "\\loot\\Security.evtx");
-                File.Move(report + "\\System.evtx", report + "\\loot\\System.evtx");
-            } catch
-            {
-
-            }
+			
+			//loot files
+			string[] logs = {
+				"autoruns.csv",
+				"handle.exe.txt",
+				"handle64.exe.txt",
+				"iocscan.csv",
+				"pslist.exe.txt",
+				"pslist64.exe.txt",
+				"tcpvcon.exe.txt",
+				"tcpvcon64.exe.txt"
+				};
+			string[] reports = {
+				"Security",
+				"System"
+			};
+			
+			//move all loot files into loot
+			foreach (string s in logs)
+			{
+				try
+				{
+					File.Move(report + "\\" + s, report + "\\loot\\" + s);
+				}
+				catch
+				{
+				}
+			}
+			foreach (string s in reports)
+			{
+				int count = 0;
+				try
+				{
+					string filename = s + ".evtx";
+					//it takes time to extract the files. I could program something complicated or just wait until the file is
+					//there and then copy it once its done
+					do
+					{
+						// For some reason the evtx does not get created every time
+						// Not sure why but workaround is trying to craeate it again
+						//extract eventlogs
+						runCmd("/c wevtutil epl " + s + " " + report + "\\" + filename, "hidden");
+						//timeout after 10 minutes
+						if (count > 600)
+							break;
+						//wait 10 seconds before trying again
+						System.Threading.Thread.Sleep(10000);
+					} while (!File.Exists(report + "\\" + filename));
+					File.Move(report + "\\" + filename, report + "\\loot\\" + filename);
+				}
+				catch
+				{
+				}
+			}
 
             //create cleartext zip
             compressDirectory(@report + "\\loot", reportz, 9);
@@ -522,7 +549,6 @@ namespace FLOR
                 File.Move(reportz + ".aes", report + "\\AES\\" + hostname + "---" + domain + "---" + "REPORT.zip.aes");
             } catch
             {
-
             }
 
             //create encrypted zip
@@ -531,13 +557,17 @@ namespace FLOR
 
 
             try
-                {
-                    File.Delete(desktop + "\\report.zip");
-                } catch
-                {
-
-                }
-            File.Move(reportz, desktop + "\\report.zip");
+			{
+				File.Delete(desktop + "\\report.zip");
+			} catch
+			{
+			}
+			try
+			{
+				File.Move(reportz, desktop + "\\report.zip");
+			} catch
+			{
+			}
             tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
             tBoxConsole.AppendText("### " + desktop + "\\report.zip" + " ###" + Environment.NewLine);
         }
@@ -768,11 +798,23 @@ namespace FLOR
 
         private void runBinary(string args, string exe, string text, int rdirect)
         {
-                tBoxConsole.AppendText(text + Environment.NewLine);
-                string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
-                string loki = lokiPath + "\\" + exe;
+			//Check if OS is 64 bit capable and run 32 bit or 64 bit executable.
+			bool is64 = System.Environment.Is64BitOperatingSystem
+			if (is64)
+			{
+				exe = exe + "64.exe";
+			}
+			else
+			{
+				exe = exe + ".exe";
+			}
+				
+			
+			tBoxConsole.AppendText(text + Environment.NewLine);
+			string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
+			string loki = lokiPath + "\\" + exe;
 
-                Process p2 = new Process();
+			Process p2 = new Process();
             Globals.lfile = exe;
 
             if (rdirect == 1)
