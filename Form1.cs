@@ -65,9 +65,9 @@ namespace FLOR
             //read basic info and store in system info labels
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
             string userName = System.Environment.GetEnvironmentVariable("username");
-            string domain = System.Environment.GetEnvironmentVariable("Userdomain");
+            string domain = System.Environment.UserDomainName;
 
-            lblVer2.Text = "1.3.3 - Basta";
+            lblVer2.Text = "1.4 - Basta";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
@@ -147,7 +147,7 @@ namespace FLOR
             toolStripProgressBar1.Visible = true;
             toolStripProgressBar1.Value = 0;
 
-            // INSERT ONLINE OR OFFLIEN ROUTINE
+            // INSERT ONLINE OR OFFLINE ROUTINE
             downloadEx();
 
             // starting scan
@@ -176,12 +176,27 @@ namespace FLOR
                 p2.StartInfo.RedirectStandardError = true;
                 p2.EnableRaisingEvents = true;
                 tBoxConsole.AppendText("### Scanning for IOCs ###" + Environment.NewLine);
+
+                //reset pbar
+                toolStripProgressBar1.Value = 0;
+                int pbarCount = 0;
+
                 p2.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
                     // Prepend line numbers to each line of the output.
                     if (!String.IsNullOrEmpty(e.Data))
                     {
                         lcount++;
+                        //run the pbar too 100 and then reset
+                        //otherwise customers do not know if program still active or not
+                        if(toolStripProgressBar1.Value != 100)
+                        {
+                            toolStripProgressBar1.Value++;
+                        } else {
+                            pbarCount++;
+                            toolStripProgressBar1.Value = 0;
+                            tBoxConsole.AppendText("### Counter:" + Convert.ToString(pbarCount) + " I am still searching :) ###" + Environment.NewLine);
+                        }
                         //tBoxConsole.AppendText(e.Data + Environment.NewLine);
                     }
                 });
@@ -193,7 +208,7 @@ namespace FLOR
 
                 p2.WaitForExit();
                 p2.Close();
-                toolStripProgressBar1.Value = 70;
+                toolStripProgressBar1.Value = 0;
 
                 p2.StartInfo.WorkingDirectory = lokiPath;
                 p2.StartInfo.Arguments = "--noindicator --csv -l iocscan.csv";
@@ -207,35 +222,39 @@ namespace FLOR
 
                 //running autoruns
                 runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc", "### Scanning autostart ###", 0);
-                toolStripProgressBar1.Value = 80;
+                toolStripProgressBar1.Value = 10;
 
                 //read usn journal
-                runCmd("/c fsutil usn readjournal C: csv " + lokiPath + "\\usn.csv", "### Reading USN Journal ###");
-                toolStripProgressBar1.Value = 83;
+                //disabled because not needed really
+                //runCmd("/c fsutil usn readjournal C: csv " + lokiPath + "\\usn.csv", "### Reading USN Journal ###");
+                //toolStripProgressBar1.Value = 20;
 
                 //running handle64
                 runBinary("-accepteula", "handle", "### Scanning open Handles ###", 1);
-                toolStripProgressBar1.Value = 85;
+                toolStripProgressBar1.Value = 30;
 
                 //running pslist
                 runBinary("-accepteula -d -m -x", "pslist", "### Scanning running processes ###", 1);
-                toolStripProgressBar1.Value = 85;
+                toolStripProgressBar1.Value = 40;
 
                 //running tcpvcon
                 runBinary("-accepteula -c", "tcpvcon", "### Scanning open connections ###", 1);
-                toolStripProgressBar1.Value = 85;
+                toolStripProgressBar1.Value = 50;
 
                 //extract eventlogs
+                //disabled for now because not needed really
+                /*
                 runCmd("/c wevtutil epl System " + lokiPath + "\\System.evtx", "### Extracting Event Logs 1/2 ###");
                 runCmd("/c wevtutil epl Security " + lokiPath + "\\Security.evtx", "### Extracting Event Logs 2/2 ###");
-                toolStripProgressBar1.Value = 87;
+                toolStripProgressBar1.Value = 60;
+                */
 
                 tBoxConsole.AppendText("### Scanning complete ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Encrypting files  ###" + Environment.NewLine);
 
                 packIt();
                 //pack it together
-                toolStripProgressBar1.Value = 90;
+                toolStripProgressBar1.Value = 70;
                 tBoxConsole.AppendText("### Compressed and ready to ship ###" + Environment.NewLine);
                 
 
@@ -254,8 +273,11 @@ namespace FLOR
                 tBoxConsole.AppendText("### Finished ###" + Environment.NewLine);
                 tBoxConsole.AppendText("### Data-Sec GmbH will get back to you shortly ###" + Environment.NewLine);
 
+                string hostname = System.Environment.GetEnvironmentVariable("Computername");
+                MessageBox.Show("The report is located on your Desktop:\n" + hostname + "-report.zip", "Scan complete");
+
                 //task is done
-                            });
+            });
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -454,7 +476,7 @@ namespace FLOR
         private void packIt()
         {
             string hostname = System.Environment.GetEnvironmentVariable("Computername");
-            string domain   = System.Environment.GetEnvironmentVariable("Userdomain");
+            string domain   = System.Environment.UserDomainName;
             string downf    = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string desktop  = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string report   = downf + "\\loki";
@@ -469,14 +491,17 @@ namespace FLOR
 				"handle.exe.txt",
 				"handle64.exe.txt",
 				"iocscan.csv",
+                "usn.csv",
 				"pslist.exe.txt",
 				"pslist64.exe.txt",
 				"tcpvcon.exe.txt",
-				"tcpvcon64.exe.txt"
+				"tcpvcon64.exe.txt",
+                "recentfilecache.csv",
+                "shellbags.csv"
 				};
 			string[] reports = {
-				"Security",
-				"System"
+				"Security.evtx",
+				"System.evtx"
 			};
 			
 			//move all loot files into loot
@@ -490,32 +515,18 @@ namespace FLOR
 				{
 				}
 			}
-			foreach (string s in reports)
-			{
-				int count = 0;
-				try
-				{
-					string filename = s + ".evtx";
-					//it takes time to extract the files. I could program something complicated or just wait until the file is
-					//there and then copy it once its done
-					do
-					{
-						// For some reason the evtx does not get created every time
-						// Not sure why but workaround is trying to craeate it again
-						//extract eventlogs
-						runCmd("/c wevtutil epl " + s + " " + report + "\\" + filename, "hidden");
-						//timeout after 10 minutes
-						if (count > 600)
-							break;
-						//wait 10 seconds before trying again
-						System.Threading.Thread.Sleep(10000);
-					} while (!File.Exists(report + "\\" + filename));
-					File.Move(report + "\\" + filename, report + "\\loot\\" + filename);
-				}
-				catch
-				{
-				}
-			}
+
+            //move all evtx files into loot
+            foreach (string r in reports)
+            {
+                try
+                {
+                    File.Move(report + "\\" + r, report + "\\loot\\" + r);
+                }
+                catch
+                {
+                }
+            }
 
             //create cleartext zip
             compressDirectory(@report + "\\loot", reportz, 9);
@@ -558,18 +569,18 @@ namespace FLOR
 
             try
 			{
-				File.Delete(desktop + "\\report.zip");
+				File.Delete(desktop + "\\" + hostname + "-report.zip");
 			} catch
 			{
 			}
 			try
 			{
-				File.Move(reportz, desktop + "\\report.zip");
+				File.Move(reportz, desktop + "\\" + hostname + "-report.zip");
 			} catch
 			{
 			}
             tBoxConsole.AppendText("### The report is located at: ###" + Environment.NewLine);
-            tBoxConsole.AppendText("### " + desktop + "\\report.zip" + " ###" + Environment.NewLine);
+            tBoxConsole.AppendText("### " + desktop + "\\" + hostname + "-report.zip" + " ###" + Environment.NewLine);
         }
 
         private void expirationCheck(string azureUrl)
