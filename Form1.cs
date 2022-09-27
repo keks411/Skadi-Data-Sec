@@ -91,7 +91,7 @@ namespace FLOR
             tBoxConsole.AppendText("### Checking Internet Connection ###" + Environment.NewLine);
             Globals.iNetCheck = 0;
 
-            Ping("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip");
+            Ping("https://google.com");
 
             if (Globals.iNetCheck == 1)
             {
