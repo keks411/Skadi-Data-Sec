@@ -67,10 +67,15 @@ namespace FLOR
             string userName = System.Environment.GetEnvironmentVariable("username");
             string domain = System.Environment.UserDomainName;
 
-            lblVer2.Text = "1.4 - Basta";
+            lblVer2.Text = "2.0";
             lblHost2.Text = hostname;
             lblUser2.Text = userName;
             lblDom2.Text = domain;
+            //avoid the same info
+            if (hostname == domain)
+            {
+                lblDom2.Text = "";
+            }
 
             //check for admin or not, do not allow non-admin and close
             tBoxConsole.AppendText("### Checking for permissions ###" + Environment.NewLine);
@@ -147,8 +152,8 @@ namespace FLOR
             toolStripProgressBar1.Visible = true;
             toolStripProgressBar1.Value = 0;
 
-            // INSERT ONLINE OR OFFLINE ROUTINE
-            downloadEx();
+            // trying to update engine
+            updateEngine();
 
             // starting scan
             tBoxConsole.AppendText("### Starting scan with default options ###" + Environment.NewLine);
@@ -707,8 +712,9 @@ namespace FLOR
 
             //upload the zip
             try { 
+                //mv report to desktop either way
                 File.Move(reportz, rreport);
-                //INSERT UPLOAD HERE
+
                 string sasToken = Globals.ClearAzureSAS;
                 string storageAccount = "dstoolsiocsearch";
                 string containerName = "reports";
@@ -741,70 +747,70 @@ namespace FLOR
 
         }
 
-        private void downloadEx()
+        private void updateEngine()
         {
-            /*
-            if (Globals.isOn == true)
-            {
+                //extract the zip to localappdata from rsrc
+                string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string DownFile = DownPath + "\\ds.zip";
+                tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
+                toolStripProgressBar1.Value = 30;
+                File.WriteAllBytes(DownFile, Properties.Resources.ds);
+                using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
+                {
+                   zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                }
+
+                //in case of updated rules its better to delete the whole signature folder
+                try
+                {
+                    Directory.Delete(DownPath + "\\loki\\signature-base", true);
+                    Directory.Delete(DownPath + "\\loki\\docs", true);
+                    Directory.Delete(DownPath + "\\loki\\plugins", true);
+                    Directory.Delete(DownPath + "\\loki\\tools", true);
+                    Directory.Delete(DownPath + "\\loki\\config", true);
+                } catch
+                {
+
+                }
+
+
+                try
+                {
+                    //start upgrader
+                    //put it all into a new process
+                    Process p = new Process();
+                    tBoxConsole.AppendText("### Trying upgrading process ###" + Environment.NewLine);
+                    string lupgrader = DownPath + "\\loki\\loki-upgrader.exe";
+                
+                    p.StartInfo.WorkingDirectory = DownPath + "\\loki";
+                    p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    p.StartInfo.LoadUserProfile = false;
+                    p.StartInfo.FileName = lupgrader;
+                    p.StartInfo.UseShellExecute = true;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.RedirectStandardOutput = false;
+                    p.StartInfo.RedirectStandardError = false;
+                    p.Start();
+                    p.WaitForExit();
+                    p.Close();
+                    toolStripProgressBar1.Value = 45;
+                    tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
+                } catch
+                {
+                    tBoxConsole.AppendText("### Unable to fetch updates ###" + Environment.NewLine);
+                    tBoxConsole.AppendText("### Falling back to offline ###" + Environment.NewLine);
+                }
+                
+
+                MessageBox.Show("test");
+                /*
                 //downloading scanner zip
-                tBoxConsole.AppendText("### Seems to be ONLINE ###" + Environment.NewLine);
-                tBoxConsole.AppendText("### Starting Online-Routine ###" + Environment.NewLine);
-                tBoxConsole.AppendText("### Downloading engine ###" + Environment.NewLine);
                 string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string DownFile = DownPath + "\\ds.zip";
                 WebClient webClient = new WebClient();
                 webClient.DownloadFile("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip", DownFile);
                 toolStripProgressBar1.Value = 15;
-
-                //extract zip
-                tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
-                using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
-                {
-                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-                }
-                toolStripProgressBar1.Value = 30;
-
-                //in case of updated rules its better to delete the whole signature folder
-                Directory.Delete(DownPath + "\\loki\\signature-base", true);
-                Directory.Delete(DownPath + "\\loki\\docs", true);
-                Directory.Delete(DownPath + "\\loki\\plugins", true);
-                Directory.Delete(DownPath + "\\loki\\tools", true);
-                Directory.Delete(DownPath + "\\loki\\config", true);
-
-                //start upgrader
-                //put it all into a new process
-                Process p = new Process();
-                tBoxConsole.AppendText("### Start upgrading process ###" + Environment.NewLine);
-                string lupgrader = DownPath + "\\loki\\loki-upgrader.exe";
-                
-
-                p.StartInfo.WorkingDirectory = DownPath + "\\loki";
-                p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                p.StartInfo.LoadUserProfile = false;
-                p.StartInfo.FileName = lupgrader;
-                p.StartInfo.UseShellExecute = true;
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.RedirectStandardOutput = false;
-                p.StartInfo.RedirectStandardError = false;
-                p.Start();
-                p.WaitForExit();
-                p.Close();
-                toolStripProgressBar1.Value = 45;
-                tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
-            } else //system is offline
-            {
-            */
-                //extract zip
-                string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string DownFile = DownPath + "\\ds.zip";
-                tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
-                toolStripProgressBar1.Value = 30;
-
-                File.WriteAllBytes(DownFile, Properties.Resources.ds);
-                using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
-                {
-                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-                }
+                */
         }
 
         private void runBinary(string args, string exe, string text, int rdirect)
