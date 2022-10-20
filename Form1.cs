@@ -24,7 +24,6 @@ namespace FLOR
         private void Form1_Load(object sender, EventArgs e)
         {
             //set dark mode
-            cBoxDark.Checked = true;
             Globals.darkMode = 1;
             this.BackColor = Color.FromArgb(38, 38, 38);
             tBoxConsole.BackColor = Color.FromArgb(38, 38, 38);
@@ -33,7 +32,6 @@ namespace FLOR
             statusStrip1.BackColor = Color.FromArgb(38, 38, 38);
             this.ForeColor = Color.White;
             lblLinkW.BackColor = Color.FromArgb(38, 38, 38);
-            gBoxOptional.ForeColor = Color.White;
             groupBox1.ForeColor = Color.White;
             lblDom.ForeColor = Color.White;
             lblDom2.ForeColor = Color.White;
@@ -47,8 +45,6 @@ namespace FLOR
             btnDebug.ForeColor = Color.Black;
             btnInetCheck.ForeColor = Color.Black;
             BtnDown.ForeColor = Color.Black;
-            cBoxDark.ForeColor = Color.White;
-            cBoxOfflineScan.ForeColor = Color.White;
 
             //debug
             //btnDebug.Visible = true;
@@ -129,18 +125,6 @@ namespace FLOR
             //clear files
             cleanUp();
 
-            //check options radiobuttons
-            if (cBoxOfflineScan.Checked == true)
-            {
-                Globals.isOn = false;
-
-                //check if radiobutton set
-                if (cBoxOfflineScan.Checked == true)
-                {
-                    tBoxConsole.AppendText("### Forcing offline scan ###" + Environment.NewLine);
-                }
-            }
-
             //check if key is set or not
             if (Globals.ClearAzureSAS == "")
             {
@@ -153,14 +137,41 @@ namespace FLOR
             toolStripProgressBar1.Value = 0;
 
             // trying to update engine
-            updateEngine();
+            updateLoki();
+
+            //trying to update Hayabusa
+            updateHayabusa();
 
             // starting scan
-            tBoxConsole.AppendText("### Starting scan with default options ###" + Environment.NewLine);
             string lokiPath = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\loki");
             string loki = lokiPath + "\\loki.exe";
-
             int lcount = 0;
+
+            //read config file
+            //config.ini is supposed to be in the root folder
+            //these are the default options
+            /*
+             * config.ini
+             * force_offline:n
+             * allreasons:n
+             * vulncheck:n
+             * intense:n
+             * force_logging:n
+            */
+            string PathConf = Environment.CurrentDirectory + "\\config.ini";
+            bool ConfFile = File.Exists(PathConf);
+            if (ConfFile == true)
+            {
+                tBoxConsole.AppendText("### Found valid config-file ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Reading config file ###" + Environment.NewLine);
+                readConfig(PathConf);
+                tBoxConsole.AppendText("### Starting custom scan ###" + Environment.NewLine);
+            } else
+            {
+                tBoxConsole.AppendText("### No valid config file found ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Starting scan with default options ###" + Environment.NewLine);
+            }
+            
 
             //create task
             //this will move everthing into a new task
@@ -172,7 +183,10 @@ namespace FLOR
                 Process p2 = new Process();
 
                 p2.StartInfo.WorkingDirectory = lokiPath;
-                p2.StartInfo.Arguments = "--noindicator --csv -l iocscan.csv";
+
+                //add additional parameters
+                string ExtraArg = Globals.ArgVuln + Globals.ArgAllReasons + Globals.ArgIntense;
+                p2.StartInfo.Arguments = "--noindicator" + ExtraArg + " --csv -l iocscan.csv";
                 p2.StartInfo.LoadUserProfile = true;
                 p2.StartInfo.FileName = loki;
                 p2.StartInfo.UseShellExecute = false;
@@ -200,7 +214,7 @@ namespace FLOR
                         } else {
                             pbarCount++;
                             toolStripProgressBar1.Value = 0;
-                            tBoxConsole.AppendText("### Counter:" + Convert.ToString(pbarCount) + " I am still searching :) ###" + Environment.NewLine);
+                            tBoxConsole.AppendText("### " + Convert.ToString(pbarCount) + " I am still searching :) ###" + Environment.NewLine);
                         }
                         //tBoxConsole.AppendText(e.Data + Environment.NewLine);
                     }
@@ -224,6 +238,16 @@ namespace FLOR
                 p2.StartInfo.RedirectStandardOutput = true;
                 p2.StartInfo.RedirectStandardError = true;
                 p2.EnableRaisingEvents = true;
+
+                //running hayabusa update
+                runBinary("-u", "haya", "### Updating Hayabusa ###", 0);
+                toolStripProgressBar1.Value = 10;
+
+                //running hayabusa default
+                runBinary("-l -H hayabusa.html -n -D --quiet", "haya", "### Scanning Eventlogs ###", 0);
+                toolStripProgressBar1.Value = 10;
+
+                MessageBox.Show("test");
 
                 //running autoruns
                 runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc", "### Scanning autostart ###", 0);
@@ -283,6 +307,55 @@ namespace FLOR
 
                 //task is done
             });
+        }
+
+        private void readConfig(string ConfigPath)
+        {
+            /*
+             * config.ini
+             * force_offline:n
+             * allreasons:n
+             * vulncheck:n
+             * intense:n
+             * force_logging:n
+            */
+
+            string[] ConfigLines = File.ReadAllLines(ConfigPath);
+            foreach (string i in ConfigLines)
+            {
+                switch (i)
+                {
+                    case "force_offline:y":
+                        tBoxConsole.AppendText("### Forcing offline scan ###" + Environment.NewLine);
+                        Globals.isOn = false;
+                        break;
+
+                    case "allreasons:y":
+                        tBoxConsole.AppendText("### Including all reasons ###" + Environment.NewLine);
+                        Globals.Conf_AllReasons = true;
+                        Globals.ArgAllReasons = " --allreasons";
+                        break;
+
+                    case "vulncheck:y":
+                        tBoxConsole.AppendText("### Adding vulncheck ###" + Environment.NewLine);
+                        Globals.Conf_VulnCheck = true;
+                        Globals.ArgVuln = " --vulnchecks";
+                        break;
+
+                    case "intense:y":
+                        tBoxConsole.AppendText("### Including all reasons ###" + Environment.NewLine);
+                        Globals.Conf_Intense = true;
+                        Globals.ArgIntense = " --intense";
+                        break;
+
+                    case "111force_logging:y":
+                        tBoxConsole.AppendText("### NOT IMPLEMENTED YET ###" + Environment.NewLine);
+                        Globals.Conf_Intense = true;
+                        break;
+                }
+            }
+
+            tBoxConsole.AppendText("### Finished reading config file ###" + Environment.NewLine);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -447,10 +520,11 @@ namespace FLOR
             string rFolder = Convert.ToString(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + "\\report";
             string ds = downf + "\\loki";
             string dsz = downf + "\\ds.zip";
+            string dsh = downf + "\\haya.zip";
 
             try
             {
-                //delte directory ds
+                //delete directory ds
                 Directory.Delete(ds, true);
             }
             catch (Exception)
@@ -461,6 +535,8 @@ namespace FLOR
             {
                 //delete ds.zip
                 File.Delete(dsz);
+                //delete haya.zip
+                File.Delete(dsh);
             }
             catch (Exception)
             {
@@ -674,8 +750,6 @@ namespace FLOR
                     //enabled btn and btn for offline scan
                     Globals.isOn = true;
                     BtnDown.Enabled = true;
-                    cBoxOfflineScan.Enabled = true;
-                    cBoxOfflineScan.Checked = false;
                     tBoxConsole.AppendText("### SUCCESS! Key loaded, upload enabled ###" + Environment.NewLine);
                 }
             }
@@ -747,7 +821,7 @@ namespace FLOR
 
         }
 
-        private void updateEngine()
+        private void updateLoki()
         {
                 //extract the zip to localappdata from rsrc
                 string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -797,12 +871,25 @@ namespace FLOR
                     tBoxConsole.AppendText("### Upgrade complete ###" + Environment.NewLine);
                 } catch
                 {
-                    tBoxConsole.AppendText("### Unable to fetch updates ###" + Environment.NewLine);
-                    tBoxConsole.AppendText("### Falling back to offline ###" + Environment.NewLine);
-                }
-                
 
-                MessageBox.Show("test");
+                }
+
+            //check if signature exists and if not extract again
+            bool IsSig = Directory.Exists(DownPath + "\\loki\\signature-base");
+
+            if (IsSig == false)
+            {
+                //upgrade failed so extract again
+                tBoxConsole.AppendText("### Upgrade file mismatch ###" + Environment.NewLine);
+                tBoxConsole.AppendText("### Extracting stock engine again ###" + Environment.NewLine);
+                File.WriteAllBytes(DownFile, Properties.Resources.ds);
+                using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
+                {
+                    zip.ExtractAll(DownPath, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                }
+            }
+
+
                 /*
                 //downloading scanner zip
                 string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -811,6 +898,20 @@ namespace FLOR
                 webClient.DownloadFile("https://toolspublicdatasec.blob.core.windows.net/skadi/ds.zip", DownFile);
                 toolStripProgressBar1.Value = 15;
                 */
+        }
+
+        private void updateHayabusa()
+        {
+            //extract the zip to localappdata from rsrc
+            string DownPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string DownFile = DownPath + "\\haya.zip";
+            tBoxConsole.AppendText("### Extracting scanner ###" + Environment.NewLine);
+            toolStripProgressBar1.Value = 30;
+            File.WriteAllBytes(DownFile, Properties.Resources.haya);
+            using (Ionic.Zip.ZipFile zip = Ionic.Zip.ZipFile.Read(DownFile))
+            {
+                zip.ExtractAll(DownPath + "\\loki", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+            }
         }
 
         private void runBinary(string args, string exe, string text, int rdirect)
@@ -937,6 +1038,13 @@ namespace FLOR
             public static string keyPath = "";
             public static string keyFile = "";
             public static string ClearAzureSAS = "";
+            public static bool Conf_AllReasons = false;
+            public static bool Conf_VulnCheck = false;
+            public static bool Conf_Intense = false;
+
+            public static string ArgIntense = "";
+            public static string ArgVuln = "";
+            public static string ArgAllReasons = "";
         }
 
         private void lblLinkW_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1045,76 +1153,11 @@ namespace FLOR
 
         }
 
-        private void cBoxDark_CheckedChanged(object sender, EventArgs e)
-        {
-            Globals.darkMode += 1;
-            //dark mode
-            //if global.dark == 1 set to dark
-            //full dark is shit so take grey
-            // rgb(38,38,38)
-
-
-            if (Globals.darkMode == 1)
-            {
-                //dark is checked
-                this.BackColor = Color.FromArgb(38,38,38);
-                tBoxConsole.BackColor = Color.FromArgb(38, 38, 38);
-                tBoxConsole.ForeColor = Color.White;
-                toolStripProgressBar1.BackColor = Color.FromArgb(38, 38, 38);
-                statusStrip1.BackColor = Color.FromArgb(38, 38, 38);
-                this.ForeColor = Color.White;
-                lblLinkW.BackColor = Color.FromArgb(38, 38, 38);
-                gBoxOptional.ForeColor = Color.White;
-                groupBox1.ForeColor = Color.White;
-                lblDom.ForeColor = Color.White;
-                lblDom2.ForeColor = Color.White;
-                lblHost.ForeColor = Color.White;
-                lblHost2.ForeColor = Color.White;
-                lblLinkW.LinkColor = Color.Red;
-                lblUser.ForeColor = Color.White;
-                lblUser2.ForeColor = Color.White;
-                lblVer.ForeColor = Color.White;
-                lblVer2.ForeColor = Color.White;
-                btnDebug.ForeColor = Color.Black;
-                btnInetCheck.ForeColor = Color.Black;
-                BtnDown.ForeColor = Color.Black;
-                cBoxDark.ForeColor = Color.White;
-                cBoxOfflineScan.ForeColor = Color.White;
-
-            } else
-            {
-                this.BackColor = SystemColors.Control;
-                lblLinkW.BackColor = SystemColors.Control;
-                tBoxConsole.BackColor = SystemColors.Control;
-                tBoxConsole.ForeColor = Color.Black;
-                toolStripProgressBar1.BackColor = SystemColors.Control;
-                statusStrip1.BackColor = SystemColors.Control;
-                this.ForeColor = Color.Black;
-                gBoxOptional.ForeColor = Color.Black;
-                groupBox1.ForeColor = Color.Black;
-                lblDom.ForeColor = Color.Black;
-                lblDom2.ForeColor = Color.Black;
-                lblHost.ForeColor = Color.Black;
-                lblHost2.ForeColor = Color.Black;
-                lblLinkW.LinkColor = Color.Blue;
-                lblUser.ForeColor = Color.Black;
-                lblUser2.ForeColor = Color.Black;
-                lblVer.ForeColor = Color.Black;
-                lblVer2.ForeColor = Color.Black;
-                cBoxDark.ForeColor = Color.Black;
-                cBoxOfflineScan.ForeColor = Color.Black;
-
-                Globals.darkMode = 0;
-            }
-        }
-
         private void prepXorKey()
         {
             //basics first
             //pretend scanner is offline and key invalid
             //cBoxOfflineScan.Enabled = false;
-            cBoxOfflineScan.Checked = true;
-            cBoxOfflineScan.Enabled = false;
 
             //check for key but only if online
             if (Globals.isOn == true)

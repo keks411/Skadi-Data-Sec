@@ -49,13 +49,9 @@ namespace FLOR
             this.btnDebug = new System.Windows.Forms.Button();
             this.btnInetCheck = new System.Windows.Forms.Button();
             this.lblLinkW = new System.Windows.Forms.LinkLabel();
-            this.cBoxOfflineScan = new System.Windows.Forms.CheckBox();
-            this.gBoxOptional = new System.Windows.Forms.GroupBox();
-            this.cBoxDark = new System.Windows.Forms.CheckBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.gBoxOptional.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnDown
@@ -132,7 +128,7 @@ namespace FLOR
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(281, 132);
+            this.groupBox1.Size = new System.Drawing.Size(242, 132);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System Info:";
@@ -242,39 +238,6 @@ namespace FLOR
             this.lblLinkW.Text = "Why Skadi?";
             this.lblLinkW.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblLinkW_LinkClicked);
             // 
-            // cBoxOfflineScan
-            // 
-            this.cBoxOfflineScan.AutoSize = true;
-            this.cBoxOfflineScan.Location = new System.Drawing.Point(6, 31);
-            this.cBoxOfflineScan.Name = "cBoxOfflineScan";
-            this.cBoxOfflineScan.Size = new System.Drawing.Size(99, 19);
-            this.cBoxOfflineScan.TabIndex = 10;
-            this.cBoxOfflineScan.Text = "Force Offline";
-            this.cBoxOfflineScan.UseVisualStyleBackColor = true;
-            // 
-            // gBoxOptional
-            // 
-            this.gBoxOptional.Controls.Add(this.cBoxDark);
-            this.gBoxOptional.Controls.Add(this.cBoxOfflineScan);
-            this.gBoxOptional.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gBoxOptional.Location = new System.Drawing.Point(299, 13);
-            this.gBoxOptional.Name = "gBoxOptional";
-            this.gBoxOptional.Size = new System.Drawing.Size(107, 132);
-            this.gBoxOptional.TabIndex = 11;
-            this.gBoxOptional.TabStop = false;
-            this.gBoxOptional.Text = "Optional";
-            // 
-            // cBoxDark
-            // 
-            this.cBoxDark.AutoSize = true;
-            this.cBoxDark.Location = new System.Drawing.Point(6, 54);
-            this.cBoxDark.Name = "cBoxDark";
-            this.cBoxDark.Size = new System.Drawing.Size(88, 19);
-            this.cBoxDark.TabIndex = 11;
-            this.cBoxDark.Text = "Dark Mode";
-            this.cBoxDark.UseVisualStyleBackColor = true;
-            this.cBoxDark.CheckedChanged += new System.EventHandler(this.cBoxDark_CheckedChanged);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -284,7 +247,6 @@ namespace FLOR
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(545, 318);
-            this.Controls.Add(this.gBoxOptional);
             this.Controls.Add(this.btnDebug);
             this.Controls.Add(this.lblLinkW);
             this.Controls.Add(this.btnInetCheck);
@@ -304,8 +266,6 @@ namespace FLOR
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.gBoxOptional.ResumeLayout(false);
-            this.gBoxOptional.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,9 +292,6 @@ namespace FLOR
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.LinkLabel lblLinkW;
         private System.Windows.Forms.Button btnDebug;
-        private System.Windows.Forms.CheckBox cBoxOfflineScan;
-        private System.Windows.Forms.GroupBox gBoxOptional;
-        private System.Windows.Forms.CheckBox cBoxDark;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
