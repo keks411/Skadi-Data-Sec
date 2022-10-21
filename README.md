@@ -2,14 +2,9 @@
 
 IOC-Scanner based on Loki-Scanner from Florian Roth (Neo23x0), Sysinternal, Windows-Tools and scripts
 
-<h2>Version >=1.5</h2>
-From now on it is possible to add custom IOCs to Loki/Skadi and set few options via config.ini. The following files in the skadi-folder can be modified:
-<p>- config.ini
-<p>- c2-iocs.txt
-<p>- filename-iocs.txt
-<p>- hash-iocs.txt
-
-Those will then be added to loki.
+<h2>Version >=2.0</h2>
+From now on it is possible to use additional switches via config.ini.
+The file itself can be found in the root-folder. I also included Hayabusa to get additional data. 
 
 Test OS:
 - Windows 10 Pro
@@ -17,16 +12,15 @@ Test OS:
 - Server 2019
 
 Working:
+- hayabusa
 - loki
 - autorunsc
 - tcpvcon
 - pslist
 - handle64
-- evtx dump
 
 Roadmap:
 
-- Create html-report
 - Self-log
 
 Optional (for DP-Framework:
