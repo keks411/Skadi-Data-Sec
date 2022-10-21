@@ -244,14 +244,16 @@ namespace FLOR
                 toolStripProgressBar1.Value = 10;
 
                 //running hayabusa default
-                runBinary("-l -H hayabusa.html -n -D --quiet", "haya", "### Scanning Eventlogs ###", 0);
-                toolStripProgressBar1.Value = 10;
+                runBinary("-l -H hayabusa.html -o haya.csv -n -D --quiet", "haya", "### Scanning Eventlogs ###", 0);
+                toolStripProgressBar1.Value = 20;
 
-                MessageBox.Show("test");
+                //running hayabusa logins
+                runBinary("-l -o logins.csv --quiet", "haya", "### Collecting Logins ###", 0);
+                toolStripProgressBar1.Value = 23;
 
                 //running autoruns
                 runBinary("-accepteula -a * -c -m -o autoruns.csv", "autorunsc", "### Scanning autostart ###", 0);
-                toolStripProgressBar1.Value = 10;
+                toolStripProgressBar1.Value = 25;
 
                 //read usn journal
                 //disabled because not needed really
@@ -578,7 +580,10 @@ namespace FLOR
 				"tcpvcon.exe.txt",
 				"tcpvcon64.exe.txt",
                 "recentfilecache.csv",
-                "shellbags.csv"
+                "shellbags.csv",
+                "hayabusa.html",
+                "haya.csv",
+                "logins.csv"
 				};
 			string[] reports = {
 				"Security.evtx",
