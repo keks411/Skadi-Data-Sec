@@ -14,7 +14,7 @@ rule Rehashed_RAT_1 {
    meta:
       description = "Detects malware from Rehashed RAT incident"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "https://blog.fortinet.com/2017/09/05/rehashed-rat-used-in-apt-campaign-against-vietnamese-organizations"
       date = "2017-09-08"
       hash1 = "37bd97779e854ea2fc43486ddb831a5acfd19cf89f06823c9fd3b20134cb1c35"
@@ -41,7 +41,7 @@ rule Rehashed_RAT_2 {
    meta:
       description = "Detects malware from Rehashed RAT incident"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "https://blog.fortinet.com/2017/09/05/rehashed-rat-used-in-apt-campaign-against-vietnamese-organizations"
       date = "2017-09-08"
       hash1 = "49efab1dedc6fffe5a8f980688a5ebefce1be3d0d180d5dd035f02ce396c9966"
@@ -68,12 +68,13 @@ rule Rehashed_RAT_3 {
    meta:
       description = "Detects malware from Rehashed RAT incident"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "https://blog.fortinet.com/2017/09/05/rehashed-rat-used-in-apt-campaign-against-vietnamese-organizations"
       date = "2017-09-08"
+      modified = "2022-12-21"
       hash1 = "9cebae97a067cd7c2be50d7fd8afe5e9cf935c11914a1ab5ff59e91c1e7e5fc4"
    strings:
-      $x1 = "\\BisonNewHNStubDll\\Release\\Goopdate.pdb" fullword ascii
+      $x1 = "\\BisonNewHNStubDll\\Release\\Goopdate.pdb" ascii
       $s2 = "psisrndrx.ebd" fullword wide
       $s3 = "pbad exception" fullword ascii
    condition:

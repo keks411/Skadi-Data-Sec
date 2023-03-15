@@ -11,7 +11,7 @@ rule Buckeye_Osinfo {
 	meta:
 		description = "Detects OSinfo tool used by the Buckeye APT group"
 		license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-		author = "Florian Roth"
+		author = "Florian Roth (Nextron Systems)"
 		reference = "http://www.symantec.com/connect/blogs/buckeye-cyberespionage-group-shifts-gaze-us-hong-kong"
 		date = "2016-09-05"
 	strings:
@@ -30,13 +30,14 @@ rule RemoteCmd {
 	meta:
 		description = "Detects a remote access tool used by APT groups - file RemoteCmd.exe"
 		license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-		author = "Florian Roth"
+		author = "Florian Roth (Nextron Systems)"
 		reference = "http://goo.gl/igxLyF"
 		date = "2016-09-08"
+		modified = "2022-12-21"
 		hash1 = "5264d1de687432f8346617ac88ffcb31e025e43fc3da1dad55882b17b44f1f8b"
 	strings:
 		$s1 = "RemoteCmd.exe" fullword wide
-		$s2 = "\\Release\\RemoteCmd.pdb" fullword ascii
+		$s2 = "\\Release\\RemoteCmd.pdb" ascii
 		$s3 = "RemoteCmd [ComputerName] [Executable] [Param1] [Param2] ..." fullword wide
 		$s4 = "http://{0}:65101/CommandEngine" fullword wide
 		$s5 = "Brenner.RemoteCmd.Client" fullword ascii
@@ -49,12 +50,13 @@ rule ChromePass {
 	meta:
 		description = "Detects a tool used by APT groups - file ChromePass.exe"
 		license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-		author = "Florian Roth"
+		author = "Florian Roth (Nextron Systems)"
 		reference = "http://goo.gl/igxLyF"
 		date = "2016-09-08"
+		modified = "2022-12-21"
 		hash1 = "5ff43049ae18d03dcc74f2be4a870c7056f6cfb5eb636734cca225140029de9a"
 	strings:
-		$x1 = "\\Release\\ChromePass.pdb" fullword ascii
+		$x1 = "\\Release\\ChromePass.pdb" ascii
 		$x2 = "Windows Protect folder for getting the encryption keys" wide
 		$x3 = "Chrome User Data folder where the password file is stored" wide
 

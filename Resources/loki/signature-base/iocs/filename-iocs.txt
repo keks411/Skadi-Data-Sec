@@ -20,19 +20,9 @@
 # \\(server|servisces|smrr|srrm|svchost|svhost|svshost|taskmrg)\.exe$;50
 # ProgramData\\Mail\\MailAg\\;80
 # (Anwendungsdaten|Application Data|APPDATA)\\sydmain\.dll;80
-# (TEMP|Temp)\\[^\\]+\.(xmd|yls)$;80
+# (TEMP|Temp)\\[^\\"]+\.(xmd|yls)$;80
 # (LOCAL SETTINGS\\Temp|Local Settings\\Temp|Local\\Temp)\\(word\.exe|winword\.exe)[^\.];80
 #
-
-# BlackBasta files iocs
-Windows\\PsExec.exe
-Windows\\pc_list.txt
-Windows\\Temp\\log.info
-Windows\\Temp\\log.dat
-Windows\\SYSVOL\\sysvol\\.dll
-Windows\\system32\\wow64log.dll
-\\intern.exe
-\\tmp.exe
 
 # Ncat Example
 # bin\\nc\.exe;80
@@ -115,9 +105,8 @@ Temp\\Updatasched\.exe;80
 \\abc\.rar;50
 
 # Kaspersky Carbanak APT Malware Hash http://goo.gl/0Nhax2
-(application data|AppData|Anwendungsdaten)\\mozilla\\[^\\]+\.bin;80
 \\System32\\com\\svchost\.exe;80
-\\ProgramData\\mozilla\\[^\\]+\.bin;80
+\\ProgramData\\mozilla\\[^\\"]+\.bin;80
 \\(Windows|WinXP)\\paexec;80
 SysWOW64\\com\\svchost\.exe;80
 
@@ -259,7 +248,7 @@ ystem32\\razorp\.exe;45
 \\xx\.exe;65
 \\keygen1\.exe;65
 \\meta\.exe;50
-\\tmp\.exe;60
+\\tmp\.exe;60;(?i)\\AppData\\Local\\Temp\\App[a-z0-9]{4}\.tmp\.exe
 \\userfiles\.exe;65
 \\nuevo\.exe;65
 \\_thumbs\.exe;65
@@ -287,7 +276,7 @@ System\\Oracle\\smss\.exe;80
 \\HawkEye_Keylogger_;70
 
 # Kaspersky RAT Report https://goo.gl/th5q2v
-\\AppData\\Roaming\\Microsoft\\[^\\]{1,32}\.(exe|doc|zip);50
+\\AppData\\Roaming\\Microsoft\\[^\\"]{1,32}\.(exe|doc|zip);50
 \\AudioEndpointBuilder\.exe;60
 \\BrokerInfrastructure\.exe;60
 \\WindowsUpdate\.exe;50
@@ -1447,8 +1436,7 @@ AppData\\Roaming\\btecache\.dll;90
 \\example\\index\.jsp;75
 \\examples\\jsp\\snp\\snoop\.jsp;75
 \\examples\\jsp\\source\.jsp;75
-\\foo\.jsp;75
-\\foo2\\foo\.jsp;75
+\\foo\.jsp;75;(examples|/demo-base/|test\.war)
 \\fs\\shell\.jsp;75
 \\gU7gIJat\\yTvIbSJs\.jsp;75
 \\ggicmp\\ggicmp\.jsp;75
@@ -1709,8 +1697,8 @@ AppData\\Adobe\\qpbqrx\.dat;80
 \\eof\.exe;100
 
 # Suspicious EXE DLL in Non-Executable directory
-\\(images|img|js|fonts|css|swf|themes|log|error_docs)\\[^\\]{,20}\.(exe|dll)$;60
-\\(wp-admin|wp-content|wp-includes)\\[^\\]{,20}\.(exe|dll);60
+\\(images|img|js|fonts|css|swf|themes|log|error_docs)\\[^\\"]{,20}\.(exe|dll)$;60
+\\(wp-admin|wp-content|wp-includes)\\[^\\"]{,20}\.(exe|dll);60
 
 # APT29 Post-Election Acitivty https://goo.gl/4nyX1e
 \\RWP_16-038_Norris\.ZIP;80
@@ -1813,8 +1801,6 @@ Temp\\rad[A-F0-9]{5}\.exe;70
 \\stoicsurgeon;80
 \\strifeworld;80
 \\implant;40
-\\suctionchar;60
-\\Suctionchar;80
 \\vs\.attack;80
 \\ys\.ratload;80
 
@@ -1856,8 +1842,8 @@ fdp\.exe;60;\\bin\\
 
 # Typical Malware Names
 \\svchos1\.exe;60
-\\Program Files\(x86\)\\Google\\[^\\]{1,20}\.(exe|ps1);80
-\\Windows\\inf\\[^\\]{1,20}\.(exe|ps1);60
+\\Program Files\(x86\)\\Google\\[^\\"]{1,20}\.(exe|ps1);80
+\\Windows\\inf\\[^\\"]{1,20}\.(exe|ps1);60
 
 # Cloud Hopper Indicator - https://goo.gl/OkB63q
 \\mfeann\.data;90
@@ -1882,7 +1868,7 @@ fdp\.exe;60;\\bin\\
 \\Windows Data AntiVirus;90
 \\t\.vbs\.cfg;90
 \\furnish\.dat;90
-\\ProgramData\\SxS\\[^\\]{1,20}\.(exe|dll|dat);50;\\eastoeb\.exe
+\\ProgramData\\SxS\\[^\\"]{1,20}\.(exe|dll|dat);50;\\eastoeb\.exe
 \\wpf-etw\.dat;90
 \\microsoft\.workflow\.compiler\.dat;90
 
@@ -1900,7 +1886,7 @@ fdp\.exe;60;\\bin\\
 \\Temp\\obedience\.exe;80
 \\AppData\\Local\\Temp\\starburn\.dll;80
 \\RedLeaves\.exe;75
-\\PerfLogs\\[^\\]{1,20}\.(exe|vbs|ps1);60
+\\PerfLogs\\[^\\"]{1,20}\.(exe|vbs|ps1);60
 \\wmi\.dll\.bak;80
 \\rund1132\.exe;80
 \\consl64\.exe;60
@@ -1940,7 +1926,7 @@ ystem32\\lcsvsvc\.dll;80
 \\gentee\.dll;60
 
 # Oilrig https://goo.gl/Gw32C8
-\\Program Files \(x86\)\\Microsoft Idle\\[^\\]{1,16}\.exe;70
+\\Program Files \(x86\)\\Microsoft Idle\\[^\\"]{1,16}\.exe;70
 \\Start Menu\\Programs\\Startup\\WinInit\.lnk;70
 \\Start Menu\\Programs\\Startup\\SyncInit\.lnk;70
 
@@ -1953,8 +1939,8 @@ ystem32\\lcsvsvc\.dll;80
 /tmp/\.gdm-selinux;70
 
 # Custom SHIM SDB found - this is suspicious - see https://goo.gl/xW90xr
-\\Windows\\AppPatch\\Custom\\[^\\]{1,50}\.sdb;40
-\\Windows\\AppPatch\\Custom\\Custom64\\[^\\]{1,50}\.sdb;40
+\\Windows\\AppPatch\\Custom\\[^\\"]{1,50}\.sdb;40
+\\Windows\\AppPatch\\Custom\\Custom64\\[^\\"]{1,50}\.sdb;40
 
 # FIN7 SHIM temp files pattern - see https://goo.gl/xW90xr
 \\Windows\\Temp\\sdb[A-Z0-9]{4}\.tmp$;60
@@ -2065,25 +2051,25 @@ ystem32\\lcsvsvc\.dll;80
 \\rundll64\.exe;76
 
 # Stuff running where it normally shouldn't
-\\((Users|Documents and Settings))\\[^\\]{1,20}\.(exe|dll);65
-\\(Users|Documents and Settings)\\[^\\]{1,20}\\[^\\]{1,20}\.(exe|dll|vbs|bat|ps1);40
-\\(Users|Documents and Settings)\\NetworkService\\[^\\]{1,20}\.(exe|dll);60
-\\Windows\\[Ss]ystem32\\config\\systemprofile\\[^\\]{1,20}\.(exe|dll);60
-[Cc]:\\$Recycle\.Bin\\[^\\]{1,20}\.(exe|dll);60
-[Cc]:\\RECYCLER\\[^\\]{1,20}\.(exe|dll);60
-[Cc]:\\(Web|Intel)\\[^\\]{1,20}\.(exe|dll);50
-[Cc]:\\(Windows|Winnt)\\(Debug|addins)\\[^\\]{1,20}\.(exe|dll);60
-[Cc]:\\(Windows|Winnt)\\(repair|security)\\[^\\]{1,20}\.(exe|dll);60
-\\Cookies\\[^\\]{1,20}\.(exe|dll);60
-\\RSA\\MachineKeys\\[^\\]{1,20}\.(exe|dll);60
-\\(Users|Documents and Settings)\\[^\\]{1,20}\\Start Menu\\[^\\]{1,20}\.(exe|dll);60
-\\(Users|Documents and Settings)\\[^\\]{1,20}\\AppData\\[^\\]{1,20}\.(exe|dll);60
-\\(Users|Documents and Settings)\\[^\\]{1,20}\\AppData\\(Local|Roaming)\\[^\\]{1,20}\.(exe|dll);60
-\\(Users|Documents and Settings)\\[^\\]{1,20}\\AppData\\Roaming\\Identities\\[^\\]{1,20}\.(exe|dll);60
-\\tsclient\\[^\\]{1,20}\.(exe|dll);40
+\\((Users|Documents and Settings))\\[^\\"]{1,20}\.(exe|dll);65
+\\(Users|Documents and Settings)\\[^\\"]{1,20}\\[^\\"]{1,20}\.(exe|dll|vbs|bat|ps1);40
+\\(Users|Documents and Settings)\\NetworkService\\[^\\"]{1,20}\.(exe|dll);60
+\\Windows\\[Ss]ystem32\\config\\systemprofile\\[^\\"]{1,20}\.(exe|dll);60
+[Cc]:\\$Recycle\.Bin\\[^\\"]{1,20}\.(exe|dll);60
+[Cc]:\\RECYCLER\\[^\\"]{1,20}\.(exe|dll);60
+[Cc]:\\(Web|Intel)\\[^\\"]{1,20}\.(exe|dll);50
+[Cc]:\\(Windows|Winnt)\\(Debug|addins)\\[^\\"]{1,20}\.(exe|dll);60
+[Cc]:\\(Windows|Winnt)\\(repair|security)\\[^\\"]{1,20}\.(exe|dll);60
+\\Cookies\\[^\\"]{1,20}\.(exe|dll);60
+\\RSA\\MachineKeys\\[^\\"]{1,20}\.(exe|dll);60
+\\(Users|Documents and Settings)\\[^\\"]{1,20}\\Start Menu\\[^\\"]{1,20}\.(exe|dll);60
+\\(Users|Documents and Settings)\\[^\\"]{1,20}\\AppData\\[^\\"]{1,20}\.(exe|dll);60
+\\(Users|Documents and Settings)\\[^\\"]{1,20}\\AppData\\(Local|Roaming)\\[^\\"]{1,20}\.(exe|dll);60
+\\(Users|Documents and Settings)\\[^\\"]{1,20}\\AppData\\Roaming\\Identities\\[^\\"]{1,20}\.(exe|dll);60
+\\tsclient\\[^\\"]{1,20}\.(exe|dll);40
 
 # Typical Malware Location - AppData / Local / Roaming
-(?i)\\AppData\\[^\\/"]{1,64}\.exe([^._"\\\]]|$);75;(?i)(C:\\SW\\[^\\]{1,20}\\SWSETUP\\DRV\\|C:\\WINDOWS\\System32\\DriverStore\\|C:\\\$WINDOWS\.~BT\\NewOS\\Windows\\System32\\DriverStore\\FileRepository\\)
+(?i)\\AppData\\[^\\/"]{1,64}\.exe([^._"\\\]]|$);75;(?i)(C:\\SW\\[^\\"]{1,20}\\SWSETUP\\DRV\\|C:\\WINDOWS\\System32\\DriverStore\\|C:\\\$WINDOWS\.~BT\\NewOS\\Windows\\System32\\DriverStore\\FileRepository\\)
 (?i)\\AppData\\[^\\/]{1,64}\.(dll|bat|vbs|ps1|js|hta);80;(\.json|\\Program Files\\Win Movie Maker\\)
 (?i)\\AppData\\Local\\[^\\/]{1,64}\.exe([^._\\\]]|$);75;\[Update\.exe\]
 (?i)\\AppData\\Local\\[^\\/]{1,64}\.(dll|bat|vbs|ps1|hta);80
@@ -2115,7 +2101,7 @@ ystem32\\lcsvsvc\.dll;80
 \\(g64\-|\\g32\-|\\gsecdump\.exe|gcx64\.|\\gcx32\.|\\gec\.|\\gse\.exe);60
 \\fgdump;60
 \\w32\.exe;50;(site-packages|python|Python|\\Root\\InventoryApplicationFile|/pip/|/pip-)
-\\w64\.exe;50;(\}\\Root|site-packages)
+\\w64\.exe;50;(site-packages|python|Python|\\Root\\InventoryApplicationFile|/pip/|/pip-)
 
 # Generic methodology - 1 character executable / script in short path
 #[a-zA-Z]:[.]{0,10}\\[.]\.(exe|dll|vbs|ps1|bat|sh)$;60;(?i)(\\cygwin\\|\\GnuWin32\\|Opera\\k\.(exe|bat)|\\R\\r-|\\Git\\usr|\\adobe after effects|\\perl)
@@ -2131,16 +2117,16 @@ ystem32\\lcsvsvc\.dll;80
 # Single character executable on a drive root
 [C-Zc-z]:\\[a-z0-9]\.(exe|vbs|ps1|bat|dll)$;60
 # Exe in RARSFX folder
-#\\RarSFX\d\\[^\\]{1,20}\.exe;50;(?i)(\\RarSFX\d\\lsetup\.exe|\\intiupdater\.exe)
+#\\RarSFX\d\\[^\\"]{1,20}\.exe;50;(?i)(\\RarSFX\d\\lsetup\.exe|\\intiupdater\.exe)
 
 # Classic attacker staging folders
-[Cc]:\\(Recovery|Intel|Web)\\[^\\]{1,16}\.(exe|dll|vbs|ps1|bat);60
-#[Cc]:\\(Windows|Winnt)\\(Help|Web|Media|ime|Debug|Fonts)\\[^\\]{1,16}\.(exe|dll|vbs|ps1|bat);60;(?i)(\\WINDOWS\\IME\\im[^\\]*_1\\IM)
-\\System Volume Information\\[^\\]{1,16}\.(exe|dll|vbs|ps1|bat);60
-\\(perflogs|perfdata)\\[^\\]{1,16}\.(exe|dll|vbs|ps1|bat);60
+[Cc]:\\(Recovery|Intel|Web)\\[^\\"]{1,16}\.(exe|dll|vbs|ps1|bat);60
+#[Cc]:\\(Windows|Winnt)\\(Help|Web|Media|ime|Debug|Fonts)\\[^\\"]{1,16}\.(exe|dll|vbs|ps1|bat);60;(?i)(\\WINDOWS\\IME\\im[^\\]*_1\\IM)
+\\System Volume Information\\[^\\"]{1,16}\.(exe|dll|vbs|ps1|bat);60
+\\(perflogs|perfdata)\\[^\\"]{1,16}\.(exe|dll|vbs|ps1|bat);60
 
 # Generic startup persistence flagging
-\\Start Menu\\Programs\\Startup\\[^\\]{1,16}\.(exe|dll|vbs|ps1|bat);60;\.exe\.lnk
+\\Start Menu\\Programs\\Startup\\[^\\"]{1,16}\.(exe|dll|vbs|ps1|bat);60;\.exe\.lnk
 
 # Executable used by PlugX DLL side-loading in non-standard location
 #(?i)\\CamMute\.exe;60;(?i)\\Lenovo\\Communication Utility\\
@@ -2389,7 +2375,6 @@ ystem32\\DumpExt\.dll;75
 \\fakeerror\.sfx\.exe;50
 \\FancyBtR\.bat;50
 \\fansi\.exe;50
-\\feedback\.exe;50
 \\fffffib\.dll;50
 \\File1\.exe;50
 \\file1\.exe;50
@@ -2720,8 +2705,8 @@ Windows\\inf\\mdmeric3\.PNF;65
 \\Microsoft\\Windows\\Themes\\pcasrc\.tlb;70
 
 # FreeMilk Campaign https://goo.gl/NyEioM
-\\Users\\Admin\\[^\\]{1,20}\.(vbs|exe|dll|ps1);50
-\\Users\\Administrator\\[^\\]{1,20}\.(vbs|exe|dll|ps1);50
+\\Users\\Admin\\[^\\"]{1,20}\.(vbs|exe|dll|ps1);50
+\\Users\\Administrator\\[^\\"]{1,20}\.(vbs|exe|dll|ps1);50
 \\Temp\\wsatra\.tmp;65
 \\Rar0tmpExtra[0-9]{18}\.rtf;65
 
@@ -2787,7 +2772,7 @@ ystem32\\drivers\\kifes\.sys;70
 \\mimilsa\.log;100
 
 # Suspicious Script or Executable in Public Users Folder https://twitter.com/JohnLaTwC/status/957703902039691265
-\\Users\\Public\\Documents\\[^\\]{1,20}\.(exe|vbs|ps1|dll|bat)$;60
+\\Users\\Public\\Documents\\[^\\"]{1,20}\.(exe|vbs|ps1|dll|bat)$;60
 
 # APT32 Continues ASEAN Targeting https://community.rsa.com/community/products/netwitness/blog/2018/01/30/apt32-continues-asean-targeting
 \\AppData\\Roaming\\Microsoft\\Windows\\Caches\\NavShExt\.dll;70
@@ -3003,7 +2988,6 @@ ystem32\\Microsoft\\Protect\\Windows\\svchost.exe;80
 # File names found in Alina PoS malware https://goo.gl/xgFtwr
 \\icsicli\.exe;45
 \\zcopy\.exe;45
-\\mrc\.exe;45
 \\RcpPing\.exe;45
 \\sthc\.exe;45
 \\certutils\.exe;45
@@ -3067,10 +3051,10 @@ ystem32\\uploadmgrsvc\.dll;80
 ystem32\\uploadmgr\.dat;80
 
 # Suspicious File Name and Location
-\\ProgramData\\[^\\]{1,20}\.sct;65
-\\ProgramData\\DefenderNT\\[^\\]{1,20}\.vbs;65
-\\ProgramData\\FirefoxSDK\\[^\\]{1,20}\.vbs;65
-\\ProgramData\\WindowsNT\\[^\\]{1,20}\.vbs;65
+\\ProgramData\\[^\\"]{1,20}\.sct;65
+\\ProgramData\\DefenderNT\\[^\\"]{1,20}\.vbs;65
+\\ProgramData\\FirefoxSDK\\[^\\"]{1,20}\.vbs;65
+\\ProgramData\\WindowsNT\\[^\\"]{1,20}\.vbs;65
 
 # MuddyWater Filename IOC https://securelist.com/muddywater/88059/
 \\ProgramData\\WindowsNT\\WindowsNT\.ini;60
@@ -3103,7 +3087,7 @@ ystem32\\uploadmgr\.dat;80
 
 
 # Suspicious Indicators - Skript in Windows Folder
-C:\\Windows\\[^\\]{1,20}\.(js|ps1|vbs);50
+C:\\Windows\\[^\\"]{1,20}\.(js|ps1|vbs);50
 
 # Turla Malware macOS https://blog.malwarebytes.com/threat-analysis/2017/05/snake-malware-ported-windows-mac/
 /Library/Scripts/queue;80
@@ -3120,7 +3104,7 @@ C:\\Windows\\[^\\]{1,20}\.(js|ps1|vbs);50
 \\Get-LAPSP\.ps1;70
 
 # Suspicious Files in Root of Recycle.Bin
-:\\\$Recycle\.Bin\\[^\\]{1,20}\.(exe|vbs|ps1|js|bat|dll);85
+:\\\$Recycle\.Bin\\[^\\"]{1,20}\.(exe|vbs|ps1|js|bat|dll);85
 
 # Stealth Falcon Filename IOC https://www.welivesecurity.com/2019/09/09/backdoor-stealth-falcon-group/
 \\ImageIndexer\.dll;80
@@ -3137,25 +3121,31 @@ C:\\Windows\\[^\\]{1,20}\.(js|ps1|vbs);50
 
 # Emotet Indicator https://app.any.run/tasks/fb5d3877-4179-4bb8-aea4-1cff3a4793ed/
 \\msptermsizes\\msptermsizes\.exe;90
-:\\Users\\[^\\]{1,16}\\[0-9]{1,4}\.exe;65
+:\\Users\\[^\\"]{1,16}\\[0-9]{1,4}\.exe;65
 
-# Looks like an LSASS process memory dump (often contains credentials)
-\\lsass\.dmp;80
+# LSASS process memory dump names
+\\lsass\.(dmp|DMP);80
 \\lsass\.zip;80
 \\lsass\.7z;80
 \\lsass\.rar;80
-\\lsass\.exe[_0-9]{0,15}\.(dmp|zip|rar);80
+\\lsass[_0-9\-\.]{1,2}\.(dmp|DMP);80
+\\lsass[_0-9\-\.]{1,2}\.zip;80
+\\lsass[_0-9\-\.]{1,2}\.7z;80
+\\lsass[_0-9\-\.]{1,2}\.rar;80
+\\lsass\.exe[_0-9]{0,15}\.(dmp|zip|rar|DMP);80
 \\dumpert\.dmp;80
 \\Andrew\.dmp;80
 \\Coredump\.dmp;80
-\\lsass_2;65
 \\lsassdump;65
 \\lsassdmp;65
-\\lsass[a-zA-Z_\-\.]{1,16}\.(dmp|zip|rar);70
+\\lsass_2;65
+
+# Procdump Default Output File Suffix
+\\[^\\]{3,30}_[123][0-9][01][0-9][0-3][0-9]_[0-2][0-9][0-5][0-9][0-5][0-9]\.dmp$;60
 
 # Suspicious Extension in AppPatch folder
-c:\\windows\\AppPatch\\[^\\]{1,20}\.(exe|vbs|ps1|bat);70
-c:\\windows\\AppPatch\\custom\\[^\\]{1,20}\.(exe|vbs|ps1|bat);70
+c:\\windows\\AppPatch\\[^\\"]{1,20}\.(exe|vbs|ps1|bat);70
+c:\\windows\\AppPatch\\custom\\[^\\"]{1,20}\.(exe|vbs|ps1|bat);70
 
 # MESSAGETAP components https://twitter.com/cglyer/status/1182415016542248960/photo/1
 \\keyword_param\.txt;70
@@ -3164,21 +3154,21 @@ c:\\windows\\AppPatch\\custom\\[^\\]{1,20}\.(exe|vbs|ps1|bat);70
 \\TeamViewerPortable;60
 
 # OceanLotus / APT32 filename IOCs
-\\ProgramData\\Microsoft Help\\[^\\]{1,20}\.(exe|bat|vbs|ps1);80
+\\ProgramData\\Microsoft Help\\[^\\"]{1,20}\.(exe|bat|vbs|ps1);80
 
 # Suspicious Indicators - Skript in Windows Folder
-C:\\Windows\\[^\\]{1,20}\.(js|ps1|vbs);50
+C:\\Windows\\[^\\"]{1,20}\.(js|ps1|vbs);50
 
 # Emotet Indicator https://app.any.run/tasks/fb5d3877-4179-4bb8-aea4-1cff3a4793ed/
 \\msptermsizes\\msptermsizes\.exe;90
-:\\Users\\[^\\]{1,16}\\[0-9]{1,4}\.exe;65
+:\\Users\\[^\\"]{1,16}\\[0-9]{1,4}\.exe;65
 
 # AVIVORE IOCs https://www.contextis.com/en/blog/avivore
-c:\\iperf\-2.0.5-3-win32\\[^\\]{1,20}\.(exe|vbs|ps1|bat);85
-c:\\perflogs\\admin\\[^\\]{1,20}\.(exe|vbs|ps1|bat);85
-c:\\programdata\\esetoem\\[^\\]{1,20}\.(exe|vbs|ps1|bat);80
-c:\\programdata\\mcafeeoem\\[^\\]{1,20}\.(exe|vbs|ps1|bat);80
-c:\\temp\\gen_py\\[^\\]{1,20}\.(exe|vbs|ps1|bat);70
+c:\\iperf\-2.0.5-3-win32\\[^\\"]{1,20}\.(exe|vbs|ps1|bat);85
+c:\\perflogs\\admin\\[^\\"]{1,20}\.(exe|vbs|ps1|bat);85
+c:\\programdata\\esetoem\\[^\\"]{1,20}\.(exe|vbs|ps1|bat);80
+c:\\programdata\\mcafeeoem\\[^\\"]{1,20}\.(exe|vbs|ps1|bat);80
+c:\\temp\\gen_py\\[^\\"]{1,20}\.(exe|vbs|ps1|bat);70
 \\acres64.exe;70
 \\AcWinRT.exe;70
 \\apihex.exe;70
@@ -3214,10 +3204,10 @@ c:\\temp\\gen_py\\[^\\]{1,20}\.(exe|vbs|ps1|bat);70
 /Library/UnionCrypto/.unioncryptoupdater;90
 
 # BRONZE PRESIDENT Filename IOCs https://www.secureworks.com/research/bronze-president-targets-ngos
-:\\Windows\\Help\\Help\\[^\\]{1,20}\.(exe|vbs|ps1|bat|dll);80
-:\\Windows\\debug\\WIA\\[^\\]{1,20}\.(exe|vbs|ps1|bat|dll);80
-:\\Windows\\Logs\\DPX\\[^\\]{1,20}\.(exe|vbs|ps1|bat|dll);80
-:\\Recovery\\[^\\]{1,20}\.(exe|vbs|ps1|bat|dll);80
+:\\Windows\\Help\\Help\\[^\\"]{1,20}\.(exe|vbs|ps1|bat|dll);80
+:\\Windows\\debug\\WIA\\[^\\"]{1,20}\.(exe|vbs|ps1|bat|dll);80
+:\\Windows\\Logs\\DPX\\[^\\"]{1,20}\.(exe|vbs|ps1|bat|dll);80
+:\\Recovery\\[^\\"]{1,20}\.(exe|vbs|ps1|bat|dll);80
 :\\Windows\\Temp\\system\.hive;80
 
 
@@ -3317,7 +3307,7 @@ ublic\\.Monitor\\ews\.conf;90
 \\upbeat_anxiety\.jpg;80
 \\csidl_windows\\desktoptileresources\\resources\.dll;70
 # Symantec SUNBURST Report - Panther folder should only contain log files and files of type *.xml, *.sdb, *.tmp, *.etl, *.ini, *.cab or *.que https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/sunburst-supply-chain-attack-solarwinds
-:\\Windows\\Panther\\[^\\]{1,20}\.(exe|dll|ps1|vbs|bat)$;70;\\setup\.exe
+:\\Windows\\Panther\\[^\\"]{1,20}\.(exe|dll|ps1|vbs|bat)$;70;\\setup\.exe
 
 # Lazarus Campaigns https://www.hvs-consulting.de/lazarus-report/
 :\\ProgramData\\IBM\\IBM\.dat;90
@@ -3508,12 +3498,12 @@ ublic\\.Monitor\\ews\.conf;90
 \\shell\.aspx$;50
 
 # HAFNIUM IOCs https://www.volexity.com/blog/2021/03/02/active-exploitation-of-microsoft-exchange-zero-day-vulnerabilities/
-\\inetpub\\wwwroot\\aspnet_client\\[^\\]{1,20}\.aspx;90
-\\inetpub\\wwwroot\\aspnet_client\\[^\\]{1,20}\\[^\\]{1,20}\.aspx;90
+\\inetpub\\wwwroot\\aspnet_client\\[^\\"]{1,20}\.aspx;90
+\\inetpub\\wwwroot\\aspnet_client\\[^\\"]{1,20}\\[^\\"]{1,20}\.aspx;90
 \\FrontEnd\\HttpProxy\\ecp\\auth\\[^T];70
-\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\[^\\]{1,20}\.aspx;90
-\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\[^\\]{1,20}\\[^\\]{1,20}\.aspx;90
-\\FrontEnd\\HttpProxy\\owa\\auth\\[0-9\.]{6,12}\\[^\\]{1,20}\.aspx;90
+\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\[^\\"]{1,20}\.aspx;90
+\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\[^\\"]{1,20}\\[^\\"]{1,20}\.aspx;90
+\\FrontEnd\\HttpProxy\\owa\\auth\\[0-9\.]{6,12}\\[^\\"]{1,20}\.aspx;90
 
 # Exchange Exploitation - Web Shell Filename IOCs https://twitter.com/ESETresearch/status/1366862953006452738?s=20
 \\inetpub\\wwwroot\\aspnet_client\\system_web\\(shell\.aspx|supp0rt\.aspx|aspnet\.aspx|aspnet_client\.aspx|client\.aspx|OutlookEN\.aspx);80
@@ -3672,7 +3662,6 @@ C:\\Windows\\Temp\\Serv-U\.bat;90
 C:\\Windows\\Temp\\test\\current\.dmp;90
 
 # NSO Group Indicators https://github.com/AmnestyTech/investigations/tree/master/2021-07-18_nso
-/com\.apple\.CrashReporter\.plist;85
 /com\.apple\.softwareupdateservicesd\.plist;85
 /roleaccountd\.plist;85
 
@@ -3731,10 +3720,10 @@ C:\\ProgramData\\MSDN\\6\.0\\NTUSER\.DAT;80
 \\FrontEnd\\HttpProxy\\owa\\auth\\415cc41ac1\.aspx;90
 \\FrontEnd\\HttpProxy\\owa\\auth\\6514f55e1a\.aspx;90
 \\FrontEnd\\HttpProxy\\owa\\auth\\VOLWMFQWPP\.aspx;90
-\\inetpub\\wwwroot\\aspnet_client\\system_web\\[^\\]{1,20}\.aspx;80
-\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\themes\\resources\\[^\\]{1,20}\.aspx;80
-\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\themes\\[^\\]{1,20}\.aspx;70
-\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\[^\\]{1,20}\.aspx;70
+\\inetpub\\wwwroot\\aspnet_client\\system_web\\[^\\"]{1,20}\.aspx;80
+\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\themes\\resources\\[^\\"]{1,20}\.aspx;80
+\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\themes\\[^\\"]{1,20}\.aspx;70
+\\FrontEnd\\HttpProxy\\owa\\auth\\Current\\[^\\"]{1,20}\.aspx;70
 
 # Exchange exploitation IOCs https://twitter.com/_JohnHammond/status/1430535961239113733
 C:\\ProgramData\\COM1\\[^\.]{1,40}\.aspx;90
@@ -3755,8 +3744,8 @@ C:\\Users\\All Users\\ZING\\;75
 C:\\Program\.exe;65
 
 # Suspicious contents in Users/Public folder 
-\\Users\\Public\\[^\\]{1,20}\.(dll|vbs|ps1|bat|hta|com);70
-\\Users\\Public\\[^\\]{1,20}\.exe;65
+\\Users\\Public\\[^\\"]{1,20}\.(dll|vbs|ps1|bat|hta|com);70
+\\Users\\Public\\[^\\"]{1,20}\.exe;65
 
 # Nmap, Network scanning tool https://nmap.org/
 \\nmap\.exe;50
@@ -3846,7 +3835,7 @@ application-79837fd1939f90d58cc5a842a81120e8cecbc03484362e88081ebf3b7e3830e9\.cs
 application-2eaf7e76aa55726cc0419f604e58ee73c5578c02c9e21fdbe7ae887925ea92ae\.css;70
 
 # Zoho Desktop Central Vulnerability exploitation CVE-2021-44515 https://thehackernews.com/2021/12/warning-yet-another-zoho-manageengine.html
-\\ManageEngine\\DesktopCentral_Server\\(lib|lib\\third_party_jars\\jersey|lib\\tomcat|lib\\resources|ServerTroubleShooter\\lib|ServerTroubleShooter\\lib\\util|ServerTroubleShooter\\lib\\starter)\\[^\\]{1,16}\.zip;70
+\\ManageEngine\\DesktopCentral_Server\\(lib|lib\\third_party_jars\\jersey|lib\\tomcat|lib\\resources|ServerTroubleShooter\\lib|ServerTroubleShooter\\lib\\util|ServerTroubleShooter\\lib\\starter)\\[^\\"]{1,16}\.zip;70
 \\webapps\\DesktopCentral\\html\\help_me\.jsp;80
 \\webapps\\DesktopCentral\\html\\help_me\.html;80
 
@@ -3874,7 +3863,7 @@ application-2eaf7e76aa55726cc0419f604e58ee73c5578c02c9e21fdbe7ae887925ea92ae\.cs
 /PwnKit;90
 /PwnKit\.sh;90
 
-# Winpeas Filename IOCs https://github.com/carlospolop/PEASS-ng
+# WinPeas / LinPeas Filename IOCs https://github.com/carlospolop/PEASS-ng
 \\winPEASx64;80
 \\winPEASx86;80
 \\winPEASxany;80
@@ -3884,6 +3873,8 @@ application-2eaf7e76aa55726cc0419f604e58ee73c5578c02c9e21fdbe7ae887925ea92ae\.cs
 \\winPEASxany\.bat;80
 /linpeas_linux_;80
 /linpeas\.sh;80
+\\linpeas_linux_;80
+linpeas\.log;75
 
 # Gopher Filename IOCs https://github.com/EncodeGroup/Gopher
 \\Gopher\.exe\.log;80
@@ -3936,7 +3927,7 @@ Potato\.exe;65
 \\lsass[a-zA-Z_\-\.]{1,16}\.(dmp|zip|rar|7z);70
 
 # Programs or scripts in C:\ProgramData folder (no sub folder)
-\\ProgramData\\[^\\]{1,40}\.(EXE|DLL|exe|dll|bat|BAT|vbs|VBS|ps1|jar)([^._\\\]]|$);70;(\[Discord\.exe\]|UserProfileMigrationService\.exe|\.exe\.textpad|\\\$WINDOWS\.~BT\\)
+\\ProgramData\\[^\\"]{1,40}\.(EXE|DLL|exe|dll|bat|BAT|vbs|VBS|ps1|jar)([^._\\\]]|$);70;(\[Discord\.exe\]|UserProfileMigrationService\.exe|\.exe\.textpad|\\\$WINDOWS\.~BT\\)
 
 # PostDump artefacts https://github.com/post-cyberlabs/Offensive_tools/tree/main/PostDump
 :\\Temp\\yolo\.log;75
@@ -3985,5 +3976,264 @@ Potato\.exe;65
 /dev/shm/kdumpflush;90
 /dev/shm/kdumpdb;90
 /var/run/haldrund\.pid;80
+
+# Detects vulnerable Confluence Questions plugins based on filename pattern CVE-2022-26138 https://www.bleepingcomputer.com/news/security/atlassian-fixes-critical-confluence-hardcoded-credentials-flaw/
+\\confluence-questions-3\.0\.[0-4]\.jar$;50
+\\confluence-questions-2\.7\.([0-9]|[12][0-9]|3[0-7])\.jar$;50
+
+# Redline / Racoon Password Stealer filename IOCs https://twitter.com/cglyer/status/1570965878480719873
+\\LOGID-[0-9]{7}\.zip$;75
+
+# Metador IOCs https://assets.sentinelone.com/sentinellabs22/metador
+C:\\Windows\\System32\\cdb\.exe;85
+C:\\Windows\\System32\\cdb\.ini;85
+C:\\Windows\\System32\\speech02\.db;80
+C:\\Windows\\System32\\speech03\.db;80
+C:\\Windows\\System32\\fcache11\.db;80
+C:\\Windows\\System32\\fcache13\.db;80
+C:\\Windows\\System32\\fcache11\.db;80
+C:\\Windows\\System32\\fcache13\.db;80
+C:\\Windows\\System32\\fcache14\.db;80
+\\AppData\\Local\\fintcache\\cdb\.exe;85
+\\AppData\\Local\\fintcache\\cdb\.ini;85
+\\AppData\\Local\\fintcache\\speech02\.db;80
+\\AppData\\Local\\fintcache\\speech03\.db;80
+\\AppData\\Local\\fintcache\\fcache11\.db;80
+\\AppData\\Local\\fintcache\\fcache13\.db;80
+\\AppData\\Local\\fintcache\\fcache11\.db;80
+\\AppData\\Local\\fintcache\\fcache13\.db;80
+\\AppData\\Local\\fintcache\\fcache14\.db;80
+
+# UNC3886 Report on malicious vSphere Installation Bundles (VIBs) https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+/lsu_lsi_\.v05$;75
+/etc/rc\.local\.d/vmware_local\.sh;75
+^/bin/rdt$;75
+/bin/vmsyslog\.py;75
+/payload1\.v00$;75
+/etc/rc\.local\.d/vmware_rhttpio\.sh;75
+/usr/lib/vmware/weasel/consoleui/rhttpproxy-io;80
+/usr/libexec/setconf/ksmd;75
+/usr/bin/ksmd;75
+C:\\Windows\\Temp\\avp\.exe;70
+C:\\Windows\\Temp\\Silverlight\\wmpd\.exe;75
+
+# Lazarus Report https://www.welivesecurity.com/2022/09/30/amazon-themed-campaigns-lazarus-netherlands-belgium/
+:\\ProgramData\\Adobe\\Adobe\.tmp;80
+C:\\ProgramData\\PTC\\colorcpl\.exe;80
+C:\\ProgramData\\PTC\\colorui\.dll;80
+C:\\Windows\\Vss\\WFS\.exe;80
+C:\\Windows\\Vss\\credui\.dll;80
+C:\\Windows\\security\\WFS\.exe;80
+C:\\Windows\\security\\credui\.dll;80
+C:\\ProgramData\\Caphyon\\wsmprovhost\.exe;80
+C:\\ProgramData\\Caphyon\\mi\.dll;80
+C:\\PublicCache\\msdxm\.ocx;80
+\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\OneNoteTray\.LNK;70
+# Lazarus FudModule Rootkit Indicators https://www.virusbulletin.com/uploads/pdf/conference/vb2022/VB2022-Kalnai-Havranek.pdf
+C:\\Windows\\windows\.ini;75
+C:\\WINDOWS\\System32\\drivers\\circlassmgr\.sys;75
+C:\\WINDOWS\\System32\\drivers\\dmvscmgr\.sys;75
+C:\\WINDOWS\\System32\\drivers\\hidirmgr\.sys;75
+C:\\WINDOWS\\System32\\drivers\\isapnpmgr\.sys;75
+C:\\WINDOWS\\System32\\drivers\\mspqmmgr\.sys;75
+C:\\WINDOWS\\System32\\drivers\\umpassmgr\.sys;75
+
+# Emperor Dragonfly report https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+C:\\Windows\\Help\\OEM\\ContentStore\\vlcplayer\.dat;85
+C:\\Windows\\Help\\utilsdll\.dll;85
+C:\\Windows\\debug\\LockDown\.dll;85
+C:\\Windows\\Help\\Corporate\\auth\.dat;85
+C:\\Windows\\debug\\debug\.dat;85
+C:\\Windows\\Help\\Corporate\\libvlc\.dll;85
+C:\\Windows\\Help\\Corporate\\auth\.dat;85
+C:\\Windows\\Help\\Corporate\\vlcplayer\.dat;85
+C:\\Windows\\Help\\mui\\0409\\WindowsUpdate\.exe;85
+C:\\Windows\\Help\\OEM\\ContentStore\.exe;85
+C:\\Windows\\Help\\Windows\\dec\.exe;85
+C:\\Windows\\debug\\mfeann\.exe;85
+C:\\Windows\\Help\\Corporate\\FCAuth\.exe;85
+C:\\Windows\\Help\\Corporate\\vlc\.exe;85
+
+# ProxyNotShell exploitation IOC https://twitter.com/gossithedog/status/1578772856204578819?s=12&t=YYVa81RCA4W71JSygT16hw
+\\FrontEnd\\HttpProxy\\owa\\auth\\owafonts\.aspx;85
+
+# Suspicious File Name - obfuscation indicators 
+obfuscated[0-9_]{0,7}\.(exe|dll|vbs|vbe|ps1|psm1|bat|vbs|vbe|EXE|DLL|BAT|js|JS)$;70
+obfusc[0-9_]{0,7}\.(exe|dll|vbs|vbe|ps1|psm1|bat|vbs|vbe|EXE|DLL|BAT|js|JS)$;70
+\\[Oo]bfusc[a-zA-Z0-9_-]{0,20}\.(exe|dll|vbs|vbe|ps1|psm1|bat|vbs|vbe|EXE|DLL|BAT|js|JS)$;70
+
+# POLONIUM IOCs https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+\\svchostdp\.exe;80
+\\4kyro3fs\.dll;85
+\\Microsoft Malware Protection\.exe;85
+\\WindowsSartup22\.exe;90
+\\WinUpdate\.dll;80
+\\Regestries\.exe;80
+\\Mega\.exe;70
+
+# AhnLabs report on Exchange exploitation and Lockbit 3 deployment https://web.archive.org/web/20221011020440/https://asec.ahnlab.com/ko/39682/
+\\owa\\auth\\HttpRedirService\.aspx;85
+C:\\Users\\ExchService\\Desktop\\mi\.exe;75
+C:\\Windows\\System32\\0409\\mi\.exe;85
+C:\\Temp\\AUtempR\\p64\.exe;80
+C:\\Windows\\System32\\0409\\TeamViewer;95
+C:\\Windows\\System32\\0409\\netscan;95
+C:\\Windows\\System32\\0409\\H1\.exe;95
+C:\\Windows\\System32\\0409\\H2\.exe;95
+C:\\Windows\\System32\\0409\\H2\.dll;95
+C:\\Windows\\System32\\0409\\[^\\]{1,8}\.(ps1|bat);75
+C:\\windows\\H2\.ps1;85
+\\S2-PS\.bat;75
+\\S2_ps\.bat;75
+\\LBP\.ps1;70
+\\Lb\.ps1;70
+\\H2\.ps1;70
+
+# Procdump - process dump tool used in SysInternals suite https://learn.microsoft.com/en-us/sysinternals/downloads/procdump
+(?i)\\procdump(64)?(a)?\.(exe|zip);50;(?i)(SysInternals\\)
+# Suspicious file that starts with procdump, a process dumping tool often used by adversaries https://learn.microsoft.com/en-us/sysinternals/downloads/procdump
+(?i)\\procdump[^\\]{0,30}\.(exe|dll|vbs|vbe|ps1|psm1|bat|vbs|vbe|js|7z|rar);70;(?i)(\\procdump(64)?\.exe)
+(?i)\\[^\\]{1,30}procdump\.(exe|dll|vbs|vbe|ps1|psm1|bat|vbs|vbe|js|7z|rar);70
+
+# Adfind - often used by AD administrators but also by threat actors http://www.joeware.net/freetools/
+\\Adfind\.exe;50
+\\Adfind\.(7z|rar);65
+
+# FRP Binaries https://github.com/fatedier/frp
+\\frpc\.exe;70
+\\frps\.exe;70
+\\frpc$;70
+\\frps$;70
+\\frpc.ini;70
+\\frps.ini;70
+\\frpc_full.ini;70
+\\frps_full.ini;70
+
+# Impacket default file name used for tools in the examples folder of the project https://github.com/SecureAuthCorp/impacket
+\\atexec\.py;75
+\\wmiquery\.py;70
+\\wmipersist\.py;70
+\\wmiexec\.py;70
+\\tstool\.py;70
+\\ticketer\.py;70
+\\ticketConverter\.py;70
+\\sniffer\.py;70
+\\sniff\.py;70
+\\smbrelayx\.py;70
+\\smbpasswd\.py;70
+\\smbexec\.py;70
+\\secretsdump\.py;70
+\\samrdump\.py;70
+\\rpcmap\.py;70
+\\rpcdump\.py;70
+\\rdp_check\.py;70
+\\psexec\.py;70
+\\ntlmrelayx\.py;70
+\\nmapAnswerMachine\.py;70
+\\netview\.py;70
+\\mimikatz\.py;70
+\\lookupsid\.py;70
+\\kintercept\.py;70
+\\keylistattack\.py;70
+\\karmaSMB\.py;70
+\\goldenPac\.py;70
+\\getTGT\.py;70
+\\GetNPUsers\.py;70
+\\GetADUsers\.py;70
+\\Get\-GPPPassword\.py;70
+\\exchanger\.py;70
+\\esentutl\.py;70
+\\dcomexec\.py;70
+\\atexec\.py;70
+
+# Forkatz filename IOCs https://github.com/Barbarisch/forkatz
+c:\\users\\public\\temp\.bin;75
+c:\\users\\public\\example\.bin;75
+\\forkatz\.exe;75
+
+# PPLKiller tool exploiting CVE-2019-16098 https://github.com/Barakat/CVE-2019-16098
+\\PPLKiller\.exe;85
+
+# Typical ASPX Shell Locations https://vimeo.com/770087063
+\\aspnet_client\\system_web\\[a-zA-Z0-9_\-]{1,16}\.asp[x]?$;65
+
+# Somnia Ransomware https://cert.gov.ua/article/2724253
+\\Temp\\text\.exe;70
+C:\\ProgramData\\VMware\\VMware Tools\\1\.exe;85
+C:\\ProgramData\\pe_https_x64_360_1\.exe;90
+\\Downloads\\Ip_scanner\.zip;70
+\\Downloads\\Ip_scanner\\Ip_scanner\.exe;70
+l\\Desktop\\netscan_portable\\64-bit\\netscan\.exe;75
+\\Downloads\\1\.jpeg;60
+\\Somnia_07_08_22_with_FunnySomnia\.exe;95
+\\netscan_portable\.7z;65
+\\FunnySomnia\.exe;85
+
+# Rubeus Filename IOCs https://github.com/GhostPack/Rubeus/ and https://phackt.com/en-kerberos-constrained-delegation-with-protocol-transition and https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html and https://www.hackingarticles.in/a-detailed-guide-on-rubeus/
+C:\\temp\\spns\.txt;85
+\\[\w]{1,20}_[0-9]{4}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[0-9]{2}_[a-z]{2,16}_to_[a-z\.\-]{2,24}@;65
+\\srv\.tgt;70
+\\TotallyNotHashes\.txt;80
+\\hashes\.asreproast;85
+\\brutepasswords\.txt;75
+C:\\Temp\\payload\.exe;75
+\\ticket\.kirbi;85
+\\silver\.kirbi;85
+\\Users\\Public\\type\.hash;70
+\\Users\\Public\\type2\.hash;70
+\\Rubeus\.exe;85
+
+# Hive Ransomware IOCs CISA Alert AA22-321A https://www.cisa.gov/uscert/ncas/alerts/aa22-321a
+\\hive\.bat;65
+\\shadow\.bat;65
+\\Windows_x64_encrypt\.dll;75
+\\Windows_x64_encrypt\.exe;75
+\\Windows_x32_encrypt\.dll;75
+\\Windows_x32_encrypt\.exe;75
+\\Windows_x32_encrypt\.rar;75
+\\Linux_encrypt$;70
+\\Esxi_encrypt$;70
+
+# RansomBoggs IOCs https://twitter.com/ESETresearch/status/1596181925663760386?s=20&t=lhE6eIEW1dl2k_HvZsr69g
+\\Desktop\\aes\.bin$;70
+C:\\Windows\\Sullivan.1;75
+
+# SysmonEOP Filename IOCs - PoC for CVE-2022-41120 https://github.com/Wh04m1001/SysmonEoP
+\\SysmonEOP\.exe;90
+\\SysmonEOPv2\.exe;90
+\\SysmonEOP_v2\.exe;90
+Global\\GLOBALROOT\\RPC Control\\CLIP-876BEE15B64B610D2505A44596ED92FBA9624DB923F9D608698BD8C8E64E4F1A;90
+
+# AstroBWT Miner IOCs https://github.com/dero-am/astrobwt-miner/
+\\astrobwt-miner;70
+\\astrominer;70
+
+# NanoDump IOCs https://github.com/helpsystems/nanodump
+C:\\Windows\\Temp\\ssp\.dll;65
+C:\\ssp\.dll;75
+C:\\Windows\\Temp\\report\.docx;75
+_lsass\.dmp;70
+\\nanodump\.exe;85
+\\nanodump\.x64\.exe;85
+\\nanodump_ssp\.x64\.dll;80
+\\load_ssp\.x64\.exe;80
+\\nanodump_ppl\.x64\.exe;80
+\\cantaor\.x64\.exe;80
+\\doloraso\.x64\.exe;80
+\\nanodump\.x64;80
+\\load_ssp\.x86\.exe;80
+
+# Suspicious ADModule locations https://github.com/samratashok/ADModule
+\\Microsoft\.ActiveDirectory\.Management\.dll$;70;(C:\\Windows\\Microsoft\.NET\\assembly\\|C:\\Windows\\WinSxS\\(amd64|x86)_microsoft\.activedirectory\.management_)
+
+# Suspicious Web Shell file names https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/#id3-1
+\\[0-9]{8,20}\.(aspx|asp|jsp|jspx|php);60;(examples|tests|demo)
+\\[0-9]\.(aspx|asp|jsp|jspx|php);60;(examples|tests|demo)
+
+# Suspicious Rundll32.exe variations https://twitter.com/_JohnHammond/status/1618988736313966592
+\\rundll33\.exe;70
+\\rundII32\.exe;70
+\\rundlI32\.exe;70
+\\rundIl32\.exe;70
 
 # End

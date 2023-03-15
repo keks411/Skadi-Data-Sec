@@ -17,50 +17,6 @@
 
 # 563d1512178cec1f6a73c98d565c98fa;Cygwin nc.exe example
 
-
-5d2204f3a20e163120f52a2e3595db19890050b2faa96c6cba6b094b0a52b0aa;BlackBasta
-7883f01096db9bcf090c2317749b6873036c27ba92451b212b8645770e1f0b8a;BlackBasta
-ae7c868713e1d02b4db60128c651eb1e3f6a33c02544cc4cb57c3aa6c6581b6e;BlackBasta
-17205c43189c22dfcb278f5cc45c2562f622b0b6280dcd43cc1d3c274095eb90;BlackBasta
-a54fef5fe2af58f5bd75c3af44f1fba22b721f34406c5963b19c5376ab278cd1;BlackBasta
-1d040540c3c2ed8f73e04c578e7fb96d0b47d858bbb67e9b39ec2f4674b04250;BlackBasta
-2967e1d97d32605fc5ace49a10828800fbbefcc1e010f6004a9c88ef3ecdad88;BlackBasta
-f088e6944b2632bb7c93fa3c7ba1707914c05c00f9491e033f78a709d65d7cff;BlackBasta
-a48ac26aa9cdd3bc7f219a84f49201a58d545fcebf0646ae1d676c7e43c6ac3e;BlackBasta
-82c73538322c8b90c25a99a7afc2fafcd7e7e03fe920a3331ef0003300ac10b8;BlackBasta
-82c73538322c8b90c25a99a7afc2fafcd7e7e03fe920a3331ef0003300ac10b8;BlackBasta
-2083e4c80ade0ac39365365d55b243dbac2a1b5c3a700aad383c110db073f2d9;BlackBasta
-2e890fd02c3e0d85d69c698853494c1bab381c38d5272baa2a3c2bc0387684c1;BlackBasta
-2d906ed670b24ebc3f6c54e7be5a32096058388886737b1541d793ff5d134ccb;BlackBasta
-72fde47d3895b134784b19d664897b36ea6b9b8e19a602a0aaff5183c4ec7d24;BlackBasta
-ffa7f0e7a2bb0edf4b7785b99aa39c96d1fe891eb6f89a65d76a57ff04ef17ab;BlackBasta
-1e7174f3d815c12562c5c1978af6abbf2d81df16a8724d2a1cf596065f3f15a2;BlackBasta
-130af6a91aa9ecbf70456a0bee87f947bf4ddc2d2775459e3feac563007e1aed;BlackBasta
-81a6c44682b981172cd85ee4a150ac49f838a65c3a0ed822cb07a1c19dab4af5;BlackBasta
-94428d7620fff816cb3f65595978c6abb812589861c38052d30fa3c566e32256;BlackBasta
-c9df12fbfcae3ac0894c1234e376945bc8268acdc20de72c8dd16bf1fab6bb70;BlackBasta
-0d3af630c03350935a902d0cce4dc64c5cfff8012b2ffc2f4ce5040fdec524ed;BlackBasta
-3fe73707c2042fefe56d0f277a3c91b5c943393cf42c2a4c683867d6866116fc;BlackBasta
-3fe73707c2042fefe56d0f277a3c91b5c943393cf42c2a4c683867d6866116fc;BlackBasta
-0e2b951ae07183c44416ff6fa8d7b8924348701efa75dd3cb14c708537471d27;BlackBasta
-8882186bace198be59147bcabae6643d2a7a490ad08298a4428a8e64e24907ad;BlackBasta
-df35b45ed34eaca32cda6089acbfe638d2d1a3593d74019b6717afed90dbd5f8;BlackBasta
-b8aa8abac2933471e4e6d91cb23e4b2b5a577a3bb9e7b88f95a4ddc91e22b2cb;BlackBasta
-fb3340d734c50ce77a9f463121cd3b7f70203493aa9aff304a19a8de83a2d3c9;BlackBasta
-5ab605b1047e098638d36a5976b00379353d84bd7e330f5778ebb71719c36878;BlackBasta
-9707067b4f53caf43df5759fe40e9121f832e24da5fe5236256ad0e258277d88;BlackBasta
-9707067b4f53caf43df5759fe40e9121f832e24da5fe5236256ad0e258277d88;BlackBasta
-d7580fd8cc7243b7e16fd97b7c5dea2d54bcba08c298dc2d82613bdc2bd0b4bf;BlackBasta
-919d1e712f4b343856cb920e4d6f5d20a7ac18d7386673ded6968c945017f5fd;BlackBasta
-012826db8d41ff4d28e3f312c1e6256f0647bf34249a5a6de7ecac452d32d917;BlackBasta
-d36a9f3005c5c24649f80722e43535e57fd96729e827cdd2c080d17c6a53a893;BlackBasta
-580ce8b7f5a373d5d7fbfbfef5204d18b8f9407b0c2cbf3bcae808f4d642076a;BlackBasta
-
-# blackbasta batch script
-eb43350337138f2a77593c79cee1439217d02957;blackbasta
-017a963d59aba39653793027cd0943cb5bd9352162df28caf797de265d624d7b;blackbasta
-
-
 4fef5e34143e646dbf9907c4374276f5;securelist.com https://goo.gl/nkbFwv
 5bef35496fcbdbe841c82f4d1ab8b7c2;securelist.com https://goo.gl/nkbFwv
 775a0631fb8229b2aa3d7621427085ad;securelist.com https://goo.gl/nkbFwv
@@ -10441,3 +10397,371 @@ A009A0F5A385683AEA74299CBE6D5429C609F2D2;Winnti IOCs PRIVATELOG https://www.cybe
 1275894D8231FE25DB56598DDCF869F88DF5AD8D;Winnti IOCs WINNKIT https://www.cybereason.com/blog/operation-cuckoobees-a-winnti-malware-arsenal-deep-dive#iocs
 9139C89B2B625E2CEEE2CBF72AEF6C5104707A26;Winnti IOCs WINNKIT https://www.cybereason.com/blog/operation-cuckoobees-a-winnti-malware-arsenal-deep-dive#iocs
 082DBCA2C3CA5C5410DE9951A5C681F0C42235C8;Winnti IOCs WINNKIT https://www.cybereason.com/blog/operation-cuckoobees-a-winnti-malware-arsenal-deep-dive#iocs
+
+9fc7df2b2539ec3abeb90848903ad608a1101345;metaMain CDB Injector cdb.in - https://assets.sentinelone.com/sentinellabs22/metador
+e7f68dc6b8e4cabe5773a5b0b2306a404706de48;metaMain DLL Loader speech02.db - https://assets.sentinelone.com/sentinellabs22/metador
+0397b92bd8606e2b11ec6518c2df43decaf02382;metaMain Orchestrator speech03.db - https://assets.sentinelone.com/sentinellabs22/metador
+0f021a6c32f4d9053a9d8fb36749f8c434376fd1;Mafalda v. 143 Mode 0 - Over TCP fcache11.db - https://assets.sentinelone.com/sentinellabs22/metador
+fdec8be5d5f2693fbfa36fdf38aa8f9932c6a34a;Mafalda v. 143 Mode 2 - Over HTTP fcache13.db - https://assets.sentinelone.com/sentinellabs22/metador
+00f2176edb17d970005fc70a66ecc587a84f8620;Mafalda v.144 (Obfuscated)Mode 0 - Over TCP fcache11.db - https://assets.sentinelone.com/sentinellabs22/metador
+3e2724b9a8ecf05661d91b02accdc1da7e43d513;Mafalda v.144 (Obfuscated)Mode 2 - Over HTTP fcache13.db - https://assets.sentinelone.com/sentinellabs22/metador
+b5d35c1e75330c0b26ebbd562191beb7f03d726b;Mafalda v.144 (Obfuscated)Mode 3 - Over pipes fcache14.db - https://assets.sentinelone.com/sentinellabs22/metador
+
+2716c60c28cf7f7568f55ac33313468b;UNC2886 report - Malicious VIB .vgz Payload https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+5ffa6d539a4d7bf5aacc4d32e198cc1607d4a522;UNC2886 report - Malicious VIB .vgz Payload https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+2be5f4520846bf493b4694789841907d058fe08d59fff6bad7abe1db8ed96e7d;UNC2886 report - Malicious VIB .vgz Payload https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+bd6e38b6ff85ab02c1a4325e8af29ce4;UNC2886 report - Malicious VIB Deployment Script https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+17fb90d01403cb3d1566c91560f8f4b7dd139aa8;UNC2886 report - Malicious VIB Deployment Script https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+e68872c49aaedeb3bde3ff5fd2ad6f70658687dc02d04f12ebc7cb28e821cc88;UNC2886 report - Malicious VIB Deployment Script https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+8e80b40b1298f022c7f3a96599806c43;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+e9cbac1f64587ce1dc5b92cde9637affb3b58577;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+c2ef08af063f6d416233a4b2b2e991c177fc72d70a76c24bca9080521d41040f;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+61ab3f6401d60ec36cd3ac980a8deb75;UNC2886 report - VIRTUALPIE https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+93d5c4ebec2aa45dcbd6ddbaad5d80614af82f84;UNC2886 report - VIRTUALPIE https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+4cf3e0b60e880e6a6ba9f45187ac5454813ae8c2031966d8b264ae0d1e15e70d;UNC2886 report - VIRTUALPIE https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+9ea86dccd5bbde47f8641b62a1eeff07;UNC2886 report - Malicious VIB Payload https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+b90b19781fde2c35963eb3eac4ce2acc6f5019fb;UNC2886 report - Malicious VIB Payload https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+23eb8d056f18e7c69ec3568f2833c9d09e91df98d11b11de235331ef42756fe5;UNC2886 report - Malicious VIB Payload https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+9d5cc1ee99ccb1ec4d20be1cee10173e;UNC2886 report - Malicious VIB Deployment Script https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+9d191849d6c57bc8a052ec3dac2aa9f57c3fe0cd;UNC2886 report - Malicious VIB Deployment Script https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+4d995eb87b0685124b7f1640d1ab431f5a1ab991ade02750b876ed5c523234bb;UNC2886 report - Malicious VIB Deployment Script https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+2c28ec2d541f555b2838099ca849f965;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+e35733db8061b57b8fcdb83ab51a90d0a8ba618c;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+505eb3b90cd107cf7e2c20189889afdff813b2fbb98bbdeab65cde520893b168;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+744e2a4c1da48869776827d461c2b2ec;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+a3cc666e0764e856e65275bd4f32a56d76e51420;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+4a6f559426493abc0d056665f23457e2779abd3482434623e1f61f4cd5b41843;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+93d50025b81d3dbcb2e25d15cae03428;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+abff003edf67e77667f56bbcfc391e2175cb0f8a;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+13f11c81331bdce711139f985e6c525915a72dc5443fbbfe99c8ec1dd7ad2209;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+fe34b7c071d96dac498b72a4a07cb246;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+0962e10dc34256c6b31509a5ced498f8f6a3d6b6;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+5731d988781c9a1d2941f7333615f6292fb359f6d48498f32c29878b5bedf00f;UNC2886 report - VIRTUALPITA https://www.mandiant.com/resources/blog/esxi-hypervisors-malware-persistence
+
+296D882CB926070F6E43C99B9E1683497B6F17C4;Lazarus report - FudModule.dll Win64/Rootkit.NukeSped.A A user‑mode module that operates with the kernel memory.
+001386CBBC258C3FCC64145C74212A024EAA6657;Lazarus report - C:\PublicCache\msdxm.ocx Win32/NukeSped.KQ A dropper of the HTTP(S) downloader.
+569234EDFB631B4F99656529EC21067A4C933969;Lazarus report - colorui.dll Win64/NukeSped.JK A dropper of BLINDINGCAN side-loaded by a legitimate colorcpl.exe.
+735B7E9DFA7AF03B751075FD6D3DE45FBF0330A2;Lazarus report - N/A Win64/NukeSped.JK A 64-bit variant of the BLINDINGCAN RAT.
+4AA48160B0DB2F10C7920349E3DCCE01CCE23FE3;Lazarus report - N/A Win32/NukeSped.KQ An HTTP(S) downloader.
+C71C19DBB5F40DBB9A721DC05D4F9860590A5762;Lazarus report - Adobe.tmp Win64/NukeSped.JD A dropper of the HTTP(S) uploader.
+97DAAB7B422210AB256824D9759C0DBA319CA468;Lazarus report - credui.dll Win64/NukeSped.JH A dropper of an intermediate loader.
+FD6D0080D27929C803A91F268B719F725396FE79;Lazarus report - N/A Win64/NukeSped.LP An HTTP(S) uploader.
+83CF7D8EF1A241001C599B9BCC8940E089B613FB;Lazarus report - N/A Win64/NukeSped.JH An intermediate loader that loads an additional payload from the file system.
+085F3A694A1EECDE76A69335CD1EA7F345D61456;Lazarus report - cryptsp.dll Win64/NukeSped.JF A dropper in the form of a trojanized lecui library.
+55CAB89CB8DABCAA944D0BCA5CBBBEB86A11EA12;Lazarus report - mi.dll Win64/NukeSped.JF A dropper in the form of a trojanized lecui library.
+806668ECC4BFB271E645ACB42F22F750BFF8EE96;Lazarus report - credui.dll Win64/NukeSped.JC A trojanized FingerText plug-in for Notepad++.
+BD5DCB90C5B5FA7F5350EA2B9ACE56E62385CA65;Lazarus report - msdxm.ocx Win32/NukeSped.KT A trojanized version of LibreSSL’s sslSniffer.
+
+37011eed9de6a90f3be3e1cbba6c5ab2;Emperor Dragonfly report - Encrypted Cobalt Strike payload - saved as C:\Windows\Help\OEM\ContentStore\vlcplayer.dat https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+240118f6205effcb3a12455a81cfb1c7;Emperor Dragonfly report - Weaponized DLL loaded by FCAuth.exe - saved as C:\Windows\Help\Corporate\utilsdll.dll https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+e5fd4d5774ad97e5c04b69deae33dc9e;Emperor Dragonfly report - Weaponized DLL loaded by mfeann.exe - saved as C:\Windows\debug\LockDown.dll https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+2893d476408e23b7e8a65c6898fe43fa;Emperor Dragonfly report - Encrypted Cobalt Strike payload - saved as C:\Windows\Help\Corporate\auth.dat https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+8161d8339411ddd6d99d54d3aefa2943;Emperor Dragonfly report - Encrypted Cobalt Strike payload - saved as C:\Windows\debug\debug.dat https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+5a852305ffb7b5abeb39fcb9a37122ff;Emperor Dragonfly report - Weaponized DLL loaded by vlc.exe - saved as C:\Windows\Help\Corporate\libvlc.dll https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+f0656e3a70ab0a10f8d054149f12c935;Emperor Dragonfly report - Encrypted Cobalt Strike payload - saved as C:\Windows\Help\Corporate\auth.dat https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+37011eed9de6a90f3be3e1cbba6c5ab2;Emperor Dragonfly report - Encrypted Cobalt Strike payload - saved as C:\Windows\Help\Corporate\vlcplayer.dat https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+5695de561a065123178067fcedf39ce3;Emperor Dragonfly report - NPC client for NPS tunnel tool - saved as C:\Windows\Help\mui\0409\WindowsUpdate.exe https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+ea4ca87315d14f5142aaef1f5e287417;Emperor Dragonfly report - Keylogger - saved as C:\Windows\Help\OEM\ContentStore.exe https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+5a6008cf994779cde1698a0e80bb817d;Emperor Dragonfly report - IOX port forwarder and proxy - saved as C:\Windows\Help\Windows\dec.exe https://blog.sygnia.co/revealing-emperor-dragonfly-a-chinese-ransomware-group?hsLang=en
+
+3F4E3C5301752D39DAF97384CCA47564DA1C3314;POLONIUM Report dnw.exe PowerShell/Agent.GJ CreepyDrive https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+CC820ED9A23084104807941B76A2679243BA357C;POLONIUM Report Request.exe PowerShell/Agent.HF CreepySnail https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+03A35A0167684E6CCCA641296969972E49B88D60;POLONIUM Report DropBox.exe MSIL/Agent.DPT DeepCreep https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+4E7DBFF20995E97190536B284D7E5CC65922FD55;POLONIUM Report Mega.exe MSIL/Agent.DPT MegaCreep https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+994EAD7666A67E33C57A51EF98076D41AABB7FB7;POLONIUM Report Regestries.exe MSIL/Tiny.DG FlipCreep https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+79DE0AF2F10F8D39A93EED911D4048D87E3C8A1C;POLONIUM Report WinUpdate.dll MSIL/Agent.DYU TechnoCreep https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+2B9444B0E1747EB4F482D29C9DE27D07CCE55A76;POLONIUM Report WindowsSartup22.exe Win64/HackTool.NetHacker.G PapaCreep https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+F26F43AD2E2980B96497242A3F30CA003E5CF54C;POLONIUM Report WinSc.exe MSIL/Tiny.DG Screenshots module https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+F41E27C4C863821DE6CAD91CA7E77CD6CA6CE5D3;POLONIUM Report 4kyro3fs.dll MSIL/Spy.Keylogger.FGC Keylogger module https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+94E75BA7C4476AFDACF4B39E403379C5ECD1BED6;POLONIUM Report Device.exe MSIL/Spy.Tiny.CZ Webcam module https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+B87CC5269A5DF5CF093F8D28DF78952F662162B6;POLONIUM Report OnDrive.exe MSIL/Agent.DTP Reverse shell module https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+809048A40274350BD0C453E49D8C1F7D32397164;POLONIUM Report Rehost.exe MSIL/Spy.Tiny.DA Exfiltration module https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+43E3C3752A15D0BDE7135E1B52F1DE397B5314B5;POLONIUM Report Microsoft Malware Protection.exe MSIL/Agent.DYV Tunnels module https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+
+
+12ae1d7e2485dbb51aabbdb2b4cec6261cf43116;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+23f8f2e7558ed894e800cce9ea352c0d8efb2216;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+298c100aa98e79e54ca8454f8400e9543791fa15;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+35c67f8b6f9d6b32a021edd7d59fafe868341c8a;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+4a54c5dc45ce0047291dc98ad87f42cfe9fa046e;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+550adbb75c7e1cd178cb8c39f0911c494b24c687;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+5d8a4e53a96fd0c7809ba7d9cd6e730da00e1321;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+5f7a338bb99aed422e1a69fe48726d42dbe71854;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+67600c5b1b6221385c4b34dbbb80037dffcb171e;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+6b5296db642689a5ad249cb66a5ae85ec664fd2c;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+7722386c075db083878496875c156c67238758e6;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+7d6550f8992515f79a43473bebdf2593caf25900;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+806aeca473af9afef5a0ab29f30a9a272d9cec51;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+8e7818cc76da718c6d35d430e9d4763ecb940318;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+8c0c39418339a0458809125de1a88a0c005694bd;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+a22318388bbe3014d087e20f1a2bf363071ade0a;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+b810ed016e708f1c828dce82051c4b265794d583;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+c7d4cf00bd2d90e03191657b89b75bfc9d2df5d8;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+cc820ed9a23084104807941b76a2679243ba357c;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+f074085be2a913c54100686fe7ef274a53323bda;POLONIUM IOC - CreepySnail - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+83a4f138d57fce4256727e517a8d19e67554c15f;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+1929900b68ac8a65d515002d313336781801e3ef;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+5c33a153f221f80c916b7e505f6e2144cd5b88a2;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+3f4e3c5301752d39daf97384cca47564da1c3314;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+457c34aeaf4e2e5086221b20fec17df29a6b49d3;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+9826aa25f2f005f9567f512f540cbed4d054692f;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+a4ac86b005c20d239cd0088d774ced701adc1d01;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+db3f13d29a64205780b9a675019405bb338ca375;POLONIUM IOC - CreepyDrive - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+0832fec447b9b8a90ef4797c7b098b06e198d167;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+03a35a0167684e6ccca641296969972e49b88d60;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+23f1e9788688184712dc2b0eaad4c51584edabd0;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+243e21af3c97ff2a6f705c05d0e62e97931d620e;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+5eef1ac7df2293d9432362fc586a7a7157b69157;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+31c5dda0181daac130e900368b97adda8b09b762;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+5f40f2da77ba7ef01f2ee4143d6022a0ef28c8f1;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+8bb125624b52e3d2d82c272a0d1dd3906e1c3978;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+89014d65d24dc14357a34d1d251e4cd43de6856d;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+99f7ef4d8eb9903543ce9c8201baa342d242b6ae;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+a9febe898daef40e7819a7b3bfef19462db894c5;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+bf90d666626423741576072547c19b9ccd1459a7;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+bb39a928343d04a38addf122449d68fddf5f7e29;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+aa442a83b7cd173734552b6611c50d050efe8277;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+e50765d980fd662f4e5c5609cb1876ab67815ef5;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+d0f05a5ad4e13610605b2d4b60854bfc002799c2;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+84e4aab5f5e2afbfa5b314d720e02e33c49d526d;POLONIUM IOC - DeepCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+4e7dbff20995e97190536b284d7e5cc65922fd55;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+21ef3d7adca478145c5d28fcf9c786c5f0aea0e6;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+0ce82be2f436d179b54a0cc6fcc675010822d268;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+22d9058c3706e7a713949093f82d8bff4a8afa62;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+45e56d259a7194c7c3adfefd8ada077dc2b800b8;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+53bee089331b9bc06dd1ee3fe5e5b8bd3107ffdd;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+b48cbb7a5f9bfbfbfb07113fb3728132d528e1f3;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+37a4a82075c24dbd3678c037f7abd2dbae49678f;POLONIUM IOC - MegaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+2b9444b0e1747eb4f482d29c9de27d07cce55a76;POLONIUM IOC - PapaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+459aece315af3d00342e5dde5fb79e7a908e8460;POLONIUM IOC - PapaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+97ed514f7510852c558a1b32c99f56ebc460dd8b;POLONIUM IOC - PapaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+7cfa11879af6cea88cffa2aab354fb79bf77132a;POLONIUM IOC - PapaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+309f1750a63c3bcb8cad83a65a69a401f04c51d2;POLONIUM IOC - PapaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+8aa46b8d0c47d447b87920a5a7494ce235707d7d;POLONIUM IOC - PapaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+9b03c838727fa3ada42bb4fa0422129ebfabf7bb;POLONIUM IOC - PapaCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+23ce10c11dcd93bcbf2a4e50d4cd02dc862b9cc4;POLONIUM IOC - FlipCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+45b3af39c5ef08f7407b94d564a432503b00275a;POLONIUM IOC - FlipCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+9d7cf542cb3af7bf3e364ef01c73f3c74b0abae2;POLONIUM IOC - FlipCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+994ead7666a67e33c57a51ef98076d41aabb7fb7;POLONIUM IOC - FlipCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+92f3ae51657659098c0a0110b9a681d32b77e9c1;POLONIUM IOC - FlipCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+9e25e2a18f1dc3a38c59a1408f982d895ce1b9b4;POLONIUM IOC - FlipCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+b6371ef797c85f87128a696ec9c9edb93d90aae2;POLONIUM IOC - FlipCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+79de0af2f10f8d39a93eed911d4048d87e3c8a1c;POLONIUM IOC - TechnoCreep - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+5036863519737b54c5d68891ee2e3ca795044803;POLONIUM IOC - Screenshot modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+37e8036e20b93a4aed5b6bd600b97cbaf6964567;POLONIUM IOC - Screenshot modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+691aa02384e5121598d21606445ab41325cdfa52;POLONIUM IOC - Screenshot modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+f26f43ad2e2980b96497242a3f30ca003e5cf54c;POLONIUM IOC - Screenshot modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+f3b714698311bd6b7984f0dafa425f71f07c764c;POLONIUM IOC - Screenshot modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+a0a2768d500714f62b64b57185e71140d3c993d1;POLONIUM IOC - Keylogger modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+04378736da5c2da06bd5b15a41aaccac233df44b;POLONIUM IOC - Keylogger modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+ab9bf33a0cc0e676c4f843b1dc163861e6b13b6f;POLONIUM IOC - Keylogger modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+c77cfd19d504da2639bf51e96ac27db3ff455d45;POLONIUM IOC - Keylogger modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+b601e9249d53b22e43c01f83d2356e9c7b41a443;POLONIUM IOC - Keylogger modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+81606f1cdb7efcae54c66876fc3f31e84b8f7f15;POLONIUM IOC - Keylogger modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+378dd134ff6cc55f36496ee717e4efca022bd754;POLONIUM IOC - Keylogger modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+94e75ba7c4476afdacf4b39e403379c5ecd1bed6;POLONIUM IOC - Webcam module - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+b87cc5269a5df5cf093f8d28df78952f662162b6;POLONIUM IOC - Reverse shell modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+3024f8b0439d7c271967d22373604215a4ce0ac4;POLONIUM IOC - Reverse shell modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+911bc1e7c3d2295bb5ad01412c6fdcf2d937bd41;POLONIUM IOC - Reverse shell modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+1438f9fc50e914cb63b209a3312aa2857a410769;POLONIUM IOC - Reverse shell modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+7a9deb71f791eb8d781250b0c8c3d546d91fbde1;POLONIUM IOC - Tunneling modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+43e3c3752a15d0bde7135e1b52f1de397b5314b5;POLONIUM IOC - Tunneling modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+a02bcb0aa90004651c87873d9387dc6c00367643;POLONIUM IOC - Tunneling modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+addafa922ef03e0fe25ab53cf8eb62f4c1cbdc02;POLONIUM IOC - Tunneling modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+809048a40274350bd0c453e49d8c1f7d32397164;POLONIUM IOC - Exfiltration modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+24117276a118df5095d139aaaac8342f150de94a;POLONIUM IOC - Exfiltration modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+e889e5bbb128e38c0924a67c0946c699bd2de3b3;POLONIUM IOC - Exfiltration modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+b7f0c0a26df905aed543658df3d752de363ab8a3;POLONIUM IOC - Exfiltration modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+87684a3dcaa1488bf0579dc1e27304f6c64f794a;POLONIUM IOC - Exfiltration modules - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+21b4bf095e7c0eac92af96be1c2c6b0231807142;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+235341ef26c356a302b7641f4097a87cc027d5c2;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+3115939f4abf600bd0d17cb8aacca3c9cd786e64;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+5a0df60f25538883957d67675ae73a87d10cad91;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+465c4351273ffad066b991bb4ec1956f34ee8082;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+62986c220efea9d64f4903461a8a6d2541ed6a7a;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+93a625513ecba05c56f6ac45de3a5745edabfe2a;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+a19ba5d1ea315e0ca3a9a3ea6ccffc756404cec0;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+d5637caf5a931335b6b887a5ccbe36fffa6b4f9c;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+86377c1b8d54536c79c71f8913b72ca88d230bd4;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+f5505b35c9e9b6515875bea5c0bbf564add4939e;POLONIUM IOC - Small DLLs - https://www.welivesecurity.com/2022/10/11/polonium-targets-israel-creepy-malware/
+
+12eaac1b8dc29ba29287e7e30c893017f82c6fadb73dbc8ef2fa6f5bd5d9d84e;Cranefly IOCs https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/cranefly-new-tools-technique-geppei-danfuan
+981b28d7521c5b02f026cb1ba5289d61ae2c1bb31e8b256db21b5dcfb8837475;Cranefly IOCs https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/cranefly-new-tools-technique-geppei-danfuan
+6dcfa79948cf90b10b05b59237cf46adb09b2ce53bc2c0d38fce875eccd3a7e1;Cranefly IOCs https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/cranefly-new-tools-technique-geppei-danfuan
+0af8bf1fa14fe492de1cc870ac0e01fc8b2f6411de922712a206b905a10ee379;Cranefly IOCs https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/cranefly-new-tools-technique-geppei-danfuan
+7d5018d823939a181a84e7449d1c50ac3eb94abf3585a2154693ef5180877b95;Cranefly IOCs https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/cranefly-new-tools-technique-geppei-danfuan
+b5a4804cf7717fda1f01f23c1c2fe99fe9473b03f0247bcc6190f17d26856844;Cranefly IOCs https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/cranefly-new-tools-technique-geppei-danfuan
+1975bea7ca167d84003b601f0dfb95c4b31a174ce5af0b19e563cb33cba22ffa;Cranefly IOCs https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/cranefly-new-tools-technique-geppei-danfuan
+
+100c5e4d5b7e468f1f16b22c05b2ff1cfaa02eafa07447c7d83e2983e42647f0;Somnia_07_0 - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+ac5e68c15f5094cc6efb8d25e1b2eb13d1b38b104f31e1c76ce472537d715e08;Somnia_07_wit - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+99cf5c03dac82c1f4de25309a8a99dcabf964660301308a606cdb40c79d15317;1.exeob - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+156965227cbeeb0e387cb83adb93ccb3225f598136a43f7f60974591c12fafcf;funnysomniaex - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+e449c28e658babb7e32c89b07ddee36cadeddfc77f17dd1be801b134a6857aa9;text.exe <TAAG1> - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+fbed7e92caefbd74437d0970921bfd7cb724c98c90efd9b6d0c2ac377751c9e5;Iip_scanner.z - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+06fe57cadb837a4e3b47589e95bb01aec1cfb7ce62fdba1f4323bb471591e1d2;Ip_scannerGex - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+c87261c139ecba1989a88e157a71e3af;Ip_scanner_unpack> - Somnia Ransomware Case https://cert.gov.ua/article/2724253
+
+78dcf144e82e947c20f152a8a57376b43e7aac3fee4bf1d18d22d4c14b25e56f;RansomBoggs malware https://twitter.com/ESETresearch/status/1596181925663760386?s=20&t=lhE6eIEW1dl2k_HvZsr69g
+a490d03e780a6b664da65e20afa7845c6f79af60b6a496ff113bf9e9034e77d0;RansomBoggs malware https://twitter.com/ESETresearch/status/1596181925663760386?s=20&t=lhE6eIEW1dl2k_HvZsr69g
+
+
+9b546bd99272cf4689194d698c830a2510194722;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+f1103e627311e73d5f29e877243e7ca203292f9419303c661aec57745eb4f26c;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+a7c207b9b83648f69d6387780b1168e2f1eabd23ae6e162dd700ae8112f8b96c;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+02a733920c7e69469164316e3e96850d55fca9f5f9d19a241fad906466ec8ae8;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+0cf6399db55d40bc790a399c6bbded375f5a278dc57a143e4b21ea3f402f551f;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+f5db51115fa0c910262828d0943171d640b4748e51c9a140d06ea81ae6ea1710;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+857f28b8fe31cf5db6d45d909547b151a66532951f26cda5f3320d2d4461b583;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+08eb4366fc0722696edb03981f00778701266a2e57c40cd2e9d765bf8b0a34d0;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+f8144fa96c036a8204c7bc285e295f9cd2d1deb0379e39ee8a8414531104dc4a;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+88d13669a994d2e04ec0a9940f07ab8aab8563eb845a9c13f2b0fec497df5b17;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+0f385cc69a93abeaf84994e7887cb173e889d309a515b55b2205805bdfe468a3;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+0d5e3483299242bf504bd3780487f66f2ec4f48a7b38baa6c6bc8ba16e4fb605;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+7e00bfb622072f53733074795ab581cf6d1a8b4fc269a50919dda6350209913c;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+af4523186fe4a5e2833bbbe14939d8c3bd352a47a2f77592d8adcb569621ce02;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+8a3d71c668574ad6e7406d3227ba5adc5a230dd3057edddc4d0ec5f8134d76c3;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+4306c5d152cdd86f3506f91633ef3ae7d8cf0dd25f3e37bec43423c4742f4c42;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+3d4502066a338e19df58aa4936c37427feecce9ab8d43abff4a7367643ae39ce;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+f538b035c3de87f9f8294bec272c1182f90832a4e86db1e47cbb1ab26c9f3a0b;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+fd87ca28899823b37b2c239fbbd236c555bcab7768d67203f86d37ede19dd975;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+1817cc163482eb21308adbd43fb6be57fcb5ff11fd74b344469190bb48d8163b;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+bff4dd37febd5465e0091d9ea68006be475c0191bd8c7a79a44fbf4b99544ef1;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+ecefd9bb8b3783a81ab934b44eb3d84df5e58f0289f089ef6760264352cf878a;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+db3b1f224aec1a7c58946d819d729d0903751d1867113aae5cca87e38c653cf4;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+74fbf3cc44dd070bd5cb87ca2eed03e1bbeec4fec644a25621052f0a73abbe84;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+b160bd46b6efc6d79bfb76cf3eeacca2300050248969decba139e9e1cbeebf53;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+f869e8fbd8aa1f037ad862cf6e8bbbf797ff49556fb100f2197be4ee196a89ae;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+0c2ffed470e954d2bf22807ba52c1ffd1ecce15779c0afdf15c292e3444cf674;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+310afba59ab8e1bda3ef750a64bf39133e15c89e8c7cf4ac65ee463b26b136ba;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+b5d202456ac2ce7d1285b9c0e2e5b7ddc03da1cbca51b5da98d9ad72e7f773b8;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+1f842f84750048bb44843c277edeaa8469697e97c4dbf8dc571ec552266bec9f;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+1b943afac4f476d523310b8e3afe7bca761b8cbaa9ea2b9f01237ca4652fc834;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+b9afe016dbdba389000b01ce7645e7eea1b0a50827cded1cbaa48fbc715197bb;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+61971d3cbf88d6658e5209de443e212100afc8f033057d9a4e79000f6f0f7cc4;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+8e64bacaf40110547b334eadcb0792bdc891d7ae298fbfff1367125797b6036b;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+c646199a9799b6158de419b1b7e36b46c7b7413d6c35bfffaeaa8700b2dcc427;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+bd270853db17f94c2b8e4bd9fa089756a147ed45cbc44d6c2b0c78f361978906;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+2eb3ef8a7a2c498e87f3820510752043b20cbe35b0cbd9af3f69e8b8fe482676;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+0afed8d1b7c36008de188c20d7f0e2283251a174261547aab7fb56e31d767666;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+e0d89c88378dcb1b6c9ce2d2820f8d773613402998b8dcdb024858010dec72ed;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+571f8db67d463ae80098edc7a1a0cad59153ce6592e42d370a45df46f18a4ad8;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+10a5612044599128981cb41d71d7390c15e7a2a0c2848ad751c3da1cbec510a2;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+1807549af1c8fdc5b04c564f4026e41790c554f339514d326f8b55cb7b9b4f79;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+01242b35b6def71e42cc985e97d618e2fabd616b16d23f7081d575364d09ca74;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+952b34f6370294c5a0bb122febfaa80612fef1f32eddd48a3d0556c4286b7474;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+9aa1f37517458d635eae4f9b43cb4770880ea0ee171e7e4ad155bbdee0cbe732;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+3a8b7c1fe9bd9451c0a51e4122605efc98e7e4e13ed117139a13e4749e211ed0;Cuba Ransomware Advisory https://www.cisa.gov/uscert/ncas/alerts/aa22-335a
+
+3ea2d190879c8933363b222c686009b81ba8af9eb6ae3696d2f420e187467f08;Probably Scattered Spider campaign - Packed Fleet Deck binary https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+cce5e2ccb9836e780c6aa075ef8c0aeb8fec61f21bbef9e01bdee025d2892005;Probably Scattered Spider campaign - IIatZ - Backconnect TCP malware used to read and execute shellcode from C2, executed via OpenAM exploit https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+acadf15ec363fe3cc373091cbe879e64f935139363a8e8df18fd9e59317cc918;Probably Scattered Spider campaign - insomnia.exe - Prevents a system from entering sleep mode https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+982dda5eec52dd54ff6b0b04fd9ba8f4c566534b78f6a46dada624af0316044e;Probably Scattered Spider campaign - lockhuntersetup_3-4-3.exe - File unlocking tool (for deletion of locked files) https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+443dc750c35afc136bfea6db9b5ccbdb6adb63d3585533c0cf55271eddf29f58;Probably Scattered Spider campaign - “Midgetpack” packed binary used to establish connections to 67.43.235.122 on ports 4444 and 8888 https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+443dc750c35afc136bfea6db9b5ccbdb6adb63d3585533c0cf55271eddf29f58;Probably Scattered Spider campaign - “Midgetpack” packed binary used to establish connections to 67.43.235.122 on ports 4444 and 8888 https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+53b7d5769d87ce6946efcba00805ddce65714a0d8045aeee532db4542c958b9f;Probably Scattered Spider campaign - naaNa.b64 Backconnect TCP malware used to read and execute shellcode from C2, executed via OpenAM exploit https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+4188736108d2b73b57f63c0b327fb5119f82e94ff2d6cd51e9ad92093023ec93;Probably Scattered Spider campaign - ok.exe Binary with same name as other adversary tooling to prevent system from sleeping https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+cce5e2ccb9836e780c6aa075ef8c0aeb8fec61f21bbef9e01bdee025d2892005;Probably Scattered Spider campaign - RmaDc Backconnect TCP malware used to read and execute shellcode from C2 https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+648c2067ef3d59eb94b54c43e798707b030e0383b3651bcc6840dae41808d3a9;Probably Scattered Spider campaign - rsocx.exe SOCKS5 bind/reverse proxy https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+
+3ea2d190879c8933363b222c686009b81ba8af9eb6ae3696d2f420e187467f08;Probably Scattered Spider campaign - Packed Fleet Deck binary https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+cce5e2ccb9836e780c6aa075ef8c0aeb8fec61f21bbef9e01bdee025d2892005;Probably Scattered Spider campaign - IIatZ - Backconnect TCP malware used to read and execute shellcode from C2, executed via OpenAM exploit https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+acadf15ec363fe3cc373091cbe879e64f935139363a8e8df18fd9e59317cc918;Probably Scattered Spider campaign - insomnia.exe - Prevents a system from entering sleep mode https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+982dda5eec52dd54ff6b0b04fd9ba8f4c566534b78f6a46dada624af0316044e;Probably Scattered Spider campaign - lockhuntersetup_3-4-3.exe - File unlocking tool (for deletion of locked files) https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+443dc750c35afc136bfea6db9b5ccbdb6adb63d3585533c0cf55271eddf29f58;Probably Scattered Spider campaign - “Midgetpack” packed binary used to establish connections to 67.43.235.122 on ports 4444 and 8888 https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+53b7d5769d87ce6946efcba00805ddce65714a0d8045aeee532db4542c958b9f;Probably Scattered Spider campaign - naaNa.b64 Backconnect TCP malware used to read and execute shellcode from C2, executed via OpenAM exploit https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+4188736108d2b73b57f63c0b327fb5119f82e94ff2d6cd51e9ad92093023ec93;Probably Scattered Spider campaign - ok.exe	Binary with same name as other adversary tooling to prevent system from sleeping https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+cce5e2ccb9836e780c6aa075ef8c0aeb8fec61f21bbef9e01bdee025d2892005;Probably Scattered Spider campaign - RmaDc Backconnect TCP malware used to read and execute shellcode from C2 https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+648c2067ef3d59eb94b54c43e798707b030e0383b3651bcc6840dae41808d3a9;Probably Scattered Spider campaign - rsocx.exe SOCKS5 bind/reverse proxy https://www.crowdstrike.com/blog/analysis-of-intrusion-campaign-targeting-telecom-and-bpo-companies/
+
+
+f2c4281e4d6c11173493b759adfb0eb798ce46650076e7633cf086b6d59fdb98;Cloud Atlas IOCs - Методические рекомендации для грузоотправителей-грузополучателей (2022).doc (Guidelines for consignors-consignees (2022).doc) - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+482aeb3db436e8d531b2746a513fe9a96407cf4458405680a49605e136858ec5;Cloud Atlas IOCs - Будьте_бдительны_Корпоративное_уведомление.doc (Stay_alert_Corporate_Notice.doc) - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+2f97374c76ae10c642a57a8b13d25cbdc070c9098c951ea418d1533ac01dc23c;Cloud Atlas IOCs - Иранские оценки визита В. Путина в Тегеран.doc (Iranian assessments of V. Putin's visit to Tehran.doc) - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+3cf2bda35e88c59bb89e7fdc8fcfd4c46b2b9186e61325d2924e049d775b741f;Cloud Atlas IOCs - Почему исламский мир не дает Западу изолировать Россию.doc (Why the Islamic world does not allow the West to isolate Russia.doc) - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+c0e154b10d70b99b5616a2eda6bfe188a49f85ed3aa92d48ec9ce709df9d563f;Cloud Atlas IOCs - leptophis[1].doc - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+a4194555b19ea32680cc23f8f7d42da02b82eba8b64cb5f4630110f4e2c1ddf3;Cloud Atlas IOCs - lep[1].hta - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+59066dc428cde7cc55f3c24c2658d3e288f3f072811d86243a85af14bd482744;Cloud Atlas IOCs - unbroken.vbs - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+4cb6e224b6b03a2f6ac1ac23e6bf097067018b90493ee94f210f66fbbbbdce77;Cloud Atlas IOCs - unbroken.vbs.vbs - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+2233c0d4030cc728c2219b1e9c4c05cb262e2ddc7f4ac2f2924767396418c25a;Cloud Atlas IOCs - list.ps1 - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+7fcf7c1dad362283d0a27993df4764e2bbb11857842b80f63d63449b9f2f1fa4;Cloud Atlas IOCs - office.ps1 - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+d9fc6504c8970fefc441c77965937c382b029f1278918d1f54d196859e9f6e7c;Cloud Atlas IOCs - office.ps1 - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+3e7b066c26ba98d285a41043c739be8767606d9df057ee2f7bcddb7862c00711;Cloud Atlas IOCs - rtcpsvc.dll - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+c5d1de206445f508c1af5f213e46b915b536e4b36ef917c4e826a982dd47c312;Cloud Atlas IOCs - lockrail.dll - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+8215e918ca3a77424dadac1aebc9a44b8f9840cd1389df0399a9fa4eb6329775;Cloud Atlas IOCs - holeincorner - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+b8dc70b9ffe06c9ecaf0216ea7948fe718143db10641a23297652693ea026ab3;Cloud Atlas IOCs - Salzgitters.avi - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+f4e710f515249e8c08ae76284bfb280070e1fd2308e9d9321d92163dfc73be66;Cloud Atlas IOCs - Schultes.wmv - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/apt-cloud-atlas-unbroken-threat/
+
+F4691FF3B3ACD15653684F372285CAC36C8D0AEF;Mirrorface IOCs - K7SysMn1.dll Win32/Agent.ACLP LODEINFO loader https://www.welivesecurity.com/2022/12/14/unmasking-mirrorface-operation-liberalface-targeting-japanese-political-entities/
+DB81C8719DDAAE40C8D9B9CA103BBE77BE4FCE6C;Mirrorface IOCs - K7SysMon.Exe.db N/A Encrypted LODEINFO https://www.welivesecurity.com/2022/12/14/unmasking-mirrorface-operation-liberalface-targeting-japanese-political-entities/
+A8D2BE15085061B753FDEBBDB08D301A034CE1D5;Mirrorface IOCs - JsSchHlp.exe Win32/Agent.ACLP JsSchHlp.exe with appended encrypted second-stage LODEINFO in the security directory https://www.welivesecurity.com/2022/12/14/unmasking-mirrorface-operation-liberalface-targeting-japanese-political-entities/
+0AB7BB3FF583E50FBF28B288E71D3BB57F9D1395;Mirrorface IOCs - JSESPR.dll Win32/Agent.ACLP Second-stage LODEINFO loader https://www.welivesecurity.com/2022/12/14/unmasking-mirrorface-operation-liberalface-targeting-japanese-political-entities/
+E888A552B00D810B5521002304D4F11BC249D8ED;Mirrorface IOCs - 31558_n.dll Win32/Agent.ACLP MirrorStealer credential stealer https://www.welivesecurity.com/2022/12/14/unmasking-mirrorface-operation-liberalface-targeting-japanese-political-entities/
+
+9111c8b59e29cdf762d1c2330da8c0217967f76e;NATBypass hacktool https://github.com/cw1997/NATBypass/releases
+a6dca7c1b90bf1c2d5981b2e899ac74d371882ee;NATBypass hacktool https://github.com/cw1997/NATBypass/releases
+
+4550635143c9997d5499d1d4a4c860126ee9299311fed0f85df9bb304dca81ff;NATBypass (na.exe) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+e518b80316bf1c349943040e4d26401958846c2596e58f1c98be835ecf29b381;NATBypass Cabinet Archive (na) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+7b4f69b00d72fac3ed2c0b25d424f013f96537c563906b782742da15c72e9147;Bitlocker encryption batch-script (test.bat) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+180efca9b5560e02f957f49f0b272339561483232adf0714021d6b32b737e707;Bitlocker encryption prep batch-script (copys.bat https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+011e9aaa6251db149d1693c02a8c6407012520fb9b2f8f47e64b897017c0e673;Distribute Jetico BestCrypt batch-script (1.bat) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+28be4681480932361d75cfc360baf2c8c6d13b28d019e3dd053184894b994ef3;Execute bitlocker encryption batch-script (end.bat) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+806761850d19f0cc9f41618e74db471e85c494e952f900f827c1779f2d1c4d31;MiPing (p.exe) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+bc20f4c28cbdf38eba69eb144a89c20c162481955d4cff8bdf02ba9644865523;Discovery batch-script (cmd-webshell.txt) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+367b8052db12cb9ddce01275fc213480831dc5fe9aa3da64fecc2360267905a0;China Chopper Web Shell (supp0rt.aspx) https://medium.com/@DCSO_CyTec/apt41-the-spy-who-failed-to-encrypt-me-24fc0f49cad1
+
+bc76bd7b332aa8f6aedbb8e11b7ba9b6;Turla Report - ANDROMEDA: TrustedInstaller.exe - https://www.mandiant.com/resources/blog/turla-galaxy-opportunity
+b3657bcfe8240bc0985093a0f8682703;Turla Report - ANDROMEDA: mskmde.com - https://www.mandiant.com/resources/blog/turla-galaxy-opportunity
+2eb6df8795f513c324746646b594c019;Turla Report - KOPILUWAK WinRAR SFX - https://www.mandiant.com/resources/blog/turla-galaxy-opportunity
+d8233448a3400c5677708a8500e3b2a0;Turla Report - KOPILUWAK xpexplore.js - https://www.mandiant.com/resources/blog/turla-galaxy-opportunity
+403876977dfb4ab2e2c15ad4b29423ff;Turla Report - QUIETCANARY 00c3df3b.exe - https://www.mandiant.com/resources/blog/turla-galaxy-opportunity
+8954caa2017950e0f6269d6f6168b796;Turla Report - QUIETCANARY file.exe16 - https://www.mandiant.com/resources/blog/turla-galaxy-opportunity
+
+9976625b5a3035dc68e878ad5ac3682ccb74ef2007c501c8023291548e11301a;Dark Pink Malware IOCs https://blog.group-ib.com/dark-pink-apt
+c60f778641942b7b0c00f3214211b137b683e8296abb1905d2557bfb245bf775;Dark Pink Malware IOCs https://blog.group-ib.com/dark-pink-apt
+e3181ee97d3ffd31c22c2c303c6e75d0196912083d0c21536e5833ee7d108736;Dark Pink Malware IOCs https://blog.group-ib.com/dark-pink-apt
+e45df7418ca47a9a4c4803697f4b28c618469c6e5a5678213ab81df9fcc9fd51;Dark Pink Malware IOCs https://blog.group-ib.com/dark-pink-apt
+
+
+6793e9299cab4cd07d4ddf35e03b32a05b0e965b3691d258ec2568402cf8d28f;ChamelGang IOCs - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+e8ee5b0d6b683407aa9cb091bf92273af0e287d4e7daa94ca93cd230e94df37a;ChamelGang IOCs - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+d4e3747658e1a9e6587da411dc944597af95dd49b07126b8b090c7677ee30674;ChamelGang IOCs - https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+16b54dc11dbe2948467a10d68728811b03c12b12f7b29e53d0985fa07e29f9b7;ChamelGang IOCs .vim https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+ba867705eb986d1975abcf2f2b90ee2c7fdd09255076823cdd85c0feeea15a1b;ChamelGang IOCs avp.exe https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+f1afce3be297fa6185903274b3b44cd263b4c1ea89e8282334bc5771c53af1c5;ChamelGang IOCs curlt.exe https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+8e0e5ec7ed16e5fb1e8980a3ec6e3c5982fd8fa4cfc31428a6638950bbe5607a;ChamelGang IOCs dlang.dat https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+b9a231496682cd6bed978fb1b2b15986211e5c38a13cbb246de3dcf1d8db41f4;ChamelGang IOCs dlang.dat https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+d831a87c6abd1bbb5a9ac9e1aac06a3d9b81b6e474bdc0c78e1908e26a6166b3;ChamelGang IOCs dlang.dat https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+538d423e3a8a884aac2d80b248d194388d3520cc508990da14c0a1384e7eddbd;ChamelGang IOCs iis64.dll, iisfcgix64.dll, modrpflt.dll, httpsrfm64.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+73e9f7b9d22159f485b1c733981261ddc26fe7fcd104babfcc60369b354ccbe7;ChamelGang IOCs modrpflt.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+27b64e64b6787ad0682eac8aa42f9cd423518a92c4f6ce98596339363eeeebcc;ChamelGang IOCs modrpflt.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+be147fe9110e32b4c4558900f63888756941bf0d0519dc25c075509457748c25;ChamelGang IOCs MpCmdRun.log.1 https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+21d41a206cd12784473bec587a0b014b7cfd29c8da958531c773547402a16908;ChamelGang IOCs nfsd https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+9dd08351c1094e29f279e66731bea55f546e534fdff8688b16b44b86f67df6cb;ChamelGang IOCs o.r https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+60758fd51c29c09b989be480107f36e7c5552e99a283588ad31c0f87a9353f69;ChamelGang IOCs oci.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+8f349ea483b4986b90384bcdde30666669303ede91f9261f40213bac9e44f286;ChamelGang IOCs oci.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+9f0fc02c4cc5d77f28f3828a361afc93459c888acb1a186e874a60ead3c68ba6;ChamelGang IOCs oci.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+3b3d097873899e1a1d99c2ba5aedfc68b67f30acfeefc74e30eb02647729602f;ChamelGang IOCs oci.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+e18546ad747fa063285f24264f9dc3d452c9eb94dc7f1e87b5a8b0677bbf78d7;ChamelGang IOCs ocilib.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+21d41a206cd12784473bec587a0b014b7cfd29c8da958531c773547402a16908;ChamelGang IOCs old.awk https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+f1afce3be297fa6185903274b3b44cd263b4c1ea89e8282334bc5771c53af1c5;ChamelGang IOCs p.exe, proxyT.exe https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+be34984240e19e64eebcf7f31be9d1dee3defdefb7c9c5de77693527cfb89333;ChamelGang IOCs protsdown.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+c6b0ea8e61dffe61737911cceafdf281c9e656e87365e9119184e4f42bd42c11;ChamelGang IOCs RunCheckConfig.class https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+5c61d82b42c91c387d5ea6e245056b7a8aa213fcafe08c3a72e1866554931290;ChamelGang IOCs siiHost.exe https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+eb4a359c73c31e262e17a6bc2ccefa20429c3f5e2f6e9c521b9ad0ff96fd6ce0;ChamelGang IOCs siihost.exe https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+e3af2ef75033f3ececfd102ca116476397bac6244a8baafb1adebbe8d79c292e;ChamelGang IOCs ssconf https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+ba867705eb986d1975abcf2f2b90ee2c7fdd09255076823cdd85c0feeea15a1b;ChamelGang IOCs sshost.exe https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+dbf16553507202fbd1aed5057df92d11b88563585ae9bcc517f584826fe4819d;ChamelGang IOCs tcs.jsp https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+8491a786a3a00549f35302160c70e6b8cca6e9792be82e0092e7444850ebdfe9;ChamelGang IOCs tunnel.jsp https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+23403a06e470420b8f02d3c352f08446146920412d02444771b42c561d69ba83;ChamelGang IOCs wl https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+132688d482129c3935577e73de15f4cc5f382bd511c249d19adbb78b9f1d16c3;ChamelGang IOCs wl.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+373974f2e7933ec8b6eb7afbc98d2d4e0cfc348321864aaf1bbaf66d4d9ef83b;ChamelGang IOCs wlbsctrl.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+4b9701472ab1aabe7ea5a15146d21a9ebff60fe8077efb013d54969ff2b67b39;ChamelGang IOCs wlbsctrl.dll https://www.ptsecurity.com/ww-en/analytics/pt-esc-threat-intelligence/new-apt-group-chamelgang/
+
+
+00782ccd65a1e03e3e74ce1e59e752926e0a050818fa195bd7e5a5b359500758;CERT-UA#5850 - 23.12.22 02:10:52 new.exe (CaddyWiper v3) https://cert.gov.ua/article/3718487
+e3bc3689f01fd431cd2ed368ae91eceaa7c465c2781fa7b7dc2ec9143a404f79;CERT-UA#5850 - 02.10.22 09:53:56 upd.exe (ZeroWipe) https://cert.gov.ua/article/3718487
+301b248a8291df6c7f3565a3dac17ee69609f36ef474b4f20eebe134746a9cac;CERT-UA#5850 - news.bat https://cert.gov.ua/article/3718487
+246607235d560e90590dcf1b0507ab18de74afcc4429d8d5f3ba97eacc92d73f;CERT-UA#5850 - r.sh (AwfulShred) https://cert.gov.ua/article/3718487
+66548ba6ca6d34b7d17e42ab2e1405db1c581a516e0b1a4942d373d6d5396ba4;CERT-UA#5850 - audit.sh (BidSwipe) https://cert.gov.ua/article/3718487

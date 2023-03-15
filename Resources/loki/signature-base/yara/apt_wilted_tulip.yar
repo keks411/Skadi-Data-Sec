@@ -14,13 +14,14 @@ rule WiltedTulip_Tools_back {
    meta:
       description = "Detects Chrome password dumper used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
+      modified = "2022-12-21"
       hash1 = "b7faeaa6163e05ad33b310a8fdc696ccf1660c425fa2a962c3909eada5f2c265"
    strings:
       $x1 = "%s.exe -f \"C:\\Users\\Admin\\Google\\Chrome\\TestProfile\" -o \"c:\\passlist.txt\"" fullword ascii
-      $x2 = "\\ChromePasswordDump\\Release\\FireMaster.pdb" fullword ascii
+      $x2 = "\\ChromePasswordDump\\Release\\FireMaster.pdb" ascii
       $x3 = "//Dump Chrome Passwords to a Output file \"c:\\passlist.txt\"" fullword ascii
    condition:
       ( uint16(0) == 0x5a4d and filesize < 2000KB and 1 of them )
@@ -30,7 +31,7 @@ rule WiltedTulip_Tools_clrlg {
    meta:
       description = "Detects Windows eventlog cleaner used in Operation Wilted Tulip - file clrlg.bat"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "b33fd3420bffa92cadbe90497b3036b5816f2157100bf1d9a3b6c946108148bf"
@@ -45,7 +46,7 @@ rule WiltedTulip_powershell {
    meta:
       description = "Detects powershell script used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "e5ee1f45cbfdb54b02180e158c3c1f080d89bce6a7d1fe99dd0ff09d47a36787"
@@ -59,7 +60,7 @@ rule WiltedTulip_vminst {
    meta:
       description = "Detects malware used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "930118fdf1e6fbffff579e65e1810c8d91d4067cbbce798c5401cf05d7b4c911"
@@ -86,7 +87,7 @@ rule WiltedTulip_Windows_UM_Task {
    meta:
       description = "Detects a Windows scheduled task as used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "4c2fc21a4aab7686877ddd35d74a917f6156e48117920d45a3d2f21fb74fedd3"
@@ -104,7 +105,7 @@ rule WiltedTulip_WindowsTask {
    meta:
       description = "Detects hack tool used in Operation Wilted Tulip - Windows Tasks"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "c3cbe88b82cd0ea46868fb4f2e8ed226f3419fc6d4d6b5f7561e70f4cd33822c"
@@ -124,7 +125,7 @@ rule WiltedTulip_tdtess {
    meta:
       description = "Detects malicious service used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "3fd28b9d1f26bd0cee16a167184c9f4a22fd829454fd89349f2962548f70dc34"
@@ -142,7 +143,7 @@ rule WiltedTulip_SilverlightMSI {
    meta:
       description = "Detects powershell tool call Get_AD_Users_Logon_History used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "c75906dbc3078ff81092f6a799c31afc79b1dece29db696b2ecf27951a86a1b2"
@@ -159,7 +160,7 @@ rule WiltedTulip_matryoshka_Injector {
    meta:
       description = "Detects hack tool used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "c41e97b3b22a3f0264f10af2e71e3db44e53c6633d0d690ac4d2f8f5005708ed"
@@ -182,9 +183,10 @@ rule WiltedTulip_Zpp {
    meta:
       description = "Detects hack tool used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
+      modified = "2022-12-21"
       hash1 = "10ec585dc1304436821a11e35473c0710e844ba18727b302c6bd7f8ebac574bb"
       hash2 = "7d046a3ed15035ea197235980a72d133863c372cc27545af652e1b2389c23918"
       hash3 = "6d6816e0b9c24e904bc7c5fea5951d53465c478cc159ab900d975baf8a0921cf"
@@ -197,7 +199,7 @@ rule WiltedTulip_Zpp {
       $s3 = "files remaining ,total file save = " fullword wide
       $s4 = "$ec996350-79a4-477b-87ae-2d5b9dbe20fd" fullword ascii
       $s5 = "Destinition Directory Not Found" fullword wide
-      $s6 = "\\obj\\Release\\ZPP.pdb" fullword ascii
+      $s6 = "\\obj\\Release\\ZPP.pdb" ascii
    condition:
       uint16(0) == 0x5a4d and filesize < 30KB and ( 1 of ($x*) or 3 of them )
 }
@@ -206,7 +208,7 @@ rule WiltedTulip_Netsrv_netsrvs {
    meta:
       description = "Detects sample from Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "a062cb4364125427b54375d51e9e9afb0baeb09b05a600937f70c9d6d365f4e5"
@@ -232,7 +234,7 @@ rule WiltedTulip_ReflectiveLoader {
    meta:
       description = "Detects reflective loader (Cobalt Strike) used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "1097bf8f5b832b54c81c1708327a54a88ca09f7bdab4571f1a335cc26bbd7904"
@@ -257,7 +259,7 @@ rule WiltedTulip_Matryoshka_RAT {
    meta:
       description = "Detects Matryoshka RAT used in Operation Wilted Tulip"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth"
+      author = "Florian Roth (Nextron Systems)"
       reference = "http://www.clearskysec.com/tulip"
       date = "2017-07-23"
       hash1 = "6f208473df0d31987a4999eeea04d24b069fdb6a8245150aa91dfdc063cd64ab"
