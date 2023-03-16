@@ -8,13 +8,11 @@
 	License: Detetction Rule License 1.1 (https://github.com/SigmaHQ/sigma/blob/master/LICENSE.Detection.Rules.md)
 
 */
-
-/* Performance killer - value isn't big enough
 rule Embedded_EXE_Cloaking {
         meta:
                 description = "Detects an embedded executable in a non-executable file"
                 license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
                 date = "2015/02/27"
                 score = 65
         strings:
@@ -37,76 +35,38 @@ rule Embedded_EXE_Cloaking {
                 and
                 for any i in (1..#mz): ( @a1 < ( @mz[i] + 200 ) or @a2 < ( @mz[i] + 200 ) )
 }
-*/
 
-// whitelist-approach failed : reworked in SUSP_Known_Type_Cloaked_as_JPG
-
-// rule Cloaked_as_JPG {
-//    meta:
-//       description = "Detects a non-JPEG file cloaked as JPG"
-//       author = "Florian Roth (Nextron Systems)"
-//       date = "2015/03/02"
-//       modified = "2022-09-16"
-//       score = 40
-//    strings:
-//       $fp1 = "<!DOCTYPE" ascii
-//       $fp2 = "Sophos Encrypted File Format" ascii
-//       $fp3 = "This is a critical resource file used by WatchGuard/TDR" ascii
-//    condition:
-//       uint16be(0) != 0xFFD8 and extension == ".jpg"
-//       and filetype != "GIF"
-//       and filetype != "PDF"
-//       and not $fp1 in (0..30)
-//       and not $fp2 at 0
-//       and not $fp3
-//       and not uint16(0) == 0x8b1f /* GZIP */
-//       and not uint16(0) == 0x4d42 /* BMP */
-//       and not uint32(0) == 0x474E5089 /* PNG Header */
-//       and not uint32(0) == 0x002A4949 /* TIFF Header */
-//       and not uint32be(0) == 0x3c737667 /* <svg */
-//       and not uint32be(0) == 0x52494646 /* RIFF (WebP) */
-//       and not uint32be(0x4) == 0x66747970 /* HEIF Header https://github.com/strukturag/libheif/commit/6ca8e2548dbfe21200bae3a7c2c315a1796e3852 */
-//       and not uint32be(0xe) == 0x4a464946 /* JFIF distributed by Matlab */
-//       and not filename matches /\$[Ii][A-Z0-9]{6}/
-//       and not filepath contains "WinSxS"
-//       and not filepath contains "Package_for_RollupFix"
-//       and not filename matches /^\._/
-//       and not filepath contains "$Recycle.Bin"
-//       and not filepath contains "\\Cache\\" /* generic cache e.g. for Chrome: \User Data\Default\Cache\ */
-//       and not filepath contains "\\User Data\\Default\\Extensions\\" // chrome extensions
-//       and not filepath contains "\\cache2\\" // FF cache
-//       and not filepath contains "\\Microsoft\\Windows\\INetCache\\IE\\" // old IE
-//       and not filepath contains "/com.apple.Safari/WebKitCache/"
-//       and not filepath contains "\\Edge\\User Data\\" // some uncommon Edge path
-//       and not filepath contains "/Code/"
-//       and not filepath contains "\\Code\\"
-// }
-
-rule SUSP_Known_Type_Cloaked_as_JPG {
+rule Cloaked_as_JPG {
    meta:
-      description = "Detects a non-JPEG file type cloaked as .jpg"
-      author = "Florian Roth (Nextron Systems)"
-      reference = "Internal Research - replacement for Cloaked_as_JPG rule"
-      date = "2022-09-16"
-      score = 60
+      description = "Detects a non-JPEG file cloaked as JPG"
+      author = "Florian Roth"
+      date = "2015/03/02"
+      modified = "2022-06-29"
+      score = 50
+   strings:
+      $fp1 = "<!DOCTYPE" ascii
+      $fp2 = "Sophos Encrypted File Format" ascii
+      $fp3 = "This is a critical resource file used by WatchGuard/TDR" ascii
    condition:
-      ( extension == ".jpg" or extension == ".jpeg" ) and ( 
-         filetype == "EXE" or
-         filetype == "ELF" or
-         filetype == "MACH-O" or
-         filetype == "VBS" or
-         filetype == "PHP" or
-         filetype == "JSP" or
-         filetype == "Python" or
-         filetype == "LSASS Dump File" or
-         filetype == "ASP" or
-         filetype == "BATCH" or
-         filetype == "RTF" or
-         filetype == "MDMP" or
-
-         filetype contains "PowerShell" or
-         filetype contains "Base64"
-      )
+      uint16be(0) != 0xFFD8 and extension == ".jpg"
+      and filetype != "GIF"
+      and filetype != "PDF"
+      and not $fp1 in (0..30)
+      and not $fp2 at 0
+      and not $fp3
+      and not uint16(0) == 0x8b1f /* GZIP */
+      and not uint16(0) == 0x4d42 /* BMP */
+      and not uint32(0) == 0x474E5089 /* PNG Header */
+      and not uint32(0) == 0x002A4949 /* TIFF Header */
+      and not uint32be(0) == 0x3c737667 /* <svg */
+      and not uint32be(0) == 0x52494646 /* RIFF (WebP) */
+      and not uint32be(0x4) == 0x66747970 /* HEIF Header https://github.com/strukturag/libheif/commit/6ca8e2548dbfe21200bae3a7c2c315a1796e3852 */
+      and not uint32be(0xe) == 0x4a464946 /* JFIF distributed by Matlab */
+      and not filename matches /\$[Ii][A-Z0-9]{6}/
+      and not filepath contains "WinSxS"
+      and not filepath contains "Package_for_RollupFix"
+      and not filename matches /^\._/
+      and not filepath contains "$Recycle.Bin"
 }
 
 /*
@@ -117,50 +77,39 @@ rule SUSP_Known_Type_Cloaked_as_JPG {
 */
 
 rule Suspicious_Size_explorer_exe {
-   meta:
-      description = "Detects uncommon file size of explorer.exe"
-      license = "https://creativecommons.org/licenses/by-nc/4.0/"
-      author = "Florian Roth (Nextron Systems)"
-      score = 60
-      nodeepdive = 1
-      date = "2015-12-21"
-      modified = "2022-04-27"
-      noarchivescan = 1
-   strings:
-      $fp = "Wine placeholder DLL"
-   condition:
-      uint16(0) == 0x5a4d
-      and filename == "explorer.exe"
-      and not filepath contains "teamviewer"
-      and not filepath contains "/lib/wine/fakedlls"
-      and ( filesize < 800KB or filesize > 6500KB )
-      and not $fp
+    meta:
+        description = "Detects uncommon file size of explorer.exe"
+        license = "https://creativecommons.org/licenses/by-nc/4.0/"
+        author = "Florian Roth"
+        score = 60
+        date = "2015-12-21"
+        noarchivescan = 1
+    condition:
+        uint16(0) == 0x5a4d
+        and filename == "explorer.exe"
+        and not filepath contains "teamviewer"
+        and ( filesize < 800KB or filesize > 5000KB )
 }
 
 rule Suspicious_Size_chrome_exe {
     meta:
-      description = "Detects uncommon file size of chrome.exe"
-      author = "Florian Roth (Nextron Systems)"
-      score = 60
-      nodeepdive = 1
-      date = "2015-12-21"
-      modified = "2022-09-15"
-      noarchivescan = 1
-    strings:
-      $fp1 = "HP Sure Click Chromium Launcher" wide
-      $fp2 = "BrChromiumLauncher.exe" wide fullword
+        description = "Detects uncommon file size of chrome.exe"
+        license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
+      author = "Florian Roth"
+        score = 60
+        date = "2015-12-21"
+        noarchivescan = 1
     condition:
-      uint16(0) == 0x5a4d
-      and filename == "chrome.exe"
-      and ( filesize < 500KB or filesize > 5000KB )
-      and not 1 of ($fp*)
+        uint16(0) == 0x5a4d
+        and filename == "chrome.exe"
+        and ( filesize < 500KB or filesize > 3000KB )
 }
 
 rule Suspicious_Size_csrss_exe {
     meta:
         description = "Detects uncommon file size of csrss.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         modified = "2022-01-28"
@@ -175,7 +124,7 @@ rule Suspicious_Size_iexplore_exe {
     meta:
         description = "Detects uncommon file size of iexplore.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         noarchivescan = 1
@@ -190,7 +139,7 @@ rule Suspicious_Size_firefox_exe {
     meta:
         description = "Detects uncommon file size of firefox.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         noarchivescan = 1
@@ -204,7 +153,7 @@ rule Suspicious_Size_java_exe {
     meta:
         description = "Detects uncommon file size of java.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         noarchivescan = 1
@@ -218,7 +167,7 @@ rule Suspicious_Size_lsass_exe {
     meta:
         description = "Detects uncommon file size of lsass.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         noarchivescan = 1
@@ -232,7 +181,7 @@ rule Suspicious_Size_svchost_exe {
     meta:
         description = "Detects uncommon file size of svchost.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         noarchivescan = 1
@@ -246,7 +195,7 @@ rule Suspicious_Size_winlogon_exe {
     meta:
         description = "Detects uncommon file size of winlogon.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         noarchivescan = 1
@@ -260,7 +209,7 @@ rule Suspicious_Size_igfxhk_exe {
     meta:
         description = "Detects uncommon file size of igfxhk.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-21"
         modified = "2022-03-08"
@@ -275,7 +224,7 @@ rule Suspicious_Size_servicehost_dll {
     meta:
         description = "Detects uncommon file size of servicehost.dll"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-23"
         noarchivescan = 1
@@ -289,21 +238,21 @@ rule Suspicious_Size_rundll32_exe {
     meta:
         description = "Detects uncommon file size of rundll32.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-23"
         noarchivescan = 1
     condition:
         uint16(0) == 0x5a4d
         and filename == "rundll32.exe"
-        and ( filesize < 30KB or filesize > 120KB )
+        and ( filesize < 30KB or filesize > 80KB )
 }
 
 rule Suspicious_Size_taskhost_exe {
     meta:
         description = "Detects uncommon file size of taskhost.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-23"
         noarchivescan = 1
@@ -317,49 +266,49 @@ rule Suspicious_Size_spoolsv_exe {
     meta:
         description = "Detects uncommon file size of spoolsv.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-23"
         noarchivescan = 1
     condition:
         uint16(0) == 0x5a4d
         and filename == "spoolsv.exe"
-        and ( filesize < 50KB or filesize > 1000KB )
+        and ( filesize < 50KB or filesize > 930KB )
 }
 
 rule Suspicious_Size_smss_exe {
     meta:
         description = "Detects uncommon file size of smss.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-23"
         noarchivescan = 1
     condition:
         uint16(0) == 0x5a4d
         and filename == "smss.exe"
-        and ( filesize < 40KB or filesize > 5000KB )
+        and ( filesize < 40KB or filesize > 320KB )
 }
 
 rule Suspicious_Size_wininit_exe {
     meta:
         description = "Detects uncommon file size of wininit.exe"
         license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
         score = 60
         date = "2015-12-23"
         noarchivescan = 1
     condition:
         uint16(0) == 0x5a4d
         and filename == "wininit.exe"
-        and ( filesize < 90KB or filesize > 800KB )
+        and ( filesize < 90KB or filesize > 450KB )
 }
 
 rule Suspicious_AutoIt_by_Microsoft {
    meta:
       description = "Detects a AutoIt script with Microsoft identification"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research - VT"
       date = "2017-12-14"
       score = 60
@@ -374,15 +323,14 @@ rule Suspicious_AutoIt_by_Microsoft {
 rule SUSP_Size_of_ASUS_TuningTool {
    meta:
       description = "Detects an ASUS tuning tool with a suspicious size"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.welivesecurity.com/2018/10/17/greyenergy-updated-arsenal-dangerous-threat-actors/"
       date = "2018-10-17"
-      modified = "2022-12-21"
       score = 60
       noarchivescan = 1
       hash1 = "d4e97a18be820a1a3af639c9bca21c5f85a3f49a37275b37fd012faeffcb7c4a"
    strings:
-      $s1 = "\\Release\\ASGT.pdb" ascii
+      $s1 = "\\Release\\ASGT.pdb" fullword ascii
    condition:
       uint16(0) == 0x5a4d and filesize < 300KB and filesize > 70KB and all of them
 }
@@ -390,7 +338,7 @@ rule SUSP_Size_of_ASUS_TuningTool {
 rule SUSP_PiratedOffice_2007 {
    meta:
       description = "Detects an Office document that was created with a pirated version of MS Office 2007"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://twitter.com/pwnallthethings/status/743230570440826886?lang=en"
       date = "2018-12-04"
       score = 40
@@ -404,7 +352,7 @@ rule SUSP_PiratedOffice_2007 {
 rule SUSP_Scheduled_Task_BigSize {
    meta:
       description = "Detects suspiciously big scheduled task XML file as seen in combination with embedded base64 encoded PowerShell code"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2018-12-06"
    strings:
@@ -421,7 +369,7 @@ rule SUSP_Scheduled_Task_BigSize {
 rule SUSP_Putty_Unnormal_Size {
    meta:
       description = "Detects a putty version with a size different than the one provided by Simon Tatham (could be caused by an additional signature or malware)"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2019-01-07"
       modified = "2022-06-30"
@@ -472,11 +420,9 @@ rule SUSP_Putty_Unnormal_Size {
 rule SUSP_RTF_Header_Anomaly {
    meta:
       description = "Detects malformed RTF header often used to trick mechanisms that check for a full RTF header"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://twitter.com/ItsReallyNick/status/975705759618158593"
       date = "2019-01-20"
-      modified = "2022-09-15"
-      score = 50
    condition:
       uint32(0) == 0x74725c7b and /* {\rt */
       not uint8(4) == 0x66 /* not f */
@@ -485,7 +431,7 @@ rule SUSP_RTF_Header_Anomaly {
 rule WEBSHELL_ASPX_ProxyShell_Aug21_1 {
    meta:
       description = "Detects webshells dropped by ProxyShell exploitation based on their file header (must be PST) and extension"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.bleepingcomputer.com/news/microsoft/microsoft-exchange-servers-are-getting-hacked-via-proxyshell-exploits/"
       date = "2021-08-13"
    condition:

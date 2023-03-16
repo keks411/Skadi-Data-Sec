@@ -3,7 +3,7 @@ import "pe"
 rule SUSP_Unsigned_GoogleUpdate {
    meta:
       description = "Detects suspicious unsigned GoogleUpdate.exe"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2019-08-05"
       score = 60

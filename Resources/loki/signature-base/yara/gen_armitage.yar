@@ -14,17 +14,20 @@
 rule Armitage_msfconsole {
    meta:
       description = "Detects Armitage component"
-      author = "Florian Roth (Nextron Systems)"
+      license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-12-24"
-      modified = "2022-08-18"
       hash1 = "662ba75c7ed5ac55a898f480ed2555d47d127a2d96424324b02724b3b2c95b6a"
    strings:
-      $s1 = "\\umeterpreter\\u >" ascii
+      $s1 = "\\umeterpreter\\u >" fullword ascii
       $s3 = "^meterpreter >" fullword ascii
-      $s11 = "\\umsf\\u>" ascii
+      $s11 = "\\umsf\\u>" fullword ascii
    condition:
-      filesize < 1KB and 2 of them
+      ( uint16(0) == 0x6d5e and
+        filesize < 1KB and
+        ( 8 of them )
+      ) or ( all of them )
 }
 
 /* Removed 7 rules */
@@ -33,7 +36,7 @@ rule Armitage_MeterpreterSession_Strings {
    meta:
       description = "Detects Armitage component"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-12-24"
       hash1 = "b258b2f12f57ed05d8eafd29e9ecc126ae301ead9944a616b87c240bf1e71f9a"
@@ -51,7 +54,7 @@ rule Armitage_OSX {
    meta:
       description = "Detects Armitage component"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-12-24"
       hash1 = "2680d9900a057d553fcb28d84cdc41c3fc18fd224a88a32ee14c9c1b501a86af"

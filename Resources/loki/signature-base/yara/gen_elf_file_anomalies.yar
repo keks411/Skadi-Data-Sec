@@ -2,7 +2,7 @@
 rule SUSP_ELF_LNX_UPX_Compressed_File {
    meta:
       description = "Detects a suspicious ELF binary with UPX compression"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2018-12-12"
       score = 40

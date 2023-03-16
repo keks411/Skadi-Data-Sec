@@ -7,14 +7,16 @@
 
 import "pe"
 
-rule APT10_Malware_Sample_Gen : FILE {
+rule APT10_Malware_Sample_Gen {
    meta:
       description = "APT 10 / Cloud Hopper malware campaign"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.pwc.co.uk/issues/cyber-security-data-privacy/insights/operation-cloud-hopper.html"
       date = "2017-04-06"
       score = 80
+      type = "file"
+
    strings:
       /* C2 Servers */
       $c2_1 = "002562066559681.r3u8.com" ascii
@@ -1385,7 +1387,7 @@ rule APT10_Malware_Sample_Gen : FILE {
 rule APT_APT10_Malware_Imphash_Dec18_1 {
    meta:
       description = "Detects APT10 malware based on ImpHashes"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "AlienVault OTX IOCs - statistical sample analysis"
       date = "2018-12-28"
    condition:

@@ -21,7 +21,7 @@ rule SUSP_Solarwinds_SUNBURST_Revoked_Cert {
 rule LOG_APT_WEBSHELL_Solarwinds_SUNBURST_Report_Webshell_Dec20_2 {
    meta:
       description = "Detects webshell access mentioned in FireEye's SUNBURST report"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.guidepointsecurity.com/supernova-solarwinds-net-webshell-analysis/"
       date = "2020-12-21"
    strings:

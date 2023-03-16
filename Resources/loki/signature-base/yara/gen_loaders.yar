@@ -18,7 +18,7 @@ rule ReflectiveLoader {
       score = 70
       date = "2017-07-17"
       modified = "2021-03-15"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       nodeepdive = 1
    strings:
       $x1 = "ReflectiveLoader" fullword ascii
@@ -53,7 +53,7 @@ rule Reflective_DLL_Loader_Aug17_1 {
    meta:
       description = "Detects Reflective DLL Loader"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-08-20"
       hash1 = "f2f85855914345eec629e6fc5333cf325a620531d1441313292924a88564e320"
@@ -77,7 +77,7 @@ rule DLL_Injector_Lynx {
    meta:
       description = "Detects Lynx DLL Injector"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-08-20"
       hash1 = "d594f60e766e0c3261a599b385e3f686b159a992d19fa624fad8761776efa4f0"
@@ -100,7 +100,7 @@ rule Reflective_DLL_Loader_Aug17_2 {
    meta:
       description = "Detects Reflective DLL Loader - suspicious - Possible FP could be program crack"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-08-20"
       score = 60
@@ -110,7 +110,7 @@ rule Reflective_DLL_Loader_Aug17_2 {
       $x1 = "\\ReflectiveDLLInjection-master\\" ascii
       $s2 = "reflective_dll.dll" fullword ascii
       $s3 = "DLL injection" fullword ascii
-      $s4 = "_ReflectiveLoader@4" ascii
+      $s4 = "_ReflectiveLoader@4" fullword ascii
       $s5 = "Reflective Dll Injection" fullword ascii
    condition:
       ( uint16(0) == 0x5a4d and
@@ -127,13 +127,12 @@ rule Reflective_DLL_Loader_Aug17_3 {
    meta:
       description = "Detects Reflective DLL Loader"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-08-20"
-      modified = "2022-12-21"
       hash1 = "d10e4b3f1d00f4da391ac03872204dc6551d867684e0af2a4ef52055e771f474"
    strings:
-      $s1 = "\\Release\\inject.pdb" ascii
+      $s1 = "\\Release\\inject.pdb" fullword ascii
       $s2 = "!!! Failed to gather information on system processes! " fullword ascii
       $s3 = "reflective_dll.dll" fullword ascii
       $s4 = "[-] %s. Error=%d" fullword ascii
@@ -152,7 +151,7 @@ rule Reflective_DLL_Loader_Aug17_4 {
    meta:
       description = "Detects Reflective DLL Loader"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-08-20"
       hash1 = "205b881701d3026d7e296570533e5380e7aaccaa343d71b6fcc60802528bdb74"

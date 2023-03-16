@@ -13,7 +13,7 @@ rule Fireball_de_svr {
    meta:
       description = "Detects Fireball malware - file de_svr.exe"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
       hash1 = "f964a4b95d5c518fd56f06044af39a146d84b801d9472e022de4c929a5b8fdcc"
@@ -31,7 +31,7 @@ rule Fireball_lancer {
    meta:
       description = "Detects Fireball malware - file lancer.dll"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
       hash1 = "7d68386554e514f38f98f24e8056c11c0a227602ed179d54ed08f2251dc9ea93"
@@ -52,7 +52,7 @@ rule QQBrowser {
    meta:
       description = "Not malware but suspicious browser - file QQBrowser.exe"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
       score = 50
@@ -70,7 +70,7 @@ rule chrome_elf {
    meta:
       description = "Detects Fireball malware - file chrome_elf.dll"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
       hash1 = "e4d4f6fbfbbbf3904ca45d296dc565138a17484c54aebbb00ba9d57f80dfe7e5"
@@ -89,13 +89,12 @@ rule Fireball_regkey {
    meta:
       description = "Detects Fireball malware - file regkey.exe"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
-      modified = "2022-12-21"
       hash1 = "fff2818caa9040486a634896f329b8aebaec9121bdf9982841f0646763a1686b"
    strings:
-      $s1 = "\\WinMain\\Release\\WinMain.pdb" ascii
+      $s1 = "\\WinMain\\Release\\WinMain.pdb" fullword ascii
       $s2 = "ScreenShot" fullword wide
       $s3 = "WINMAIN" fullword wide
    condition:
@@ -106,14 +105,14 @@ rule Fireball_winsap {
    meta:
       description = "Detects Fireball malware - file winsap.dll"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
       hash1 = "c7244d139ef9ea431a5b9cc6a2176a6a9908710892c74e215431b99cd5228359"
    strings:
       $s1 = "aHR0cDovL2" ascii /* base64 encoded string 'http://d3i1asoswufp5k.cloudfront.net/v4/gtg/%s?action=visit.winsap.work&update3=version,%s' */
       $s2 = "%s\\svchost.exe -k %s" fullword wide
-      $s3 = "\\SETUP.dll" wide
+      $s3 = "\\SETUP.dll" fullword wide
       $s4 = "WinSAP.dll" fullword ascii
       $s5 = "Error %u in WinHttpQueryDataAvailable." fullword ascii
       $s6 = "UPDATE OVERWRITE" fullword wide
@@ -125,13 +124,12 @@ rule Fireball_archer {
    meta:
       description = "Detects Fireball malware - file archer.dll"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
-      modified = "2022-12-21"
       hash1 = "9b4971349ae85aa09c0a69852ed3e626c954954a3927b3d1b6646f139b930022"
    strings:
-      $x1 = "\\archer_lyl\\Release\\Archer_Input.pdb" ascii
+      $x1 = "\\archer_lyl\\Release\\Archer_Input.pdb" fullword ascii
 
       $s1 = "Archer_Input.dll" fullword ascii
       $s2 = "InstallArcherSvc" fullword ascii
@@ -145,7 +143,7 @@ rule clearlog {
    meta:
       description = "Detects Fireball malware - file clearlog.dll"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
       hash1 = "14093ce6d0fe8ab60963771f48937c669103842a0400b8d97f829b33c420f7e3"
@@ -166,16 +164,15 @@ rule Fireball_gubed {
    meta:
       description = "Detects Fireball malware - file gubed.exe"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/4pTkGQ"
       date = "2017-06-02"
-      modified = "2022-12-21"
       hash1 = "e3f69a1fb6fcaf9fd93386b6ba1d86731cd9e5648f7cff5242763188129cd158"
    strings:
       $x1 = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\MRT.exe" fullword wide
       $x2 = "tIphlpapi.dll" fullword wide
       $x3 = "http://%s/provide?clients=%s&reqs=visit.startload" fullword wide
-      $x4 = "\\Gubed\\Release\\Gubed.pdb" ascii
+      $x4 = "\\Gubed\\Release\\Gubed.pdb" fullword ascii
       $x5 = "d2hrpnfyb3wv3k.cloudfront.net" fullword wide
    condition:
       ( uint16(0) == 0x5a4d and filesize < 300KB and 1 of them )

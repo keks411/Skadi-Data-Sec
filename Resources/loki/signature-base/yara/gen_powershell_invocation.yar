@@ -1,12 +1,13 @@
 
-rule PowerShell_Susp_Parameter_Combo : HIGHVOL FILE {
+rule PowerShell_Susp_Parameter_Combo : HIGHVOL {
    meta:
       description = "Detects PowerShell invocation with suspicious parameters"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://goo.gl/uAic1X"
       date = "2017-03-12"
-      modified = "2022-09-15"
+      modified = "2022-06-24"
       score = 60
+      type = "file"
    strings:
       /* Encoded Command */
       $sa1 = " -enc " ascii wide nocase
@@ -55,21 +56,6 @@ rule PowerShell_Susp_Parameter_Combo : HIGHVOL FILE {
       $fp5 = "\\LastPass\\lpwinmetro\\AppxUpgradeUwp.ps1" ascii
       $fp6 = "# use the encoded form to mitigate quoting complications that full scriptblock transfer exposes" ascii /* MS TSSv2 - https://docs.microsoft.com/en-us/troubleshoot/windows-client/windows-troubleshooters/introduction-to-troubleshootingscript-toolset-tssv2 */
       $fp7 = "Write-AnsibleLog \"INFO - s" ascii
-      $fp8 = "\\Packages\\Matrix42\\" ascii
-      $fp9 = "echo " ascii
-      $fp10 = "install" ascii fullword
-      $fp11 = "REM " ascii
-      $fp12 = "set /p " ascii
-      $fp13 = "rxScan Application" wide
-
-      $fpa1 = "All Rights"
-      $fpa2 = "<html"
-      $fpa2b = "<HTML"
-      $fpa3 = "Copyright"
-      $fpa4 = "License"
-      $fpa5 = "<?xml"
-      $fpa6 = "Help" fullword
-      $fpa7 = "COPYRIGHT"
    condition:
       filesize < 3000KB and 4 of ($s*) and not 1 of ($fp*) and uint32be(0) != 0x456C6646 /* EVTX - we don't wish to mix the entries together */
 }

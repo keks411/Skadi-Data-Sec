@@ -40,14 +40,13 @@ rule ShellCrew_StreamEx_1 {
    meta:
       description = "Auto-generated rule"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://blog.cylance.com/shell-crew-variants-continue-to-fly-under-big-avs-radar"
       date = "2017-02-10"
-      modified = "2022-12-21"
       hash1 = "81f411415aefa5ad7f7ed2365d9a18d0faf33738617afc19215b69c23f212c07"
    strings:
       $x1 = "cmd.exe /c  \"%s\"" fullword wide
-      $s3 = "uac\\bin\\install_test.pdb" ascii
+      $s3 = "uac\\bin\\install_test.pdb" fullword ascii
       $s5 = "uncompress error:%d %s" fullword ascii
       $s7 = "%s\\AdobeBak\\Proc.dat" fullword wide
       $s8 = "e:\\workspace\\boar" fullword ascii
@@ -60,7 +59,7 @@ rule ShellCrew_StreamEx_1_msi {
    meta:
       description = "Auto-generated rule"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://blog.cylance.com/shell-crew-variants-continue-to-fly-under-big-avs-radar"
       date = "2017-02-10"
       hash1 = "8c9048e2f5ea2ef9516cac06dc0fba8a7e97754468c0d9dc1e5f7bce6dbda2cc"
@@ -80,7 +79,7 @@ rule ShellCrew_StreamEx_1_msi_dll {
    meta:
       description = "Auto-generated rule"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://blog.cylance.com/shell-crew-variants-continue-to-fly-under-big-avs-radar"
       date = "2017-02-10"
       hash1 = "883108119d2f4db066fa82e37aa49ecd2dbdacda67eb936b96720663ed6565ce"

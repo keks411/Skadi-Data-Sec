@@ -3,7 +3,7 @@
 
 rule MAL_Netfilter_Dropper_Jun_2021_1 {
    meta:
-        description = "Detects the dropper of Netfilter rootkit"
+        description = "Detect the dropper of Netfilter rootkit"
         author = "Arkbird_SOLG"
         reference = "https://twitter.com/struppigel/status/1405483373280235520"
         date = "2020-06-18"
@@ -26,7 +26,7 @@ rule MAL_Netfilter_Dropper_Jun_2021_1 {
 
 rule MAL_Netfilter_May_2021_1 {
    meta:
-        description = "Detects Netfilter rootkit"
+        description = "Detect Netfilter rootkit"
         author = "Arkbird_SOLG"
         reference = "https://twitter.com/struppigel/status/1405483373280235520"
         date = "2020-06-18"

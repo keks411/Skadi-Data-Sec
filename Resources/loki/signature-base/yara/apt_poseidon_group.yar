@@ -9,10 +9,9 @@ rule PoseidonGroup_Malware {
 	meta:
 		description = "Detects Poseidon Group Malware"
 		license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-		author = "Florian Roth (Nextron Systems)"
+		author = "Florian Roth"
 		reference = "https://securelist.com/blog/research/73673/poseidon-group-a-targeted-attack-boutique-specializing-in-global-cyber-espionage/"
 		date = "2016-02-09"
-		modified = "2023-01-27"
 		score = 85
 		hash1 = "337e94119cfad0b3144af81b72ac3b2688a219ffa0bdf23ca56c7a68fbe0aea4"
 		hash2 = "344034c0bf9fcd52883dbc158abf6db687150d40a118d9cd6ebd843e186128d3"
@@ -26,7 +25,7 @@ rule PoseidonGroup_Malware {
 		$s2 = "c:\\windows\\system32\\cmd.exe" fullword ascii
 		$s3 = "c:\\windows\\command.com" fullword ascii
 		$s4 = "copy \"%s\" \"%s\" /Y" fullword ascii
-		$s5 = "http://%s/files/" ascii
+		$s5 = "http://%s/files/" fullword ascii
 		$s6 = "\"%s\". %s: \"%s\"." fullword ascii
 		$s7 = "0x0666" fullword ascii
 		$s8 = "----------------This_is_a_boundary$" fullword ascii
@@ -50,7 +49,7 @@ rule PoseidonGroup_MalDoc_1 {
 	meta:
 		description = "Detects Poseidon Group - Malicious Word Document"
 		license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-		author = "Florian Roth (Nextron Systems)"
+		author = "Florian Roth"
 		reference = "https://securelist.com/blog/research/73673/poseidon-group-a-targeted-attack-boutique-specializing-in-global-cyber-espionage/"
 		date = "2016-02-09"
 		score = 80
@@ -65,7 +64,7 @@ rule PoseidonGroup_MalDoc_2 {
 	meta:
 		description = "Detects Poseidon Group - Malicious Word Document"
 		license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-		author = "Florian Roth (Nextron Systems)"
+		author = "Florian Roth"
 		reference = "https://securelist.com/blog/research/73673/poseidon-group-a-targeted-attack-boutique-specializing-in-global-cyber-espionage/"
 		date = "2016-02-09"
 		score = 70

@@ -3,7 +3,7 @@ import "pe"
 rule MAL_Neshta_Generic : HIGHVOL {
    meta:
       description = "Detects Neshta malware"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2018-01-15"
       modified = "2021-04-14"

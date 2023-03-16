@@ -2,19 +2,18 @@
 rule APT_UNC2447_MAL_SOMBRAT_May21_1 {
    meta:
       description = "Detects SombRAT samples from UNC2447 campaign"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.fireeye.com/blog/threat-research/2021/04/unc2447-sombrat-and-fivehands-ransomware-sophisticated-financial-threat.html"
       date = "2021-05-01"
-      modified = "2023-01-07"
       hash1 = "61e286c62e556ac79b01c17357176e58efb67d86c5d17407e128094c3151f7f9"
       hash2 = "99baffcd7a6b939b72c99af7c1e88523a50053ab966a079d9bf268aff884426e"
    strings:
       $x1 = "~arungvc" ascii fullword
-
-      $s1 = "plugin64_" ascii
+      
+      $s1 = "plugin64_" ascii fullword
       $s2 = "0xUnknown" ascii fullword
-      $s3 = "b%x.%s" ascii fullword
-      $s4 = "/news" ascii
+      $s3 = "b%x.%s" ascii fullword 
+      $s4 = "/news" ascii fullword 
 
       $sc1 = { 00 73 00 65 00 72 00 76 00 69 00 63 00 65 00 73
                00 2E 00 65 00 78 00 65 00 00 00 00 00 00 00 00
@@ -29,7 +28,7 @@ rule APT_UNC2447_MAL_SOMBRAT_May21_1 {
    condition:
       uint16(0) == 0x5a4d and
       filesize < 3000KB and (
-         ( 1 of ($x*) and 1 of ($s*) ) or
+         ( 1 of ($x*) and 1 of ($s*) ) or 
          3 of them
       ) or 5 of them
 }
@@ -37,7 +36,7 @@ rule APT_UNC2447_MAL_SOMBRAT_May21_1 {
 rule APT_UNC2447_MAL_RANSOM_HelloKitty_May21_1 {
    meta:
       description = "Detects HelloKitty Ransomware samples from UNC2447 campaign"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.fireeye.com/blog/threat-research/2021/04/unc2447-sombrat-and-fivehands-ransomware-sophisticated-financial-threat.html"
       date = "2021-05-01"
       hash1 = "02a08b994265901a649f1bcf6772bc06df2eb51eb09906af9fd0f4a8103e9851"
@@ -72,7 +71,7 @@ rule APT_UNC2447_MAL_RANSOM_HelloKitty_May21_1 {
 rule APT_UNC2447_MAL_RANSOM_HelloKitty_May21_2 {
    meta:
       description = "Detects HelloKitty Ransomware samples from UNC2447 campaign"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.fireeye.com/blog/threat-research/2021/04/unc2447-sombrat-and-fivehands-ransomware-sophisticated-financial-threat.html"
       date = "2021-05-01"
       hash1 = "10887d13dba1f83ef34e047455a04416d25a83079a7f3798ce3483e0526e3768"
@@ -98,7 +97,7 @@ rule APT_UNC2447_MAL_RANSOM_HelloKitty_May21_2 {
 rule APT_UNC2447_PS1_WARPRISM_May21_1 {
    meta:
       description = "Detects WARPRISM PowerShell samples from UNC2447 campaign"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.fireeye.com/blog/threat-research/2021/04/unc2447-sombrat-and-fivehands-ransomware-sophisticated-financial-threat.html"
       date = "2021-05-01"
       hash1 = "3090bff3d16b0b150444c3bfb196229ba0ab0b6b826fa306803de0192beddb80"
@@ -117,14 +116,13 @@ rule APT_UNC2447_PS1_WARPRISM_May21_1 {
 rule APT_UNC2447_BAT_Runner_May21_1 {
    meta:
       description = "Detects Batch script runners from UNC2447 campaign"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://www.fireeye.com/blog/threat-research/2021/04/unc2447-sombrat-and-fivehands-ransomware-sophisticated-financial-threat.html"
       date = "2021-05-01"
-      modified = "2023-01-07"
       hash1 = "ccacf4658ae778d02e4e55cd161b5a0772eb8b8eee62fed34e2d8f11db2cc4bc"
    strings:
       $x1 = "powershell.exe -c \"[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String([IO.File]::" ascii
-      $x2 = "wwansvc.txt')))\" | powershell.exe -" ascii
+      $x2 = "wwansvc.txt')))\" | powershell.exe -" ascii fullword
    condition:
       filesize < 5000KB and 1 of them
 }

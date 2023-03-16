@@ -1,9 +1,9 @@
 
-rule Malware_Floxif_mpsvc_dll : HIGHVOL {
+rule Malware_Floxif_mpsvc_dll {
    meta:
       description = "Malware - Floxif"
       license = "Detection Rule License 1.1 https://github.com/Neo23x0/signature-base/blob/master/LICENSE"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "Internal Research"
       date = "2017-04-07"
       hash1 = "1e654ee1c4736f4ccb8b5b7aa604782cfb584068df4d9e006de8009e60ab5a14"

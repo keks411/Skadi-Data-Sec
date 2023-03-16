@@ -2,7 +2,7 @@
 rule MAL_WIPER_CaddyWiper_Mar22_1 {
    meta:
       description = "Detects CaddyWiper malware"
-      author = "Florian Roth (Nextron Systems)"
+      author = "Florian Roth"
       reference = "https://twitter.com/ESETresearch/status/1503436420886712321?s=20&t=xh8JK6fEmRIrnqO7Ih_PNg"
       date = "2022-03-15"
       score = 85

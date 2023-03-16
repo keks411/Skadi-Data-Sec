@@ -3,7 +3,7 @@ rule SUSP_PS1_Msdt_Execution_May22 {
       description = "Detects suspicious calls of msdt.exe as seen in CVE-2022-30190 / Follina exploitation"
       author = "Nasreddine Bencherchali, Christian Burkard"
       date = "2022-05-31"
-      modified = "2022-07-08"
+      modified = "2022-06-20"
       reference = "https://doublepulsar.com/follina-a-microsoft-office-code-execution-vulnerability-1a47fce5629e"
       score = 75
    strings:
@@ -21,7 +21,6 @@ rule SUSP_PS1_Msdt_Execution_May22 {
                46 00 69 00 6C 00 65 00 6E 00 61 00 6D 00 65 00
                00 00 70 00 63 00 77 00 72 00 75 00 6E 00 2E 00
                65 00 78 00 65 00 }
-      $fp2 = "FilesFullTrust" wide
    condition:
       filesize < 10MB
       and $a
@@ -75,14 +74,12 @@ rule EXPL_Follina_CVE_2022_30190_Msdt_MSProtocolURI_May22 {
       description = "Detects the malicious usage of the ms-msdt URI as seen in CVE-2022-30190 / Follina exploitation"
       author = "Tobias Michalski, Christian Burkard"
       date = "2022-05-30"
-      modified = "2022-07-18"
+      modified = "2022-05-31"
       reference = "https://doublepulsar.com/follina-a-microsoft-office-code-execution-vulnerability-1a47fce5629e"
-      hash1 = "4a24048f81afbe9fb62e7a6a49adbd1faf41f266b5f9feecdceb567aec096784"
-      hash2 = "778cbb0ee4afffca6a0b788a97bc2f4855ceb69ddc5eaa230acfa2834e1aeb07"
+      hash = "4a24048f81afbe9fb62e7a6a49adbd1faf41f266b5f9feecdceb567aec096784"
       score = 80
    strings:
       $re1 = /location\.href\s{0,20}=\s{0,20}"ms-msdt:/
-      $a1 = "%6D%73%2D%6D%73%64%74%3A%2F" ascii /* URL encoded "ms-msdt:/" */
    condition:
       filesize > 3KB and
       filesize < 100KB and
@@ -213,7 +210,7 @@ rule SUSP_Msdt_Artefact_Jun22_2 {
       description = "Detects suspicious pattern in msdt diagnostics log (e.g. CVE-2022-30190 / Follina exploitation)"
       author = "Christian Burkard"
       date = "2022-06-01"
-      modified = "2022-07-29"
+      modified = "2022-06-02"
       reference = "https://twitter.com/nas_bench/status/1531718490494844928"
       score = 75
    strings:
@@ -221,7 +218,8 @@ rule SUSP_Msdt_Artefact_Jun22_2 {
 
       $x1 = "/../../" ascii
       $x2 = "$(Invoke-Expression" ascii
-      $x3 = "$(IEX(" ascii nocase
+      $x3 = "$(IEX(" ascii
+      $x4 = "$(iex(" ascii
    condition:
       uint32(0) == 0x6D783F3C /* <?xm */
       and $a1
